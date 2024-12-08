@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Ковши{% endblock %}
+
+{% block content %}
+
+<h3 class="fw-bold fs-4 mb-3">Список ковшей</h3>
+<a href="{% url 'buckets_export' %}" class="btn btn-secondary">Выгрузка в эксель</a>
+
+<div class="row">
+    <div class="col-12">
+
+        <table id="buckets_table" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Номер</th>
+                    <th>Местоположение</th>
+                    <th>Оборудование</th>
+                    <th>Техсостояние</th>
+                    <th>В ремонте</th>
+                    <th>Подлежит эксплуатации</th>
+                    <th>Модель</th>
+                    <th>Редакция</th>
+                    <th>Редактор</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bucket in buckets %}
+                <tr class="{% if bucket.decommission.obsoleted %}text-info{% endif %}">
+                    <td>
+                        <a href="{% url 'bucket_all_events_tab' bucket_number=bucket.number %}">
+                            {{ bucket.number }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'bucket_relocations_tab' bucket.number %}" class="text-body">
+                            {{ bucket.current_data.location.name|default:'-' }}
+                        </a>
+                    </td>
+                    <td>{{ bucket.current_data.equipment.number|default:'-' }}</td>
+                    <td>
+                        <a href="{% url 'bucket_techstates_tab' bucket.number %}" class="{% if bucket.get_is_needs_any_repair %}text-danger{% else %}text-body{% endif %}">
+                            {{ bucket.current_data.techstate.name|default:'-' }}
+                        </a>
+                    <td>
+                        {% if bucket.current_data.is_being_repaired %}✅{% endif %}
+                    </td>
+                    </td>
+                    <td>
+                        {% if not bucket.current_data.is_operable %}❌{% endif %}
+                    </td>
+                    <td>{{ bucket.equipment_model|default:'-' }}</td>
+                    <td>{{ bucket.current_data.updated_at|date:"d.m.Y"|default:'' }}</td>
+                    <td>{{ bucket.current_data.updated_by.get_full_name }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Номер</th>
+                    <th>Местоположение</th>
+                    <th>Оборудование</th>
+                    <th>Техсостояние</th>
+                    <th>В ремонте</th>
+                    <th>Подлежит эксплуатации</th>
+                    <th>Модель</th>
+                    <th>Редакция</th>
+                    <th>Редактор</th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+    {% include "partial/table_scripts.html" %}
+{% endblock scripts %}

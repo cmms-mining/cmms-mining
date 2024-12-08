@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ equipment.number }}{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+  <p class="fw-bold fs-3 mb-2">{{ equipment.number }}</p>
+
+  <div class="row">
+      <div class="col-lg-3 col-md-4 col-12">
+
+          <div class="p-2 border bg-light">
+            Местоположение:<br>
+            <b>{{ equipment.get_relocation.to_site.name|default:'' }} дн</b>
+          </div>
+
+      </div>
+      <div class="col-lg-3 col-md-4 col-12">
+        <div class="p-2 border bg-light fw-bold {% if equipment.get_is_needs_any_repair %}text-danger{% else %}text-success{% endif %}">
+          {{ equipment.get_techstate.techstate|default:'Нет информации о техсостоянии' }}
+        </div>
+        
+        <div class="p-2 border bg-light">
+          Статус ремонта: <b>{% if equipment.get_is_being_repaired %}<span class="text-danger">в ремонте</span>{% else %}не в ремонте{% endif %}</b>
+        </div>
+
+        <div class="p-2 border bg-light">
+          <b>{% if equipment.get_is_operable %}Подлежит эксплуатации{% else %}<div class="text-danger">Не подлежит эксплуатации {{equipment.get_is_not_operable_days|default:'-'}}дн</div>{% endif %}</b>
+        </div>
+        
+        {% if equipment.get_is_obsoleted %}
+        <div class="p-2 border bg-light"><b>Выведен из эксплуатации</b></div>
+        {% endif %}
+
+        {% if equipment.get_is_decommissioned %}
+        <div class="p-2 border bg-light"><b>Списан</b></div>
+        {% endif %}
+
+      </div>
+
+      <div class="col-lg-3 col-md-4 col-12">
+          <div class="p-2 border bg-light">Год выпуска: <b>{{ equipment.production_year|default:'' }}</b></div>
+          <div class="p-2 border bg-light">Тип оборудования: <b>{{ equipment.equipment_model|default:'' }}</b></div>
+      </div>
+        
+      <div class="col-lg-3 col-md-4 col-12">
+        <div class="p-2 border bg-light">Производитель: <b>{{ equipment.manufacturer|default:'' }}</b></div>
+        <div class="p-2 border bg-light">Код номенклатуры: <b>{{ equipment.nomencl_code|default:'' }}</b></div>
+        <div class="p-2 border bg-light">Редактор: <b>{{ equipment.current_data.updated_by.get_full_name }} {{ equipment.current_data.updated_at|date:"d.m.Y"|default:'' }}</b></div>
+      </div>
+  </div>
+</div>
+
+<div class="container mt-3">
+  <!------- Раздел с предупреждениями ------->
+  <ul>
+    <li>
+      {% if equipment.get_is_to_reconciliate %}
+      <a href="{% url 'equipment_reconciliation_create' equipment.number %}" class="text-danger fw-bold">
+        Ковшу требуется сверка
+      </a>
+      {% endif %}
+    </li>
+    <li>
+      {% if equipment.get_is_needs_any_repair and equipment.get_repair and not equipment.get_repair.start_date and not equipment.get_repair.plan_start_date %}
+      <a href="{% url 'equipment_repairs_tab' equipment.number %}" class="text-danger fw-bold">
+        Ковшу требуется отметка о плановой или фактической дате начала ремонта
+      </a>
+      {% endif %}
+    </li>
+    <li>
+      {% if equipment.get_is_needs_any_repair and not equipment.get_repair %}
+      <a href="{% url 'equipment_repairs_tab' equipment.number %}" class="text-danger fw-bold">
+        Ковшу требуется отметка о ремонте
+      </a>
+      {% endif %}
+    </li>
+  </ul>
+    <hr>
+  <!------- Раздел с предупреждениями ------->
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link {% if all_events_tab %}active{% endif %}" href="{% url 'equipment_all_events_tab' equipment.number %}">
+            Все события
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if equipment_relocations_tab %}active{% endif %}" href="{% url 'equipment_relocations_tab' equipment.number %}">
+            Перемещение
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if techstates_tab %}active{% endif %}" href="{% url 'equipment_all_events_tab' equipment.number %}">
+            Техсостояние
+          </a>
+        </li>
+        <li class="nav-item"></li>
+          <a class="nav-link {% if installations_tab %}active{% endif %}" href="{% url 'equipment_all_events_tab' equipment.number %}">
+            Монтаж/демонтаж
+          </a>
+        </li>
+        <li class="nav-item"></li>
+          <a class="nav-link {% if repairs_tab %}active{% endif %}" href="{% url 'equipment_all_events_tab' equipment.number %}">
+            Ремонт
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if reconciliations_tab %}active{% endif %}" href="{% url 'equipment_all_events_tab' equipment.number %}">
+            Сверка
+          </a>
+        </li>
+    </ul>
+    <br>
+
+    <!-- Раздел с сообщениями -->
+    {% if messages %}
+    <div class="alert-messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message|safe }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <!-- Раздел с сообщениями -->
+
+    {% block equipment_content %}
+    {% endblock equipment_content %}
+</div>
+
+{% endblock content %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Перемещения оборудования{% endblock %}
+
+{% block content %}
+
+<h3 class="fw-bold fs-4 mb-3">Все перемещения оборудования</h3>
+
+<div class="row">
+    <div class="col-12">
+
+        <table id="buckets_table" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Дата перемещения</th>
+                    <th>Оборудование</th>
+                    <th>Откуда</th>
+                    <th>Куда</th>
+                    <th>Приказ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for relocation in relocations %}
+                <tr>
+                    <td>
+                        <a href="{% url 'equipment_relocations_tab' equipment_number=relocation.equipment.number %}">{{ relocation.date|date:"d.m.Y"|default:'введите дату' }}</a>
+                    </td>
+                    <td>{{ relocation.equipment.number }}</td>
+                    <td>{{ relocation.from_site.name }}</td>
+                    <td>{{ relocation.to_site.name }}</td>
+                    <td>{{ relocation.order|default:'' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Дата перемещения</th>
+                    <th>Оборудование</th>
+                    <th>Откуда</th>
+                    <th>Куда</th>
+                    <th>Приказ</th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+    {% include "partial/table_scripts.html" %}
+{% endblock scripts %}

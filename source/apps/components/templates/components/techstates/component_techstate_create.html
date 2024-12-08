@@ -1,0 +1,16 @@
+{% extends 'components/component_base.html' %}
+
+
+{% block component_content %}
+
+    Изменить техсостояние компонента
+    <form class="forms-sample" action="{% url 'component_techstate_create' component_number=component.number %}" method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a href="{% url 'component_techstates_tab' component_number=component.number %}" class="btn btn-secondary">Отмена</a>
+    </form>
+    
+{% endblock component_content %}

@@ -1,0 +1,16 @@
+{% extends 'components/component_base.html' %}
+
+
+{% block component_content %}
+    Добавить новую задачу с компонентом
+    <form class="forms-sample" action="{% url 'component_task_create' component_number=component.number %}" method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a href="{% url 'component_tasks_tab' component_number=component.number %}" class="btn btn-secondary">Отмена</a>
+    </form>
+
+    
+{% endblock component_content %}

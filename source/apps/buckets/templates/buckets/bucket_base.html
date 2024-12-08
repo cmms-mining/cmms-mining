@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% load custom_filters %}
+
+{% block title %}Ковш {{ bucket.number }}{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+  <p class="fw-bold fs-3 mb-2">Ковш {{ bucket.number }}</p>
+
+  <div class="row">
+      <div class="col-lg-3 col-md-4 col-12">
+
+          <div class="p-2 border bg-light">
+            Местоположение:<br>
+            <b>{{ bucket.current_data.location.name|default:'' }} {{ bucket.current_data.relocation_date|days_from|default:'' }} дн</b>
+          </div>
+
+          <div class="p-2 border bg-light">
+            {% if bucket.get_equipment %}
+            Установлен на: <b>{{ bucket.get_equipment|default:'' }}</b>
+            {% else %}
+            Ковш не установлен на оборудование
+            {% endif %} <b>{% if bucket.get_equipment_days %} {{bucket.get_equipment_days}}дн {% endif %}</b>
+          </div>
+
+      </div>
+      <div class="col-lg-3 col-md-4 col-12">
+        <div class="p-2 border bg-light fw-bold {% if bucket.get_is_needs_any_repair %}text-danger{% else %}text-success{% endif %}">
+          {{ bucket.get_techstate.techstate|default:'Нет информации о техсостоянии' }} {{ bucket.current_data.techstate_date|days_from|default:'' }} дн
+        </div>
+        
+        <div class="p-2 border bg-light">
+          Статус ремонта: <b>{% if bucket.get_is_being_repaired %}<span class="text-danger">в ремонте</span>{% else %}не в ремонте{% endif %}</b>
+        </div>
+
+        <div class="p-2 border bg-light">
+          <b>{% if bucket.get_is_operable %}Подлежит эксплуатации{% else %}<div class="text-danger">Не подлежит эксплуатации {{bucket.get_is_not_operable_days|default:'-'}}дн</div>{% endif %}</b>
+        </div>
+        
+        {% if bucket.get_is_obsoleted %}
+        <div class="p-2 border bg-light"><b>Выведен из эксплуатации</b></div>
+        {% endif %}
+
+        {% if bucket.get_is_decommissioned %}
+        <div class="p-2 border bg-light"><b>Списан</b></div>
+        {% endif %}
+
+      </div>
+
+      <div class="col-lg-3 col-md-4 col-12">
+          <div class="p-2 border bg-light">Адаптер: <b>{{ bucket.tooth_adapter|default:'' }}</b></div>
+          <div class="p-2 border bg-light">Объем: <b>{{ bucket.capacity|default:'00' }}м</b></div>
+          <div class="p-2 border bg-light">Год выпуска: <b>{{ bucket.production_year|default:'' }}</b></div>
+          <div class="p-2 border bg-light">Тип оборудования: <b>{{ bucket.equipment_model|default:'' }}</b></div>
+      </div>
+        
+      <div class="col-lg-3 col-md-4 col-12">
+        <div class="p-2 border bg-light">Производитель: <b>{{ bucket.manufacturer|default:'' }}</b></div>
+        <div class="p-2 border bg-light">Код номенклатуры: <b>{{ bucket.nomencl_code|default:'' }}</b></div>
+        <div class="p-2 border bg-light">Редактор: <b>{{ bucket.current_data.updated_by.get_full_name }} {{ bucket.current_data.updated_at|date:"d.m.Y"|default:'' }}</b></div>
+      </div>
+  </div>
+</div>
+
+<div class="container mt-3">
+  <!------- Раздел с предупреждениями ------->
+  <ul>
+    <li>
+      {% if bucket.requires_reconciliation %}
+      <a href="{% url 'bucket_reconciliation_create' bucket.number %}" class="text-danger fw-bold">
+        Ковшу требуется сверка
+      </a>
+      {% endif %}
+    </li>
+    <li>
+      {% if bucket.get_is_needs_any_repair and bucket.get_repair and not bucket.get_repair.start_date and not bucket.get_repair.plan_start_date %}
+      <a href="{% url 'bucket_repairs_tab' bucket.number %}" class="text-danger fw-bold">
+        Ковшу требуется отметка о плановой или фактической дате начала ремонта
+      </a>
+      {% endif %}
+    </li>
+    <li>
+      {% if bucket.get_is_needs_any_repair and not bucket.get_repair %}
+      <a href="{% url 'bucket_repairs_tab' bucket.number %}" class="text-danger fw-bold">
+        Ковшу требуется отметка о ремонте
+      </a>
+      {% endif %}
+    </li>
+  </ul>
+    <hr>
+  <!------- Раздел с предупреждениями ------->
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link {% if all_events_tab %}active{% endif %}" href="{% url 'bucket_all_events_tab' bucket.number %}">
+            Все события
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if bucket_relocations_tab %}active{% endif %}" href="{% url 'bucket_relocations_tab' bucket.number %}">
+            Перемещение
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if techstates_tab %}active{% endif %}" href="{% url 'bucket_techstates_tab' bucket.number %}">
+            Техсостояние
+          </a>
+        </li>
+        <li class="nav-item"></li>
+          <a class="nav-link {% if installations_tab %}active{% endif %}" href="{% url 'bucket_installations_tab' bucket.number %}">
+            Монтаж/демонтаж
+          </a>
+        </li>
+        <li class="nav-item"></li>
+          <a class="nav-link {% if repairs_tab %}active{% endif %}" href="{% url 'bucket_repairs_tab' bucket.number %}">
+            Ремонт
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if reconciliations_tab %}active{% endif %}" href="{% url 'bucket_reconciliations_tab' bucket.number %}">
+            Сверка
+          </a>
+        </li>
+    </ul>
+    <br>
+
+    <!-- Раздел с сообщениями -->
+    {% if messages %}
+    <div class="alert-messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message|safe }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <!-- Раздел с сообщениями -->
+
+    {% block bucket_content %}
+    {% endblock bucket_content %}
+</div>
+
+{% endblock content %}

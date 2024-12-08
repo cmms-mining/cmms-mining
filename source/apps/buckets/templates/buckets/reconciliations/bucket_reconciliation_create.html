@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Ковш {{ bucket.number }}{% endblock %}
+
+
+{% block content %}
+<div class="container">
+
+    <p><b>Сверка информации по ковшу {{ bucket.number }}</b></p>
+    Введите фактические данные
+    <hr>
+    <form class="forms-sample" action="{% url 'bucket_reconciliation_create' bucket_number=bucket.number %}" method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-primary">Сверить</button>
+        <a href="{% url 'bucket_reconciliations_tab' bucket_number=bucket.number %}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+{% endblock content %}

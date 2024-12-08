@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% load greetings %}
+
+{% block title %}Задачи{% endblock %}
+
+{% block content %}
+
+
+<div class="mt-5">
+    <div class="fw-bold fs-4 mb-3">{% get_greeting %}, {{ user.first_name }}!</div>
+    <div>Ниже указаны незакрытые вопросы</div>
+    <hr>
+
+    {% if buckets_to_reconciliation %}
+        <div class="fw-bold fs-5">Перечень ковшей, по которым требуется сверка</div>
+        <ol class="list-group list-group-numbered">
+            {% for bucket in buckets_to_reconciliation %}
+            <li class="list-group-item">
+                {{ bucket.get_relocation.to_site.name }} - <a href="{% url 'bucket_reconciliations_tab' bucket.number %}">Ковш {{ bucket }}</a>
+            </li>
+            {% endfor %}
+        </ol>
+        <hr>
+    {% endif %}
+
+    {% if defect_buckets_without_repair %}
+        <div class="fw-bold fs-5">Перечень требующих ремонта ковшей, без оформленного документа "Ремонт"</div>
+        <ol class="list-group list-group-numbered">
+            {% for bucket in defect_buckets_without_repair %}
+            <li class="list-group-item">
+                {{ bucket.get_relocation.to_site.name }} - <a href="{% url 'bucket_repairs_tab' bucket.number %}">Ковш {{ bucket }}</a>
+            </li>
+            {% endfor %}
+        </ol>
+        <hr>
+    {% endif %}
+
+    {% if buckets_without_repair_start_date %}
+        <div class="fw-bold fs-5">Перечень ковшей в ремонте, без указанной даты начала ремонта (плановой или фактической)</div>
+        <ol class="list-group list-group-numbered">
+            {% for bucket in buckets_without_repair_start_date %}
+            <li class="list-group-item">
+                {{ bucket.get_relocation.to_site.name }} - <a href="{% url 'bucket_repairs_tab' bucket.number %}">Ковш {{ bucket }}</a>
+            </li>
+            {% endfor %}
+        </ol>
+        <hr>
+    {% endif %}
+
+    {% if buckets_with_expired_repair_start_date %}
+        <div class="fw-bold fs-5">Перечень ковшей с просроченной датой начала ремонта</div>
+        <ol class="list-group list-group-numbered">
+            {% for bucket in buckets_with_expired_repair_start_date %}
+            <li class="list-group-item">
+                {{ bucket.get_relocation.to_site.name }} - <a href="{% url 'bucket_repairs_tab' bucket.number %}">Ковш {{ bucket }}</a>
+            </li>
+            {% endfor %}
+        </ol>
+        <hr>
+    {% endif %}
+
+    {% if buckets_with_expired_repair_plan_end_date %}
+        <div class="fw-bold fs-5">Перечень ковшей с просроченной датой окончания ремонта</div>
+        <ol class="list-group list-group-numbered">
+            {% for bucket in buckets_with_expired_repair_plan_end_date %}
+            <li class="list-group-item">
+                {{ bucket.get_relocation.to_site.name }} - <a href="{% url 'bucket_repairs_tab' bucket.number %}">Ковш {{ bucket }}</a>
+            </li>
+            {% endfor %}
+        </ol>
+        <hr>
+    {% endif %}
+
+    {% if tasks %}
+    <div class="fw-bold fs-5">Перечень задач по компонентам</div>
+    <table id="tasks_table" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Номер</th>
+                <th>Компонент</th>
+                <th>Задача</th>
+                <th>Ответственный</th>
+                <th>Дата задачи</th>
+                <th>Местоположение</th>
+                <th>Код номенклатуры</th>
+                <th>Плановая дата выполнения</th>
+                <th>Выполнена</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr class="{% if task.needs_comment %}needs-comment{% endif %} {% if not task.has_been_read %}task-has-not-been-read{% endif %}">
+                <td>
+                    {% if task.component__number %}
+                        <a href="{% url 'component_task_update' task.pk %}">{{ task.pk }}</a>
+                    {% else %}
+                        <a href="{% url 'task_update' task.pk %}">{{ task.pk }}</a>
+                    {% endif %}
+                </td>
+                <td>{{ task.component__component_type__name }} {{ task.component__number }}</td>
+                <td>
+                    {% if task.component__number %}
+                        <a href="{% url 'component_task_update' task.pk %}">{{ task.name }}</a>
+                    {% else %}
+                        <a href="{% url 'task_update' task.pk %}">{{ task.name }}</a>
+                    {% endif %}
+                </td>
+                <td>{{ task.executor__first_name }} {{ task.executor__last_name }}</td>
+                <td>{{ task.created_at|date:"d.m.Y" }}</td>
+                <td>{{ task.component__current_data__location__name|default:'-' }}</td>
+                <td>{{ task.component__nomenclature_code }}</td>
+                <td>{{ task.planned_completion_date|date:"d.m.Y" }}</td>
+                <td>{% if task.completed %}✅{% else %}❌{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Номер</th>
+                <th>Компонент</th>
+                <th>Задача</th>
+                <th>Ответственный</th>
+                <th>Дата задачи</th>
+                <th>Местоположение</th>
+                <th>Код номенклатуры</th>
+                <th>Плановая дата выполнения</th>
+                <th>Выполнена</th>
+            </tr>
+        </tfoot>
+    </table>
+    {% endif %}
+    
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+    {% include "partial/table_scripts.html" %}
+{% endblock scripts %}

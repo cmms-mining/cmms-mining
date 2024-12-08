@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Приказы{% endblock %}
+
+{% block content %}
+
+<h3 class="fw-bold fs-4 mb-3">Приказы на перемещения оборудования</h3>
+{% if user_can_create_relocation %}
+    <a href="{% url 'equipment_relocation_order_create' %}" class="btn btn-primary">
+        Добавить приказ
+    </a>
+{% endif %}
+
+<div class="row">
+    <div class="col-12">
+
+        <table id="buckets_table" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Приказ</th>
+                    <th>Дата приказа</th>
+                    <th>Откуда</th>
+                    <th>Куда</th>
+                    <th>Оборудование</th>
+                    <th>Скан приказа</th>
+                    <th>Акты ПП</th>
+                    <th>Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td><a href="{% url 'equipment_relocation_order_update' order_pk=order.instance.pk %}">{{ order.instance.number }}</a></td>
+                    <td>{{ order.instance.date|date:"d.m.Y" }}</td>
+                    <td>{{ order.instance.from_site.name }}</td>
+                    <td>{{ order.instance.to_site.name }}</td>
+                    <td>
+                        {% for equipment in order.equipments %}
+                            {{ equipment.instance.number }}{% if not forloop.last %} / {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% if order.instance.scan %}
+                            <a href="{{ order.instance.scan.url }}" target="_blank">файл</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% for equipment in order.equipments %}
+                            {% for attachment in equipment.relocation.attachments %}
+                                <a href="{{ attachment.attachment_file.url }}" target="_blank">{{ equipment.instance.number }} /</a>
+                            {% endfor %}
+                        {% endfor %}
+                    </td>
+                    <td>{{ order.instance.get_status_display }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Приказ</th>
+                    <th>Дата приказа</th>
+                    <th>Откуда</th>
+                    <th>Куда</th>
+                    <th>Оборудование</th>
+                    <th>Скан приказа</th>
+                    <th>Акты ПП</th>
+                    <th>Статус</th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+    {% include "partial/table_scripts.html" %}
+{% endblock scripts %}

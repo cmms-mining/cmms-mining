@@ -1,0 +1,17 @@
+{% extends 'buckets/bucket_base.html' %}
+
+
+{% block bucket_content %}
+
+    Обновить запись о ремонте ковша
+    <hr>
+    <form class="forms-sample" action="{% url 'bucket_repair_update' bucket_number=bucket.number repair_pk=repair.pk %}" method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a href="{% url 'bucket_repairs_tab' bucket_number=bucket.number %}" class="btn btn-secondary">Отмена</a>
+    </form>
+    
+{% endblock bucket_content %}

@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}Журнал действий{% endblock %}
+
+{% block content %}
+
+<p>{{ db_size }}</p>
+<p>{{ disk_space }}</p>
+<p>{{ memory_info }}</p>
+
+{% if user.is_superuser %}
+    <p><a href="{% url 'set_buckets_requires_reconciliation' %}">Установка сверки ковшей</a></p>
+    <p><a href="{% url 'refresh_component_current_data' %}">Обновить статусы оборудования</a></p>
+{% endif %}
+
+<table id="buckets_table" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>Пользователь</th>
+            <th>Дата изменений</th>
+            <th>Ковш</th>
+            <th>Действие</th>
+            <th>Тип операции</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for bucket_relocation in buckets_relocations %}
+        <tr>
+            <td>{{ bucket_relocation.author.get_full_name }}</td>
+            <td>{{ bucket_relocation.created_at|date:"d.m.Y" }}</td>
+            <td>{{ bucket_relocation.bucket.number }}</td>
+            <td><a href="{% url 'bucket_relocations_tab' bucket_relocation.bucket.number %}">Перемещение {{ bucket_relocation }}</a></td>
+            <td>+</td>
+        </tr>
+        {% endfor %}
+        {% for bucket_reconciliation in buckets_reconciliations %}
+        <tr>
+            <td>{{ bucket_reconciliation.author.get_full_name }}</td>
+            <td>{{ bucket_reconciliation.date|date:"d.m.Y" }}</td>
+            <td>{{ bucket_reconciliation.bucket.number }}</td>
+            <td><a href="{% url 'bucket_reconciliations_tab' bucket_reconciliation.bucket.number %}">Сверка {{ bucket_reconciliation }}</a></td>
+            <td>+</td>
+        </tr>
+        {% endfor %}
+        {% for bucket_techstate in buckets_techstates %}
+        <tr>
+            <td>{{ bucket_techstate.author.get_full_name }}</td>
+            <td>{{ bucket_techstate.created_at|date:"d.m.Y" }}</td>
+            <td>{{ bucket_techstate.bucket.number }}</td>
+            <td><a href="{% url 'bucket_techstates_tab' bucket_techstate.bucket.number %}">Техсостояние {{ bucket_techstate }}</a></td>
+            <td>+</td>
+        </tr>
+        {% endfor %}
+        {% for bucket_deinstallation in buckets_deinstallations %}
+        <tr>
+            <td>{{ bucket_deinstallation.author.get_full_name }}</td>
+            <td>{{ bucket_deinstallation.created_at|date:"d.m.Y" }}</td>
+            <td>{{ bucket_deinstallation.bucket.number }}</td>
+            <td><a href="{% url 'bucket_installations_tab' bucket_deinstallation.bucket.number %}">Демонтаж {{ bucket_deinstallation }}</a></td>
+            <td>+</td>
+        </tr>
+        {% endfor %}
+        {% for bucket_installation in buckets_installations %}
+        <tr>
+            <td>{{ bucket_installation.author.get_full_name }}</td>
+            <td>{{ bucket_installation.created_at|date:"d.m.Y" }}</td>
+            <td>{{ bucket_installation.bucket.number }}</td>
+            <td><a href="{% url 'bucket_installations_tab' bucket_installation.bucket.number %}">Установка {{ bucket_installation }}</a></td>
+            <td>+</td>
+        </tr>
+        {% endfor %}
+        {% for bucket_repair in buckets_repairs %}
+        <tr>
+            <td>{{ bucket_repair.history_user.get_full_name }}</td>
+            <td>{{ bucket_repair.history_date|date:"d.m.Y" }}</td>
+            <td>{{ bucket_repair.bucket.number }}</td>
+            <td><a href="{% url 'bucket_repairs_tab' bucket_repair.bucket.number %}">Ремонт {{ bucket_repair.history_object }}</a></td>
+            <td>{{ bucket_repair.history_type }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Пользователь</th>
+            <th>Дата</th>
+            <th>Ковш</th>
+            <th>Действие</th>
+            <th>Тип операции</th>
+        </tr>
+    </tfoot>
+</table>
+
+{% endblock content %}
+
+
+{% block scripts %}
+    {% include "partial/table_scripts.html" %}
+{% endblock scripts %}

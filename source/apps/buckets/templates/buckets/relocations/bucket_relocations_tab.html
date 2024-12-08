@@ -1,0 +1,43 @@
+{% extends 'buckets/bucket_base.html' %}
+
+{% load static %}
+
+{% block bucket_content %}
+
+    {% if not bucket.current_data.equipment %}
+    <a href="{% url 'bucket_relocation_create' bucket_number=bucket.number %}" class="btn btn-primary">
+        Создать перемещение
+    </a>
+    {% else %}
+    <a href="#" class="btn btn-primary disabled">
+        Создать перемещение
+    </a> установленный на экскаваторе ковш нельзя переместить
+    {% endif %}
+
+    <table id="buckets_table" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Откуда</th>
+                <th>Куда</th>
+                <th>Дата перемещения</th>
+                <th>Причина</th>
+                <th>Примечания</th>
+                <th>Автор</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for relocation in bucket.relocations.all %}
+            <tr>
+                <td>{{ relocation.from_site|default:'-' }}</td>
+                <td>{{ relocation.to_site|default:'-' }}</td>
+                <td>{{ relocation.date|date:"d.m.Y"|default:'-' }}</td>
+                <td>{{ relocation.reason|default:'-' }}</td>
+                <td>{{ relocation.note|default:'-' }}</td>
+                <td>{{ relocation.author.get_full_name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock bucket_content %}

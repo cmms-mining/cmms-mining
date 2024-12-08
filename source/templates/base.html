@@ -1,0 +1,152 @@
+{% load static %}
+<!-- https://github.com/codzsword/bootstrap-5-dashboard -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    {% block styles %}{% endblock styles %}
+
+    <link rel="icon" href="{% static 'img/icons/favicon.png' %}" type="image/x-icon">
+
+    <!-- Боковое меню -->
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <!-- Таблицы -->
+    <!-- https://datatables.net/extensions/fixedheader/examples/integration/columnFiltering.html -->
+    <link href="https://cdn.datatables.net/2.1.5/css/dataTables.dataTables.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/fixedheader/4.0.1/css/fixedHeader.dataTables.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'styles/datatable.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+
+    <!-- Иконки -->
+    <link rel="stylesheet" href="{% static 'ti-icons/css/themify-icons.css' %}">
+    
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Боковое меню -->
+        <aside id="sidebar" class="expand">
+            <div class="d-flex">
+                <button class="toggle-btn" type="button">
+                    <i class="lni lni-grid-alt"></i>
+                </button>
+                <div class="sidebar-logo">
+                    <a href="#"></a>
+                </div>
+            </div>
+            <ul class="sidebar-nav">
+                <li class="sidebar-item">
+                    <a href="{% url 'tasks' %}" class="sidebar-link">
+                        <i><img src="{% static 'img/icons/todo-icon.png' %}" width="25" height="25" alt="Icon"></i>
+                        <span>Задачи</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="{% url 'buckets' %}" class="sidebar-link">
+                        <i><img src="{% static 'img/icons/bucket-icon.png' %}" width="25" height="25" alt="Icon"></i>
+                        <span>Ковши</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="{% url 'components' %}" class="sidebar-link">
+                        <i><img src="{% static 'img/icons/cylinder-icon.png' %}" width="25" height="25" alt="Icon"></i>
+                        <span>Компоненты</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <div class="d-flex align-items-center">
+                        <!-- Ссылка на "Оборудование" -->
+                        <a href="{% url 'equipments' %}" class="sidebar-link d-flex align-items-center">
+                            <i><img src="{% static 'img/icons/excavator-icon.png' %}" width="25" height="25" alt="Icon"></i>
+                            <span>Оборудование</span>
+                        </a>
+                        <!-- Стрелка для раскрытия меню -->
+                        <button class="btn btn-toggle-arrow" data-bs-toggle="collapse" data-bs-target="#equipment" aria-expanded="false" aria-controls="equipment" style="padding: 0; font-size: 14px; color: #ffffff;">
+                            <i class="ti-arrow-down" ></i>
+                        </button>
+                    </div>
+                    <ul id="equipment" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item ms-3">
+                            <a href="{% url 'equipments_relocations' %}" class="sidebar-link">
+                                <i><img src="{% static 'img/icons/low-loader.png' %}" width="25" height="25" alt="Icon"></i>
+                                <span>Перемещения</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a href="{% url 'equipments_relocations_orders' %}" class="sidebar-link">
+                        <i><img src="{% static 'img/icons/order.png' %}" width="25" height="25" alt="Icon"></i>
+                        <span>Приказы</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                {% if user.is_superuser %}
+                <a href="{% url 'users_actions' %}" class="sidebar-link">
+                    <button type="submit" style="background: none; border: none;">
+                        <i class="lni lni-user" style="color: white;"></i>
+                        <span style="color: white;">Журнал действий</span>
+                    </button>
+                </a>
+                <a href="{% url 'admin:index' %}" class="sidebar-link">
+                    <button type="submit" style="background: none; border: none;">
+                        <i class="lni lni-user" style="color: white;"></i>
+                        <span style="color: white;">Админ панель</span>
+                    </button>
+                </a>
+                {% endif %}
+                <a href="" class="sidebar-link">
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" style="background: none; border: none;">
+                            <i class="lni lni-exit" style="color: white;"></i>
+                            <span style="color: white;">Выход</span>
+                        </button>
+                    </form>
+                </a>
+            </div>
+        </aside>
+        <!-- Конец бокового меню -->
+
+        <div class="main">
+
+            <nav class="navbar navbar-expand px-4 py-3">
+                <ul class="navbar-nav ms-auto">
+                    {{ user.first_name }} {{ user.last_name }}
+                </ul>
+            </nav>
+
+            <main class="content px-3 py-4">
+                <div class="container-fluid">
+                    <div class="mb-3">
+                        
+                        {% block content %}
+                        {% endblock content %}
+                        
+                    </div>
+                </div>
+            </main>
+           
+        </div>
+    </div>
+    {% block scripts %}{% endblock scripts %}
+
+    <!-- Боковое меню -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{% static 'scripts/script.js' %}"></script>
+
+</body>
+
+</html>

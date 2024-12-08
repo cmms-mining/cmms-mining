@@ -1,0 +1,26 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-job:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Set up SSH key
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.KEY }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SERVER_ADDRESS }} > ~/.ssh/known_hosts
+
+      - name: Cleanup old Docker images
+        run: ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_ADDRESS }} "sudo docker system prune -f"
+
+      - name: connect and pull
+        run: ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_ADDRESS }} "cd project_13 && git pull origin main && sudo docker-compose -f docker-compose-prod.yml up --build -d && sudo docker ps && exit"
+
+      - name: cleanup
+        run: rm -rf ~/.ssh

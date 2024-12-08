@@ -1,0 +1,25 @@
+{% extends 'components/component_base.html' %}
+
+{% load static %}
+
+{% block component_content %}
+    
+    <table id="buckets_table" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Дата сверки</th>
+                <th>Автор</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reconciliation in component.reconciliations.all %}
+            <tr>
+                <td>{{ reconciliation.date|date:"d.m.Y"|default:'-' }}</td>
+                <td>{{ reconciliation.author.get_full_name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock component_content %}

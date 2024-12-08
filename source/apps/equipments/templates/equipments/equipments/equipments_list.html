@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Оборудование{% endblock %}
+
+{% block content %}
+
+<h3 class="fw-bold fs-4 mb-3">Список оборудованя</h3>
+
+<div class="row">
+    <div class="col-12">
+
+        <table id="buckets_table" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Номер</th>
+                    <th>Местоположение</th>
+                    <th>Техсостояние</th>
+                    <th>В ремонте</th>
+                    <th>Редакция</th>
+                    <th>Редактор</th>
+                    <th>Наработка</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for equipment in equipments %}
+                <tr>
+                    <td>
+                        <a href="{% url 'equipment_all_events_tab' equipment.number %}" class="text-body">
+                            {{ equipment.number }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'equipment_all_events_tab' equipment.number %}" class="text-body">
+                            {{ equipment.current_data.location.name|default:'-' }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'equipment_all_events_tab' equipment.number %}" class="{% if equipment.get_is_needs_any_repair %}text-danger{% else %}text-body{% endif %}">
+                            {{ equipment.current_data.techstate.name|default:'-' }}
+                        </a>
+                    <td>
+                        {% if equipment.current_data.is_being_repaired %}✅{% endif %}
+                    </td>
+                    <td>{{ equipment.current_data.updated_at|date:"d.m.Y"|default:'' }}</td>
+                    <td>{{ equipment.current_data.updated_by.get_full_name }}</td>
+                    <td>4000</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Номер</th>
+                    <th>Местоположение</th>
+                    <th>Техсостояние</th>
+                    <th>В ремонте</th>
+                    <th>Редакция</th>
+                    <th>Редактор</th>
+                    <th>Наработка</th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+    {% include "partial/table_scripts.html" %}
+{% endblock scripts %}

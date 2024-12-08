@@ -1,0 +1,52 @@
+{% extends 'components/component_base.html' %}
+
+{% block component_content %}
+
+
+<div class="container">
+    <div class="row">
+        <!-- Первая колонка -->
+
+        <div class="col-md-6">
+            <form class="forms-sample" action="{% url 'component_task_update' task_pk=task.pk %}" method="POST">
+                {% csrf_token %}
+                <div>
+                    <p><b>Задача №{{ task.pk }}:</b> {{ task.name }}</p>
+                    <p><b>Инициатор:</b> {{ task.author.get_full_name }}</p>
+                    <p><b>Ответственный:</b> {{ task.executor.get_full_name }}</p>
+                </div>
+                {{ form.as_p }}
+                <div>
+                    {% if task.is_edit_allowed %}
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    {% endif %}
+                    <a href="{% url 'component_tasks_tab' component_number=component.number %}" class="btn btn-secondary">Отмена</a>
+                </div>
+            </form>
+        </div>
+        <!-- Вторая колонка -->
+        <div class="col-md-6">
+            <div class="fw-bold">Комментарии по задаче:</div>
+            <hr>
+            {% for comment in task.comments.all %}
+                <div class="mb-2">
+                    <div class="fw-bold">{{ comment.author.get_full_name }} {{ comment.created_at|date:"d.m.Y" }}:</div>
+                    <div>{{ comment.text|linebreaksbr }}</div>
+                    <hr>
+                </div>
+            {% endfor %}
+            {% if task.is_edit_allowed %}
+                <form class="forms-sample mt-4" action="{% url 'task_comment_create' task_pk=task.pk %}" method="POST">
+                    {% csrf_token %}
+                    {{ comment_form.as_p }}
+                    <div>
+                        <button type="submit" class="btn btn-primary">Добавить комментарий</button>
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock component_content %}

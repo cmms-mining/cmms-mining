@@ -1,0 +1,58 @@
+{% extends 'buckets/bucket_base.html' %}
+
+{% load static %}
+
+{% block bucket_content %}
+
+    {% if bucket.get_is_being_repaired or bucket.is_awaiting_repair %}
+        <a href="#" class="btn btn-primary disabled">
+            Добавить новый ремонт
+        </a> Вы не можете создать новый ремонт, пока не завершен предыдущий
+    {% elif bucket.get_is_needs_any_repair %}
+        <a href="{% url 'bucket_repair_create' bucket_number=bucket.number %}" class="btn btn-primary">
+            Добавить новый ремонт
+        </a>
+    {% else %}
+        <a href="#" class="btn btn-primary disabled">
+            Добавить новый ремонт
+        </a> Вы не можете создать новый ремонт, пока установлен статус "Ремонта не требует"
+    {% endif %}
+
+    <table id="buckets_table" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Дата начала (план)</th>
+                <th>Дата начала (факт)</th>
+                <th>Дата окончания (план)</th>
+                <th>Дата окончания (факт)</th>
+                <th>Требуемые работы</th>
+                <th>Примечания</th>
+                <th>Редактор</th>
+                <th>Редактирование</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for repair in bucket.repairs.all %}
+                <tr>
+                    <td>{{ repair.plan_start_date|date:"d.m.Y"|default:'-' }}</td>
+                    <td>{{ repair.start_date|date:"d.m.Y"|default:'-' }}</td>
+                    <td>{{ repair.plan_end_date|date:"d.m.Y"|default:'-' }}</td>
+                    <td>{{ repair.end_date|date:"d.m.Y"|default:'-' }}</td>
+                    <td>{{ repair.worklist|default:'-' }}</td>
+                    <td>{{ repair.note|default:'-' }}</td>
+                    <td>{{ repair.history.first.history_user.get_full_name }}</td>
+                    <!-- Кнопки редактирования -->
+                    <td>
+                        {% if repair.is_edit_allowed %}
+                        <a href="{% url 'bucket_repair_update' bucket_number=bucket.number repair_pk=repair.pk %}" class="btn btn-inverse-dark btn-sm text-center">
+                            <i class="ti-pencil-alt"></i>
+                        </a>
+                        {% endif %}
+                    </td>
+                    <!-- Конец кнопок редактирования -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock bucket_content %}

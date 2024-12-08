@@ -1,0 +1,42 @@
+services:
+  nginx:
+    restart: always
+    build:
+        context: ./deploy/nginx-dev
+    ports:
+      - "8000:8000"
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    volumes:
+      - ./deploy/persistentdata/static:/var/www/static
+      - ./deploy/persistentdata/uploads:/var/www/uploads
+      - ./source:/source
+  postgresql-db:
+    restart: always
+    image: postgres:16
+    command:
+      - "postgres"
+      - "-c"
+      - "port=5432"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./deploy/persistentdata/db:/var/lib/postgresql/data
+    env_file:
+      - ./deploy/postgresql-db/.pg-env-template
+  django-backend:
+    restart: always
+    build:
+      context: .
+    env_file:
+      - ./environment/.env.dev-docker
+    ports:
+      - "8001:8001"
+    command: >
+      sh -c "python manage.py migrate && python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8001"
+    depends_on:
+      - postgresql-db
+    image: djangobackend
+    volumes:
+      - ./deploy/persistentdata/static:/var/www/static
+      - ./deploy/persistentdata/uploads:/var/www/uploads
+      - ./source:/source

@@ -1,0 +1,5 @@
+/* https://datatables.net/extensions/fixedheader/examples/integration/columnFiltering.html */
+
+tfoot input {
+    width: 100%;
+}

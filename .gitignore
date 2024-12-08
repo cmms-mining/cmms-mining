@@ -1,0 +1,17 @@
+__pycache__
+db.sqlite3
+venv
+.idea
+.DS_Store
+media
+.vscode
+uploads
+persistentdata
+
+.pg-env
+.env.prod
+.env.dev-local
+.env.dev-docker-local
+docker-compose-dev-local.yml
+
+bootstrap

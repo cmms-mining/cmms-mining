@@ -1,0 +1,22 @@
+{% extends 'buckets/bucket_base.html' %}
+
+{% block bucket_content %}
+
+    <table id="buckets_table" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Тип события</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+                <tr>
+                    <td>{{ event.date|date:"d.m.Y" }}</td>
+                    <td>{{ event.event_type }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock bucket_content %}

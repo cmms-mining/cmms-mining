@@ -1,0 +1,43 @@
+{% extends 'equipments/equipment_base.html' %}
+
+{% block equipment_content %}
+
+    <div class="container">
+        Добавить перемещение оборудования
+        <div class="row">
+            <!-- Первая колонка -->
+            <div class="col-md-6">
+                <form class="forms-sample" action="{% url 'equipment_relocation_update' equipment_relocation_pk=relocation.pk %}" method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    {% if user_can_create_relocation %}
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    {% endif %}
+                    <a href="{% url 'equipment_relocations_tab' equipment_number=equipment.number %}" class="btn btn-secondary">Отмена</a>
+                </form>
+                <br>
+            </div>
+            <!-- Вторая колонка -->
+            <div class="col-md-6">
+                <div class="fw-bold">Акты прием-передачи:</div>
+                <hr>
+
+                {% for attachment in relocation.attachments.all %}
+                <div class="mb-2">
+                    <a href="{{ attachment.attachment_file.url }}" target="_blank">Акт прием-передачи</a>
+                    <hr>
+                </div>
+                {% endfor %}
+                {% if user_can_create_relocation %}
+                    Прикрепить файл акта прием-передачи
+                    <form class="forms-sample" action="{% url 'equipment_relocation_attachment_add' equipment_relocation_pk=relocation.pk %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ relocation_attachment_form.as_p }}
+                        <button type="submit" class="btn btn-primary">Добавить файл</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+{% endblock equipment_content %}

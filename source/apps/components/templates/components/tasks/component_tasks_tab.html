@@ -1,0 +1,48 @@
+{% extends 'components/component_base.html' %}
+
+{% load static %}
+
+{% block component_content %}
+
+    {% if user.is_superuser %}
+        <a href="{% url 'component_task_create' component_number=component.number %}" class="btn btn-primary">
+            Создать задачу
+        </a>
+    {% endif %}
+
+    <table id="buckets_table" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Дата создания</th>
+                <th>Задача</th>
+                <th>Плановый срок исполнения</th>
+                <th>Ответственный</th>
+                <th>Редактор</th>
+                <th>Выполнено</th>
+                <th>Редактирование</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in component.componenttasks.all %}
+                <tr>
+                    <td>{{ task.created_at|date:"d.m.Y" }}</td>
+                    <td>#{{ task.pk }}: {{ task.name }}</td>
+                    <td>{{ task.planned_completion_date|date:"d.m.Y" }}</td>
+                    <td>{{ task.executor.get_full_name }}</td>
+                    <td>{{ task.updated_by.get_full_name }}({{task.updated_at|date:"d.m.Y"}})</td>
+                    <td>{{ task.completed_at|date:"d.m.Y" }}</td>
+                    <td>
+                        <a href="{% url 'component_task_update' task_pk=task.pk %}" class="btn btn-inverse-dark btn-sm text-center">
+                            {% if task.is_edit_allowed %}
+                                <i class="ti-pencil-alt"></i>
+                            {% else %}
+                                <i class="ti-eye"></i>
+                            {% endif %}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock component_content %}

@@ -1,0 +1,50 @@
+{% extends 'components/component_base.html' %}
+
+{% load static %}
+
+{% block component_content %}
+
+    {% if user.is_superuser %}
+        {% if component.get_equipment %}
+        <a href="{% url 'component_deinstallation_create' component_number=component.number %}" class="btn btn-primary">
+            Демонтаж
+        </a> сделать отметку о демонтаже компонента
+        {% else %}
+        <a href="{% url 'component_installation_create' component_number=component.number %}" class="btn btn-primary">
+            Установить
+        </a> сделать отметку об установке компонента
+        {% endif %}
+    {% endif %}
+
+    <table id="buckets_table" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Оборудование</th>
+                <th>Дата</th>
+                <th>Причина</th>
+                <th>Примечания</th>
+                <th>Автор</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for installation in comb_installations %}
+            <tr>
+                <td>
+                    {% if installation.from_equipment %}
+                    Демонтирован с {{ installation.from_equipment }}
+                    {% endif %}
+                    {% if installation.to_equipment %}
+                    Установлен на {{ installation.to_equipment }}
+                    {% endif %}
+                </td>
+                <td>{{ installation.date|date:"d.m.Y"|default:'-' }}</td>
+                <td>{{ installation.reason|default:'-' }}</td>
+                <td>{{ installation.note|default:'-' }}</td>
+                <td>{{ installation.author.get_full_name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock component_content %}

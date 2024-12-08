@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Ковш {{ bucket.number }}{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="text-danger fs-3"><b>Предоставленные данные по ковшу {{ bucket.number }} не совпадают с учетными</b></div>
+    <div>
+        Необходимо провести корректировку:
+
+        <ul>
+            {% if 'location' in errors %}
+            <li><a href="{% url 'bucket_relocations_tab' bucket_number=bucket.number %}">- Проверьте местоположение ({{errors.location}})</a></li>
+            {% endif %}
+            {% if 'equipment' in errors %}
+            <li><a href="{% url 'bucket_installations_tab' bucket_number=bucket.number %}">- Проверьте оборудование ({{errors.equipment}})</a></li>
+            {% endif %}
+            {% if 'adapter' in errors %}
+            <li>- Проверьте тип адаптера ({{errors.adapter}}) (для корректировки необходимо обратиться к администратору)</li>
+            {% endif %}
+            {% if 'techstate' in errors %}
+            <li><a href="{% url 'bucket_techstates_tab' bucket_number=bucket.number %}">- Проверьте техническое состояние ({{errors.techstate}})</a></li>
+            {% endif %}
+            {% if 'is_being_repaired' in errors %}
+            <li><a href="{% url 'bucket_repairs_tab' bucket_number=bucket.number %}">- Проверьте статус 'В ремонте'</a></li>
+            {% endif %}
+            {% if 'is_operable' in errors %}
+            <li><a href="{% url 'bucket_techstates_tab' bucket_number=bucket.number %}">- Проверьте статус возможности эксплуатации</a></li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <a href="{% url 'bucket_reconciliations_tab' bucket_number=bucket.number %}">Вернуться</a>
+
+</div>
+
+{% endblock content %}

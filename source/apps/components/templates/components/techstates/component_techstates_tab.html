@@ -1,0 +1,37 @@
+{% extends 'components/component_base.html' %}
+
+{% load static %}
+
+
+{% block component_content %}
+
+    {% if user.is_superuser %}
+        <a href="{% url 'component_techstate_create' component_number=component.number %}" class="btn btn-primary">
+            Изменить техсостояние
+        </a>
+    {% endif %}
+
+    <table id="buckets_table" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Техсостояние</th>
+                <th>Подлежит эксплуатации</th>
+                <th>Описание</th>
+                <th>Автор</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for techstate in component.techstates.all %}
+                <tr>
+                    <td>{{ techstate.date|date:"d.m.Y"|default:'-' }}</td>
+                    <td>{{ techstate.techstate|default:'-' }}</td>
+                    <td>{% if techstate.is_operable %}✅{% else %}❌{% endif %}</td>
+                    <td>{{ techstate.description|default:'-' }}</td>
+                    <td>{{ techstate.author.get_full_name }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock component_content %}

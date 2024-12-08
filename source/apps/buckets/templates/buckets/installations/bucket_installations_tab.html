@@ -1,0 +1,87 @@
+{% extends 'buckets/bucket_base.html' %}
+
+{% load static %}
+
+{% block bucket_content %}
+
+    {% if bucket.get_equipment %}
+    <a href="{% url 'bucket_deinstallation_create' bucket_number=bucket.number %}" class="btn btn-primary">
+        Демонтаж
+    </a> сделать отметку о демонтаже ковша с экскаватора
+    {% else %}
+    <a href="{% url 'bucket_installation_create' bucket_number=bucket.number %}" class="btn btn-primary">
+        Установить
+    </a> сделать отметку об установке ковша на экскаватор
+    {% endif %}
+
+    <table id="buckets_table" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Установлен на</th>
+                <th>Демонтирован с</th>
+                <th>Дата</th>
+                <th>Причина</th>
+                <th>Примечания</th>
+                <th>Автор</th>
+                <th>Редактирование</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for installation in comb_installations %}
+            <tr>
+                <td>{{ installation.to_equipment|default:'' }}</td>
+                <td>{{ installation.from_equipment|default:'' }}</td>
+                <td>{{ installation.date|date:"d.m.Y"|default:'-' }}</td>
+                <td>{{ installation.reason|default:'-' }}</td>
+                <td>{{ installation.note|default:'-' }}</td>
+                <td>{{ installation.author.get_full_name }}</td>
+                <!-- Кнопки редактирования -->
+                <td>
+                    {% if installation.is_edit_allowed %}
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+                        <i class="ti-trash"></i>
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">ВНИМАНИЕ!!!</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                Вы удаляете запись о (де)монтаже ковша
+                            </div>
+                            <div class="modal-footer">
+                                {% if installation.to_equipment %}
+                                <form method="post" action="{% url 'bucket_installation_delete' pk=installation.pk %}">
+                                {% else %}
+                                <form method="post" action="{% url 'bucket_deinstallation_delete' pk=installation.pk %}">
+                                {% endif %}
+                                    {% csrf_token %}
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                                    <button type="submit" class="btn btn-danger">Удалить</button>
+                                </form>
+                            </div>
+                        </div>
+                        </div>
+                        {% block scripts %}
+                        <!-- Modal -->
+                        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+                        {% endblock scripts %}
+                    </div>
+                    {% endif %}
+                </td>
+                <!-- Конец кнопок редактирования -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock bucket_content %}

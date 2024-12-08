@@ -1,0 +1,44 @@
+{% extends 'buckets/bucket_base.html' %}
+
+{% load static %}
+
+{% block bucket_content %}
+
+    <a href="{% url 'bucket_techstate_create' bucket_number=bucket.number %}" class="btn btn-primary">
+        Изменить техсостояние
+    </a>
+
+    <table id="buckets_table" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Техсостояние</th>
+                <th>Подлежит эксплуатации</th>
+                <th>Описание</th>
+                <th>Автор</th>
+                <th>Редактирование</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for techstate in bucket.techstates.all %}
+                <tr>
+                    <td>{{ techstate.date|date:"d.m.Y"|default:'-' }}</td>
+                    <td>{{ techstate.techstate|default:'-' }}</td>
+                    <td>{% if techstate.is_operable %}✅{% else %}❌{% endif %}</td>
+                    <td>{{ techstate.description|default:'-' }}</td>
+                    <td>{{ techstate.author.get_full_name }}</td>
+                    <!-- Кнопки редактирования -->
+                    <td>
+                        {% if techstate.is_edit_allowed %}
+                        <a href="{% url 'bucket_techstate_update' bucket_number=bucket.number techstate_pk=techstate.pk %}" class="btn btn-inverse-dark btn-sm text-center" style="border: none; background-color: transparent;">
+                            <i class="ti-pencil-alt"></i>
+                        </a>
+                        {% endif %}
+                    </td>
+                    <!-- Конец кнопок редактирования -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock bucket_content %}
