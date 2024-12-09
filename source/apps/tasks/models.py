@@ -51,13 +51,13 @@ class Task(models.Model):
     needs_comment = models.BooleanField(verbose_name='Требуется комментарий', default=False)
     PRIORITY_CHOICES = (
         ('Срочно', 'Срочно'),
-        ('Несрочно', 'Несрочно'),
+        ('Не срочно', 'Не срочно'),
     )
     priority = models.CharField(
         verbose_name='Приоритет',
         max_length=20,
         choices=PRIORITY_CHOICES,
-        default='Несрочно',
+        default='Не срочно',
     )
 
     class Meta:

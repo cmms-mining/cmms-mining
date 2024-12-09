@@ -15,6 +15,7 @@
             <tr>
                 <th>Дата создания</th>
                 <th>Задача</th>
+                <th>Приоритет</th>
                 <th>Плановый срок исполнения</th>
                 <th>Ответственный</th>
                 <th>Редактор</th>
@@ -27,6 +28,7 @@
                 <tr>
                     <td>{{ task.created_at|date:"d.m.Y" }}</td>
                     <td>#{{ task.pk }}: {{ task.name }}</td>
+                    <td>{{ task.get_priority_display }}</td>
                     <td>{{ task.planned_completion_date|date:"d.m.Y" }}</td>
                     <td>{{ task.executor.get_full_name }}</td>
                     <td>{{ task.updated_by.get_full_name }}({{task.updated_at|date:"d.m.Y"}})</td>
