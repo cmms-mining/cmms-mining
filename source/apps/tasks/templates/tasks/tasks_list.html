@@ -73,15 +73,15 @@
     {% endif %}
 
     {% if tasks %}
-    <div class="fw-bold fs-5">Перечень задач по компонентам</div>
+    <div class="fw-bold fs-5">Перечень задач</div>
     <table id="tasks_table" class="display" style="width:100%">
         <thead>
             <tr>
                 <th>Номер</th>
                 <th>Компонент</th>
                 <th>Задача</th>
+                <th>Приоритет</th>
                 <th>Ответственный</th>
-                <th>Дата задачи</th>
                 <th>Местоположение</th>
                 <th>Код номенклатуры</th>
                 <th>Плановая дата выполнения</th>
@@ -106,8 +106,8 @@
                         <a href="{% url 'task_update' task.pk %}">{{ task.name }}</a>
                     {% endif %}
                 </td>
+                <td>{{ task.priority }}</td>
                 <td>{{ task.executor__first_name }} {{ task.executor__last_name }}</td>
-                <td>{{ task.created_at|date:"d.m.Y" }}</td>
                 <td>{{ task.component__current_data__location__name|default:'-' }}</td>
                 <td>{{ task.component__nomenclature_code }}</td>
                 <td>{{ task.planned_completion_date|date:"d.m.Y" }}</td>
@@ -120,8 +120,8 @@
                 <th>Номер</th>
                 <th>Компонент</th>
                 <th>Задача</th>
+                <th>Приоритет</th>
                 <th>Ответственный</th>
-                <th>Дата задачи</th>
                 <th>Местоположение</th>
                 <th>Код номенклатуры</th>
                 <th>Плановая дата выполнения</th>
