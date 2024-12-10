@@ -41,7 +41,7 @@ services:
     env_file:
       - ./deploy/postgresql-db/.pg-env
   certbot:
-    image: certbot/certbot
+    image: certbot/certbot:v2.7.0
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
     volumes:
       - ./deploy/persistentdata/certbot/conf:/etc/letsencrypt
