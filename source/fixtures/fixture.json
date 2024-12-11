@@ -1,0 +1,34 @@
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$HacisVUdIG83zWTRy3RzgM$nGkZbLNKxIRNw0klFihZ+o2Z97JR2A2B5pMsr5Zkejw=",
+    "last_login": "2024-12-11T12:18:38.014Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2024-12-11T12:18:15.943Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "common.techstateoption",
+  "pk": 1,
+  "fields": {
+    "name": "Требует текущего ремонта"
+  }
+},
+{
+  "model": "common.techstateoption",
+  "pk": 2,
+  "fields": {
+    "name": "Требует капитального ремонта"
+  }
+}
+]
