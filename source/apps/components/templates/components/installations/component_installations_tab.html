@@ -31,10 +31,13 @@
             <tr>
                 <td>
                     {% if installation.from_equipment %}
-                    Демонтирован с {{ installation.from_equipment }}
+                        Демонтирован с {{ installation.from_equipment }}
                     {% endif %}
                     {% if installation.to_equipment %}
-                    Установлен на {{ installation.to_equipment }}
+                        Установлен на {{ installation.to_equipment }}
+                    {% endif %}
+                    {% if installation.location %}
+                        ({{ installation.location }})
                     {% endif %}
                 </td>
                 <td>{{ installation.date|date:"d.m.Y"|default:'-' }}</td>

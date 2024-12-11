@@ -3,7 +3,8 @@ from django.db.models import CharField, Value
 from django.shortcuts import get_object_or_404
 
 from apps.common.models import DeinstallationReason
-from apps.components.models import Component, ComponentCurrentData, ComponentDeinstallation, ComponentInstallation
+from apps.components.models import (Component, ComponentCurrentData, ComponentDeinstallation, ComponentInstallation,
+                                    ComponentInstallationLocation)
 from apps.equipments.models import Equipment
 
 
@@ -16,6 +17,7 @@ def get_combined_installs_and_deinstalls(component: Component) -> list[dict[str,
         'date',
         'note',
         'author',
+        'location',
     ).annotate(
             from_equipment=Value(None, output_field=CharField()),
         )
@@ -43,7 +45,8 @@ def get_combined_installs_and_deinstalls(component: Component) -> list[dict[str,
             item['to_equipment'] = Equipment.objects.get(pk=item['to_equipment']).number
         if item.get('from_equipment'):
             item['from_equipment'] = Equipment.objects.get(pk=item['from_equipment']).number
-
+        if item.get('location'):
+            item['location'] = ComponentInstallationLocation.objects.get(pk=item['location'])
     return combined_queryset
 
 

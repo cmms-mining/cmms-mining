@@ -4,7 +4,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$870000$HacisVUdIG83zWTRy3RzgM$nGkZbLNKxIRNw0klFihZ+o2Z97JR2A2B5pMsr5Zkejw=",
-    "last_login": "2024-12-11T12:18:38.014Z",
+    "last_login": "2024-12-11T17:26:33.598Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -29,6 +29,130 @@
   "pk": 2,
   "fields": {
     "name": "Требует капитального ремонта"
+  }
+},
+{
+  "model": "components.componentinstallation",
+  "pk": 1,
+  "fields": {
+    "to_equipment": 1,
+    "date": "2022-05-01",
+    "location": 1,
+    "note": "",
+    "created_at": "2024-12-11T17:29:58.410Z",
+    "author": 1,
+    "component": 1
+  }
+},
+{
+  "model": "components.componentinstallationlocation",
+  "pk": 1,
+  "fields": {
+    "name": "Левая сторона"
+  }
+},
+{
+  "model": "components.componentinstallationlocation",
+  "pk": 2,
+  "fields": {
+    "name": "Правая сторона"
+  }
+},
+{
+  "model": "components.componenttypeequipmentmodel",
+  "pk": 1,
+  "fields": {
+    "component_type": 1,
+    "equipment_model": 1,
+    "location": 1
+  }
+},
+{
+  "model": "components.componenttypeequipmentmodel",
+  "pk": 2,
+  "fields": {
+    "component_type": 1,
+    "equipment_model": 1,
+    "location": 2
+  }
+},
+{
+  "model": "components.component",
+  "pk": 1,
+  "fields": {
+    "number": "001",
+    "serial_number": null,
+    "component_type": 1,
+    "note": "",
+    "requires_reconciliation": null,
+    "is_serial_number_marked": false,
+    "nomenclature_code": "",
+    "is_compliant_with_accounting": false
+  }
+},
+{
+  "model": "components.componentkind",
+  "pk": 1,
+  "fields": {
+    "name": "Гидроцилиндр"
+  }
+},
+{
+  "model": "components.componenttype",
+  "pk": 1,
+  "fields": {
+    "name": "Цилиндр стрелы PC400",
+    "kind": 1,
+    "note": ""
+  }
+},
+{
+  "model": "components.componentcurrentdata",
+  "pk": 1,
+  "fields": {
+    "location": null,
+    "relocation_date": null,
+    "techstate": null,
+    "techstate_date": null,
+    "is_being_repaired": null,
+    "is_operable": null,
+    "updated_by": 1,
+    "updated_at": "2024-12-11T17:33:31.552Z",
+    "component": 1,
+    "equipment": 1,
+    "installation_date": "2022-05-01",
+    "component_location": 1,
+    "state": null
+  }
+},
+{
+  "model": "equipments.equipmenttype",
+  "pk": 1,
+  "fields": {
+    "name": "Экскаватор",
+    "icon": "",
+    "slug": "excavator"
+  }
+},
+{
+  "model": "equipments.equipmentmodel",
+  "pk": 1,
+  "fields": {
+    "name": "PC400",
+    "equipment_type": 1,
+    "manufacturer": ""
+  }
+},
+{
+  "model": "equipments.equipment",
+  "pk": 1,
+  "fields": {
+    "name": null,
+    "number": "501",
+    "equipment_model": 1,
+    "equipment_maintenance_group": null,
+    "serial_number": null,
+    "note": ""
   }
 }
 ]
