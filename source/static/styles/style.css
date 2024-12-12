@@ -1,5 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
+
+.custom-link {
+    color: black;
+    transition: color 0.3s ease;
+}
+
+.custom-link:hover {
+    text-decoration: underline;
+    color: rgb(45, 45, 255) !important; /* Цвет текста при наведении */
+}
+
 form label {
     font-weight: bold;
 }

@@ -28,18 +28,18 @@
                 {% for bucket in buckets %}
                 <tr class="{% if bucket.decommission.obsoleted %}text-info{% endif %}">
                     <td>
-                        <a href="{% url 'bucket_all_events_tab' bucket_number=bucket.number %}">
+                        <a href="{% url 'bucket_all_events_tab' bucket_number=bucket.number %}" class="text-body custom-link">
                             {{ bucket.number }}
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'bucket_relocations_tab' bucket.number %}" class="text-body">
+                        <a href="{% url 'bucket_relocations_tab' bucket.number %}" class="text-body custom-link">
                             {{ bucket.current_data.location.name|default:'-' }}
                         </a>
                     </td>
                     <td>{{ bucket.current_data.equipment.number|default:'-' }}</td>
                     <td>
-                        <a href="{% url 'bucket_techstates_tab' bucket.number %}" class="{% if bucket.get_is_needs_any_repair %}text-danger{% else %}text-body{% endif %}">
+                        <a href="{% url 'bucket_techstates_tab' bucket.number %}" class="{% if bucket.get_is_needs_any_repair %}text-danger{% else %}text-body{% endif %} custom-link">
                             {{ bucket.current_data.techstate.name|default:'-' }}
                         </a>
                     <td>

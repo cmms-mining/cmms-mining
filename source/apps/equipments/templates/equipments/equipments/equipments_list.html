@@ -25,12 +25,12 @@
                 {% for equipment in equipments %}
                 <tr>
                     <td>
-                        <a href="{% url 'equipment_all_events_tab' equipment.number %}" class="text-body">
+                        <a href="{% url 'equipment_all_events_tab' equipment.number %}" class="text-body custom-link">
                             {{ equipment.number }}
                         </a>
                     </td>
                     <td>
-                        <a href="{% url 'equipment_all_events_tab' equipment.number %}" class="text-body">
+                        <a href="{% url 'equipment_all_events_tab' equipment.number %}" class="text-body custom-link">
                             {{ equipment.current_data.location.name|default:'-' }}
                         </a>
                     </td>

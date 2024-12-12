@@ -31,7 +31,7 @@
                 {% for component in components %}
                 <tr>
                     <td>
-                        <a href="{% url 'component_state_tab' component_number=component.number %}">
+                        <a href="{% url 'component_state_tab' component_number=component.number %}" class="text-body custom-link">
                             {{ component.number }}
                         </a>
                     </td>

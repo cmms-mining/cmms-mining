@@ -30,7 +30,7 @@
             <tbody>
                 {% for order in orders %}
                 <tr>
-                    <td><a href="{% url 'equipment_relocation_order_update' order_pk=order.instance.pk %}">{{ order.instance.number }}</a></td>
+                    <td><a href="{% url 'equipment_relocation_order_update' order_pk=order.instance.pk %}" class="text-body custom-link">{{ order.instance.number }}</a></td>
                     <td>{{ order.instance.date|date:"d.m.Y" }}</td>
                     <td>{{ order.instance.from_site.name }}</td>
                     <td>{{ order.instance.to_site.name }}</td>
@@ -41,13 +41,13 @@
                     </td>
                     <td>
                         {% if order.instance.scan %}
-                            <a href="{{ order.instance.scan.url }}" target="_blank">файл</a>
+                            <a href="{{ order.instance.scan.url }}" target="_blank" class="text-body custom-link">файл</a>
                         {% endif %}
                     </td>
                     <td>
                         {% for equipment in order.equipments %}
                             {% for attachment in equipment.relocation.attachments %}
-                                <a href="{{ attachment.attachment_file.url }}" target="_blank">{{ equipment.instance.number }} /</a>
+                                <a href="{{ attachment.attachment_file.url }}" target="_blank" class="text-body custom-link">{{ equipment.instance.number }} /</a>
                             {% endfor %}
                         {% endfor %}
                     </td>
