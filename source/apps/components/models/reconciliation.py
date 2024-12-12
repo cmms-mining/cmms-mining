@@ -3,6 +3,7 @@ from django.db import models
 from apps.common.models import Reconciliation
 
 
+# TODO класс не используется
 class ComponentReconciliation(Reconciliation):
     component = models.ForeignKey(
         to='components.Component',

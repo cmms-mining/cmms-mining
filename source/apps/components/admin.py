@@ -2,8 +2,8 @@ from django.contrib import admin
 
 from apps.components.models import (Component, ComponentCurrentData, ComponentDeinstallation, ComponentInstallation,
                                     ComponentInstallationLocation, ComponentKind, ComponentReconciliation,
-                                    ComponentRelocation, ComponentState, ComponentTask, ComponentTechState,
-                                    ComponentType, ComponentTypeEquipmentModel)
+                                    ComponentRelocation, ComponentRepair, ComponentState, ComponentTask,
+                                    ComponentTechState, ComponentType, ComponentTypeEquipmentModel)
 
 
 # -------------Компоненты------------------
@@ -92,3 +92,10 @@ class ComponentTaskAdmin(admin.ModelAdmin):
 class ComponentReconciliationAdmin(admin.ModelAdmin):
     list_display = [field.name for field in ComponentReconciliation._meta.fields]
 # -------------Сверки-----------------
+
+
+# -------------Ремонты-----------------
+@admin.register(ComponentRepair)
+class ComponentRepairAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in ComponentRepair._meta.fields]
+# -------------Ремонты-----------------
