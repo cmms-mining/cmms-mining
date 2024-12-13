@@ -20,9 +20,17 @@
             <tbody>
                 {% for repair in repairs %}
                 <tr>
-                    <td>{{ repair.pk }}</td>
-                    <td>{{ repair.component.number }} {{ repair.component.component_type.name }}</td>
-                    <td>{{ repair.executor.name }}</td>
+                    <td>
+                        {{ repair.pk }}
+                    </td>
+                    <td>
+                        <a href="{% url 'component_repairs_tab' repair.component.number %}" class="text-body custom-link">
+                            {{ repair.component.number }} {{ repair.component.component_type.name }}
+                        </a>
+                    </td>
+                    <td>
+                        {{ repair.executor.name }}
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

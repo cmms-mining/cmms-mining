@@ -127,7 +127,7 @@ class FormValidationMixin:
 
 
 class BucketRepairsListView(TemplateView):
-    """Список ремонтов"""
+    """Список ремонтов ковша"""
     template_name = 'buckets/repairs/bucket_repairs_tab.html'
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:

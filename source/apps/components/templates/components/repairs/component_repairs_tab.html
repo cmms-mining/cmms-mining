@@ -1,0 +1,24 @@
+{% extends 'components/component_base.html' %}
+
+{% load static %}
+
+{% block component_content %}
+
+    <table id="buckets_table" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Номер</th>
+                <th>Исполнитель</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for repair in component.repairs.all %}
+                <tr>
+                    <td>{{ repair.pk }}</td>
+                    <td>{{ repair.executor.name }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock component_content %}

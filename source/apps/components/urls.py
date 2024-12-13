@@ -82,5 +82,10 @@ urlpatterns = [
         repairs.ComponentsRepairsListView.as_view(),
         name='components_repairs',
         ),
+    path(
+        '<slug:component_number>/repairs',
+        repairs.ComponentRepairsListView.as_view(),
+        name='component_repairs_tab',
+        ),
 
 ]

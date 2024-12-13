@@ -115,6 +115,11 @@
             Задачи
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link {% if repairs_tab %}active{% endif %}" href="{% url 'component_repairs_tab' component.number %}">
+            Ремонты
+          </a>
+        </li>
     </ul>
   <!------- Вкладки ------------------------->
 

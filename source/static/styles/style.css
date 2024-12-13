@@ -3,7 +3,6 @@
 
 .custom-link {
     color: black;
-    transition: color 0.3s ease;
 }
 
 .custom-link:hover {
