@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Ремонты компонентов{% endblock %}
+
+{% block content %}
+
+<h3 class="fw-bold fs-4 mb-3">Ремонты компонентов</h3>
+
+<div class="row">
+    <div class="col-12">
+
+        <table id="buckets_table" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Номер</th>
+                    <th>Компонент</th>
+                    <th>Исполнитель</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for repair in repairs %}
+                <tr>
+                    <td>{{ repair.pk }}</td>
+                    <td>{{ repair.component.number }} {{ repair.component.component_type.name }}</td>
+                    <td>{{ repair.executor.name }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Номер</th>
+                    <th>Компонент</th>
+                    <th>Исполнитель</th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+    {% include "partial/table_scripts.html" %}
+{% endblock scripts %}

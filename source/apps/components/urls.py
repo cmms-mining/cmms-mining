@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import components, installations, reconciliations, relocations, tasks, techstates
+from .views import components, installations, reconciliations, relocations, repairs, tasks, techstates
 
 
 urlpatterns = [
@@ -74,6 +74,13 @@ urlpatterns = [
         '<slug:component_number>/reconciliations',
         reconciliations.ComponentReconciliationsTabView.as_view(),
         name='component_reconciliations_tab',
+        ),
+
+    # Ремонты компонентов
+    path(
+        'repairs',
+        repairs.ComponentsRepairsListView.as_view(),
+        name='components_repairs',
         ),
 
 ]

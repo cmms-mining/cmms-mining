@@ -55,11 +55,27 @@
                         <span>Ковши</span>
                     </a>
                 </li>
+
                 <li class="sidebar-item">
-                    <a href="{% url 'components' %}" class="sidebar-link">
-                        <i><img src="{% static 'img/icons/cylinder-icon.png' %}" width="25" height="25" alt="Icon"></i>
-                        <span>Компоненты</span>
-                    </a>
+                    <div class="d-flex align-items-center">
+                        <!-- Ссылка на "Компонеты" -->
+                        <a href="{% url 'components' %}" class="sidebar-link d-flex align-items-center">
+                            <i><img src="{% static 'img/icons/cylinder-icon.png' %}" width="25" height="25" alt="Icon"></i>
+                            <span>Компоненты</span>
+                        </a>
+                        <!-- Стрелка для раскрытия меню -->
+                        <button class="btn btn-toggle-arrow" data-bs-toggle="collapse" data-bs-target="#component" aria-expanded="false" aria-controls="equipment" style="padding: 0; font-size: 14px; color: #ffffff;">
+                            <i class="ti-arrow-down" ></i>
+                        </button>
+                    </div>
+                    <ul id="component" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item ms-3">
+                            <a href="{% url 'components_repairs' %}" class="sidebar-link">
+                                <i><img src="{% static 'img/icons/wrench.png' %}" width="30" height="30" alt="Icon"></i>
+                                <span>Ремонты</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li class="sidebar-item">
