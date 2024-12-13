@@ -9,6 +9,7 @@
             <tr>
                 <th>Номер</th>
                 <th>Исполнитель</th>
+                <th>Плановая дата выполнения</th>
             </tr>
         </thead>
         <tbody>
@@ -16,6 +17,7 @@
                 <tr>
                     <td>{{ repair.pk }}</td>
                     <td>{{ repair.executor.name }}</td>
+                    <td>{{ repair.plan_end_date|date:"d.m.Y"|default:'-' }}</td>
                 </tr>
             {% endfor %}
         </tbody>

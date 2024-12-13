@@ -15,6 +15,7 @@
                     <th>Номер</th>
                     <th>Компонент</th>
                     <th>Исполнитель</th>
+                    <th>Плановая дата выполнения</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,9 +29,8 @@
                             {{ repair.component.number }} {{ repair.component.component_type.name }}
                         </a>
                     </td>
-                    <td>
-                        {{ repair.executor.name }}
-                    </td>
+                    <td>{{ repair.executor.name }}</td>
+                    <td>{{ repair.plan_end_date|date:"d.m.Y"|default:'-' }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -39,6 +39,7 @@
                     <th>Номер</th>
                     <th>Компонент</th>
                     <th>Исполнитель</th>
+                    <th>Плановая дата выполнения</th>
                 </tr>
             </tfoot>
         </table>
