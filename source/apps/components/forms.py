@@ -2,7 +2,8 @@ from django import forms
 
 from apps.common.services import get_user
 from apps.components.models import (Component, ComponentDeinstallation, ComponentInstallation,
-                                    ComponentRelocation, ComponentState, ComponentTask, ComponentTechState)
+                                    ComponentRelocation, ComponentRepair, ComponentState, ComponentTask,
+                                    ComponentTechState)
 from apps.equipments.models import Equipment
 from apps.sites.models import Site
 from apps.tasks.models import Task, TaskComment
@@ -161,9 +162,7 @@ class ComponentTaskUpdateForm(forms.ModelForm):
                 format='%Y-%m-%d',
                 attrs={'class': 'form-control', 'type': 'date', 'style': 'max-width: 300px;'},
                 ),
-            'priority': forms.Select(
-                attrs={'class': 'form-control', 'style': 'max-width: 100px;'},
-                ),
+            'priority': forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 100px;'}),
         }
 
     def __init__(self, *args, **kwargs):
@@ -234,4 +233,20 @@ class ComponentTaskCommentForm(forms.ModelForm):
         }
         widgets = {
             'text': forms.Textarea(attrs={'class': 'form-control', 'style': 'max-width: 700px; height: 150px;'}),
+        }
+
+
+class ComponentRepairForm(forms.ModelForm):
+
+    class Meta:
+        model = ComponentRepair
+        fields = ('executor', 'worklist', 'plan_end_date', 'note')
+        widgets = {
+            'executor': forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 300px;'}),
+            'worklist': forms.Textarea(attrs={'class': 'form-control', 'style': 'max-width: 500px; height: 100px;'}),
+            'plan_end_date': forms.DateInput(
+                format='%Y-%m-%d',
+                attrs={'class': 'form-control', 'type': 'date', 'style': 'max-width: 200px;'},
+                ),
+            'note': forms.Textarea(attrs={'class': 'form-control', 'style': 'max-width: 500px; height: 100px;'}),
         }

@@ -87,5 +87,9 @@ urlpatterns = [
         repairs.ComponentRepairsListView.as_view(),
         name='component_repairs_tab',
         ),
-
+    path(
+        '<slug:component_number>/repair/<int:repair_pk>/update',
+        repairs.ComponentRepairUpdateView.as_view(),
+        name='component_repair_update',
+        ),
 ]

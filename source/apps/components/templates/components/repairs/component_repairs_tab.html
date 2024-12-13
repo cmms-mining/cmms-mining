@@ -15,7 +15,11 @@
         <tbody>
             {% for repair in component.repairs.all %}
                 <tr>
-                    <td>{{ repair.pk }}</td>
+                    <td>
+                        <a href="{% url 'component_repair_update' component_number=component.number repair_pk=repair.pk %}" class="text-body custom-link">
+                            {{ repair.pk }}
+                        </a>
+                    </td>
                     <td>{{ repair.executor.name }}</td>
                     <td>{{ repair.plan_end_date|date:"d.m.Y"|default:'-' }}</td>
                 </tr>
