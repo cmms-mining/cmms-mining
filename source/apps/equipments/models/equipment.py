@@ -77,6 +77,13 @@ class Equipment(models.Model):
         )
     serial_number = models.CharField(verbose_name='Серийный номер', max_length=50, blank=True, null=True, unique=True)
     note = models.TextField(verbose_name='Примечание', blank=True, null=True)
+    inventory_number = models.CharField(
+        verbose_name='Инвентарный номер',
+        max_length=30,
+        blank=True,
+        null=True,
+        unique=True,
+        )
 
     class Meta:
         verbose_name = 'Оборудование'
@@ -109,6 +116,8 @@ class Equipment(models.Model):
             return self.get_relocation().to_site
 
     def __str__(self):
+        if self.inventory_number:
+            return f'{self.number} ({self.inventory_number})'
         return self.number
 
 

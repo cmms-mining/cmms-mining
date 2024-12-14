@@ -22,7 +22,9 @@
                 {% for repair in repairs %}
                 <tr>
                     <td>
-                        {{ repair.pk }}
+                        <a href="{% url 'component_repair_update' component_number=repair.component.number repair_pk=repair.pk %}" class="text-body custom-link">
+                            {{ repair.pk }}
+                        </a>
                     </td>
                     <td>
                         <a href="{% url 'component_repairs_tab' repair.component.number %}" class="text-body custom-link">
