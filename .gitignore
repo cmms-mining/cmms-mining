@@ -10,7 +10,6 @@ persistentdata
 
 .pg-env
 .env.prod
-.env.dev-local
 .env.dev-docker-local
 docker-compose-dev-local.yml
 
