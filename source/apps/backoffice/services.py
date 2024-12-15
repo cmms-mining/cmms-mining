@@ -1,21 +1,35 @@
-import psutil
+import os
 import shutil
 
 from django.db import connection
 
+import psutil
+
 
 def get_db_size():
-    # Открываем курсор для выполнения SQL-запроса
-    with connection.cursor() as cursor:
-        # Выполняем запрос на получение размера базы данных
-        cursor.execute("SELECT pg_database_size(current_database());")
-        # Получаем результат в байтах
-        db_size = cursor.fetchone()[0]
+    # Определяем текущий движок базы данных
+    db_engine = connection.settings_dict['ENGINE']
 
-    # Преобразуем размер в мегабайты
-    db_size_mb = db_size / (1024 * 1024)
+    if 'sqlite' in db_engine:
+        # Если это SQLite, получаем размер файла базы данных
+        db_path = connection.settings_dict['NAME']
+        if os.path.exists(db_path):
+            db_size = os.path.getsize(db_path)
+            db_size_mb = db_size / (1024 * 1024)
+            return f"Размер базы данных (SQLite): {db_size_mb:.2f} MB"
+        else:
+            return "Файл базы данных SQLite не найден."
 
-    return f"Размер базы данных: {db_size_mb:.2f} MB"
+    elif 'postgresql' in db_engine:
+        # Если это PostgreSQL, используем SQL-запрос
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT pg_database_size(current_database());")
+            db_size = cursor.fetchone()[0]
+            db_size_mb = db_size / (1024 * 1024)
+            return f"Размер базы данных (PostgreSQL): {db_size_mb:.2f} MB"
+
+    else:
+        return "Неподдерживаемый тип базы данных."
 
 
 def get_disk_space():

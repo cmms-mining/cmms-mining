@@ -166,17 +166,13 @@ def get_defect_buckets_without_repair(workcenter: str | None, site: str | None) 
         Q(last_techstate=repair_required_state_current) | Q(last_techstate=repair_required_state_capital),
     )
 
-    # Аннотируем количество записей о ремонте
+    # Аннотируем к ковшам, требующим ремонта количество созданных ремонтов
     buckets_with_repair_count = buckets_requiring_repair.annotate(
         repair_count=Count('repairs'),
     )
-
-    # Фильтруем ковши без активного ремонта (end_date не заполнено) и без созданных ремонтов
     defect_buckets_without_repair = buckets_with_repair_count.filter(
-        repair_count=0,  # Ковши, у которых нет записей о ремонтах
-    ).union(
-        buckets_with_repair_count.exclude(repairs__end_date__isnull=True),  # Ковши с завершённым ремонтом
-    )
+        repair_count=0,
+    ) | buckets_with_repair_count.exclude(repairs__end_date__isnull=True)
 
     return defect_buckets_without_repair
 
