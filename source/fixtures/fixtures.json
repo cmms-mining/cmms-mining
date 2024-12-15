@@ -1,0 +1,173 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$HacisVUdIG83zWTRy3RzgM$nGkZbLNKxIRNw0klFihZ+o2Z97JR2A2B5pMsr5Zkejw=",
+      "last_login": "2024-12-15T16:41:02.708Z",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-12-11T12:18:15.943Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "common.techstateoption",
+    "pk": 1,
+    "fields": {
+      "name": "\u0422\u0440\u0435\u0431\u0443\u0435\u0442 \u0442\u0435\u043a\u0443\u0449\u0435\u0433\u043e \u0440\u0435\u043c\u043e\u043d\u0442\u0430"
+    }
+  },
+  {
+    "model": "common.techstateoption",
+    "pk": 2,
+    "fields": {
+      "name": "\u0422\u0440\u0435\u0431\u0443\u0435\u0442 \u043a\u0430\u043f\u0438\u0442\u0430\u043b\u044c\u043d\u043e\u0433\u043e \u0440\u0435\u043c\u043e\u043d\u0442\u0430"
+    }
+  },
+  {
+    "model": "common.techstateoption",
+    "pk": 3,
+    "fields": {
+      "name": "\u0420\u0435\u043c\u043e\u043d\u0442\u0430 \u043d\u0435 \u0442\u0440\u0435\u0431\u0443\u0435\u0442"
+    }
+  },
+  {
+    "model": "common.techstateoption",
+    "pk": 4,
+    "fields": {
+      "name": "\u0420\u0435\u043c\u043e\u043d\u0442 \u043d\u0435\u0446\u0435\u043b\u0435\u0441\u043e\u043e\u0431\u0440\u0430\u0437\u0435\u043d"
+    }
+  },
+  {
+    "model": "equipments.equipmenttype",
+    "pk": 1,
+    "fields": {
+      "name": "\u042d\u043a\u0441\u043a\u0430\u0432\u0430\u0442\u043e\u0440",
+      "icon": "",
+      "slug": "excavator"
+    }
+  },
+  {
+    "model": "equipments.equipmentmodel",
+    "pk": 1,
+    "fields": {
+      "name": "PC400",
+      "equipment_type": 1,
+      "manufacturer": ""
+    }
+  },
+  {
+    "model": "equipments.equipment",
+    "pk": 1,
+    "fields": {
+      "name": null,
+      "number": "501",
+      "equipment_model": 1,
+      "equipment_maintenance_group": null,
+      "serial_number": null,
+      "note": "",
+      "inventory_number": null
+    }
+  },
+  {
+    "model": "components.componentkind",
+    "pk": 1,
+    "fields": {
+      "name": "\u0413\u0438\u0434\u0440\u043e\u0446\u0438\u043b\u0438\u043d\u0434\u0440"
+    }
+  },
+  {
+    "model": "components.componenttype",
+    "pk": 1,
+    "fields": {
+      "name": "\u0426\u0438\u043b\u0438\u043d\u0434\u0440 \u0441\u0442\u0440\u0435\u043b\u044b PC400",
+      "kind": 1,
+      "note": ""
+    }
+  },
+  {
+    "model": "components.componentinstallationlocation",
+    "pk": 1,
+    "fields": {
+      "name": "\u041b\u0435\u0432\u0430\u044f \u0441\u0442\u043e\u0440\u043e\u043d\u0430"
+    }
+  },
+  {
+    "model": "components.componentinstallationlocation",
+    "pk": 2,
+    "fields": {
+      "name": "\u041f\u0440\u0430\u0432\u0430\u044f \u0441\u0442\u043e\u0440\u043e\u043d\u0430"
+    }
+  },
+  {
+    "model": "components.component",
+    "pk": 1,
+    "fields": {
+      "number": "001",
+      "serial_number": null,
+      "component_type": 1,
+      "note": "",
+      "requires_reconciliation": null,
+      "is_serial_number_marked": false,
+      "nomenclature_code": "",
+      "is_compliant_with_accounting": false
+    }
+  },
+  {
+    "model": "components.componentinstallation",
+    "pk": 1,
+    "fields": {
+      "to_equipment": 1,
+      "date": "2022-05-01",
+      "location": 1,
+      "note": "",
+      "created_at": "2024-12-11T17:29:58.410Z",
+      "author": 1,
+      "component": 1
+    }
+  },
+  {
+    "model": "components.componenttypeequipmentmodel",
+    "pk": 1,
+    "fields": {
+      "component_type": 1,
+      "equipment_model": 1,
+      "location": 1
+    }
+  },
+  {
+    "model": "components.componenttypeequipmentmodel",
+    "pk": 2,
+    "fields": {
+      "component_type": 1,
+      "equipment_model": 1,
+      "location": 2
+    }
+  },
+  {
+    "model": "components.componentcurrentdata",
+    "pk": 1,
+    "fields": {
+      "location": null,
+      "relocation_date": null,
+      "techstate": null,
+      "techstate_date": null,
+      "is_being_repaired": null,
+      "is_operable": null,
+      "updated_by": null,
+      "updated_at": "2024-12-14T17:43:56.559Z",
+      "component": 1,
+      "equipment": 1,
+      "installation_date": "2022-05-01",
+      "component_location": 1,
+      "state": null
+    }
+  }
+]
