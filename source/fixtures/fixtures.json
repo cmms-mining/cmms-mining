@@ -1,10 +1,26 @@
 [
   {
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+      "name": "\u0421\u043e\u0437\u0434\u0430\u043d\u0438\u0435 \u043e\u0431\u043e\u0440\u0443\u0434\u043e\u0432\u0430\u043d\u0438\u044f",
+      "permissions": []
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 2,
+    "fields": {
+      "name": "\u041f\u0435\u0440\u0435\u043c\u0435\u0449\u0435\u043d\u0438\u0435 \u043e\u0431\u043e\u0440\u0443\u0434\u043e\u0432\u0430\u043d\u0438\u044f",
+      "permissions": []
+    }
+  },
+  {
     "model": "auth.user",
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$870000$HacisVUdIG83zWTRy3RzgM$nGkZbLNKxIRNw0klFihZ+o2Z97JR2A2B5pMsr5Zkejw=",
-      "last_login": "2024-12-15T16:41:02.708Z",
+      "last_login": "2024-12-16T14:49:13.040Z",
       "is_superuser": true,
       "username": "admin",
       "first_name": "",
@@ -12,9 +28,53 @@
       "email": "",
       "is_staff": true,
       "is_active": true,
-      "date_joined": "2024-12-11T12:18:15.943Z",
-      "groups": [],
+      "date_joined": "2024-12-11T12:18:15Z",
+      "groups": [
+        2
+      ],
       "user_permissions": []
+    }
+  },
+  {
+    "model": "sites.workcenter",
+    "pk": 1,
+    "fields": {
+      "name": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u044c\u043d\u044b\u0439 \u0443\u0447\u0430\u0441\u0442\u043e\u043a"
+    }
+  },
+  {
+    "model": "sites.site",
+    "pk": 1,
+    "fields": {
+      "name": "\u0427\u0435\u043b\u044f\u0431\u0438\u043d\u0441\u043a\u0438\u0439",
+      "workcenter": 1,
+      "is_contractor": false
+    }
+  },
+  {
+    "model": "sites.site",
+    "pk": 2,
+    "fields": {
+      "name": "\u0421\u0432\u0435\u0440\u0434\u043b\u043e\u0432\u0441\u043a\u0438\u0439",
+      "workcenter": 1,
+      "is_contractor": false
+    }
+  },
+  {
+    "model": "sites.site",
+    "pk": 3,
+    "fields": {
+      "name": "(\u041f) \u0418\u041f \u0420\u0435\u043c\u043e\u043d\u0442 \u0446\u0438\u043b\u0438\u043d\u0434\u0440\u043e\u0432",
+      "workcenter": 1,
+      "is_contractor": true
+    }
+  },
+  {
+    "model": "accounts.customgroup",
+    "pk": 2,
+    "fields": {
+      "site": null,
+      "workcenter": null
     }
   },
   {
@@ -77,6 +137,55 @@
     }
   },
   {
+    "model": "equipments.relocationorder",
+    "pk": 1,
+    "fields": {
+      "number": "100",
+      "date": "2024-12-11",
+      "from_site": 2,
+      "to_site": 1,
+      "scan": "orders/scan/20241211-100/\u041f\u0440\u0438\u043a\u0430\u0437_100.pdf",
+      "status": "waiting",
+      "created_at": "2024-12-16T14:38:45.028Z",
+      "author": 1,
+      "updated_by": 1,
+      "updated_at": "2024-12-16T14:38:45.028Z",
+      "equipments": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "equipments.equipmentrelocation",
+    "pk": 1,
+    "fields": {
+      "from_site": 2,
+      "to_site": 1,
+      "date": "2024-12-13",
+      "reason": null,
+      "note": null,
+      "created_at": "2024-12-16T14:39:05.390Z",
+      "author": 1,
+      "equipment": 1,
+      "order": 1
+    }
+  },
+  {
+    "model": "equipments.equipmentcurrentdata",
+    "pk": 1,
+    "fields": {
+      "location": 1,
+      "relocation_date": null,
+      "techstate": null,
+      "techstate_date": null,
+      "is_being_repaired": null,
+      "is_operable": null,
+      "updated_by": 1,
+      "updated_at": "2024-12-16T14:39:12.185Z",
+      "equipment": 1
+    }
+  },
+  {
     "model": "components.componentkind",
     "pk": 1,
     "fields": {
@@ -118,6 +227,21 @@
       "is_serial_number_marked": false,
       "nomenclature_code": "",
       "is_compliant_with_accounting": false
+    }
+  },
+  {
+    "model": "components.componentrepair",
+    "pk": 1,
+    "fields": {
+      "component": 1,
+      "executor": 3,
+      "worklist": "",
+      "created_at": "2024-12-16",
+      "completed_at": null,
+      "completed": false,
+      "plan_end_date": null,
+      "note": "",
+      "priority": "\u0421\u0440\u043e\u0447\u043d\u043e"
     }
   },
   {

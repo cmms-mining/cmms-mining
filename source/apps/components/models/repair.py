@@ -23,6 +23,16 @@ class ComponentRepair(models.Model):
     completed = models.BooleanField(verbose_name='Выполнено', default=False)
     plan_end_date = models.DateField(verbose_name='Плановая дата окончания', blank=True, null=True)
     note = models.TextField(verbose_name='Примечания', blank=True, null=True)
+    PRIORITY_CHOICES = (
+        ('Срочно', 'Срочно'),
+        ('Не срочно', 'Не срочно'),
+    )
+    priority = models.CharField(
+        verbose_name='Приоритет',
+        max_length=20,
+        choices=PRIORITY_CHOICES,
+        default='Не срочно',
+    )
 
     class Meta:
         verbose_name = 'Ремонт компонента'

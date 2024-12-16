@@ -5,16 +5,15 @@
 {% block content %}
 
 <h3 class="fw-bold fs-4 mb-3">Ремонты компонентов</h3>
-
 <div class="row">
     <div class="col-12">
-
         <table id="buckets_table" class="display" style="width:100%">
             <thead>
                 <tr>
                     <th>Номер</th>
                     <th>Компонент</th>
                     <th>Исполнитель</th>
+                    <th>Приоритет</th>
                     <th>Плановая дата выполнения</th>
                 </tr>
             </thead>
@@ -32,6 +31,7 @@
                         </a>
                     </td>
                     <td>{{ repair.executor.name }}</td>
+                    <td>{{ repair.priority }}</td>
                     <td>{{ repair.plan_end_date|date:"d.m.Y"|default:'-' }}</td>
                 </tr>
                 {% endfor %}
@@ -41,11 +41,11 @@
                     <th>Номер</th>
                     <th>Компонент</th>
                     <th>Исполнитель</th>
+                    <th>Приоритет</th>
                     <th>Плановая дата выполнения</th>
                 </tr>
             </tfoot>
         </table>
-
     </div>
 </div>
 

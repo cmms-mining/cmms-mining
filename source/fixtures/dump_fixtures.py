@@ -15,7 +15,13 @@ from django.core.management import call_command
 
 
 MODEL_ORDER = [
+    'auth.Group',
     'auth.User',
+
+    'sites.WorkCenter',
+    'sites.Site',
+
+    'accounts.CustomGroup',
 
     'common.TechStateOption',
 
