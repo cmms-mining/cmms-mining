@@ -27,7 +27,8 @@ class Component(models.Model):
     note = models.TextField(verbose_name='Примечание', blank=True, null=True)
     requires_reconciliation = models.BooleanField(verbose_name='Требует сверки', blank=True, null=True)
     is_serial_number_marked = models.BooleanField(verbose_name='Нанесен серийный номер', default=False)
-    nomenclature_code = models.CharField(verbose_name='Код номенклатуры', max_length=50, blank=True, default='')
+    # TODO nomenclature_code - поле должно быть уникальным
+    nomenclature_code = models.CharField(verbose_name='Код номенклатуры', max_length=50, blank=True, null=True)
     is_compliant_with_accounting = models.BooleanField(default=False, verbose_name='Соответствует бухгалтерскому учету')
 
     class Meta:

@@ -84,13 +84,10 @@ class ComponentStateView(FormView):
         if form.cleaned_data['is_compliant_with_accounting']:
             is_compliant_with_accounting: bool = form.cleaned_data['is_compliant_with_accounting']
             component.is_compliant_with_accounting = is_compliant_with_accounting
-        if form.cleaned_data['nomenclature_code']:
-            nomenclature_code: str = form.cleaned_data['nomenclature_code']
-            component.nomenclature_code = nomenclature_code
         if form.cleaned_data['serial_number']:
             serial_number: str = form.cleaned_data['serial_number']
             component.serial_number = serial_number
-
+        component.nomenclature_code = form.cleaned_data['nomenclature_code'] or None
         component.save()
 
         return redirect('component_state_tab', component_number=component.number)

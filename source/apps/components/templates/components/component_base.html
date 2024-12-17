@@ -50,7 +50,7 @@
       <div class="col-lg-3 col-md-4 col-12">
         <div class="p-2 border bg-light">Редактор: <b>{{ component.history.first.history_user.get_full_name }} {{ component.history.first.history_date|date:"d.m.Y"|default:'' }}</b></div>
         <div class="p-2 border bg-light">Серийный номер: <b>{{ component.serial_number|default:'' }}</b>{% if component.is_serial_number_marked %}✅{% else %}❌{% endif %}</div>
-        <div class="p-2 border bg-light">Код номенклатуры: <b>{{ component.nomenclature_code }}</b></div>
+        <div class="p-2 border bg-light">Код номенклатуры: <b>{{ component.nomenclature_code|default:'' }}</b></div>
       </div>
   </div>
 </div>
