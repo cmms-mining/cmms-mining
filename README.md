@@ -51,5 +51,10 @@ docker-compose -f docker-compose-dev-fixture.yml up --build
 docker-compose -f docker-compose-dev.yml up --build
 ```
 
-Имя пользователя: admin  
+Суперюзер
+Имя: admin  
 Пароль: admin
+
+Обычный пользователь
+Имя: user  
+Пароль: user

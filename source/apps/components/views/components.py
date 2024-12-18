@@ -1,10 +1,10 @@
 from typing import Any
 
-from django.db.models import Exists, OuterRef, QuerySet
+from django.db.models import Exists, OuterRef, Prefetch, QuerySet, Subquery
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import FormView, ListView
 
-from apps.components.models import Component, ComponentState, ComponentTask
+from apps.components.models import Component, ComponentRepair, ComponentState, ComponentTask
 
 from ..forms import ComponentStateForm
 from ..services import update_component_current_data
@@ -20,16 +20,23 @@ class ComponentsListView(ListView):
             component=OuterRef('pk'),
             verified=False,
         )
-        queryset = Component.objects.all(
+        repairs_list = ComponentRepair.objects.filter(component=OuterRef('pk'), completed=False)
+
+        queryset = Component.objects.prefetch_related(
+            Prefetch('repairs'),
         ).annotate(
             has_unverified_task=Exists(unverified_task_exists),
+            repair=Subquery(repairs_list.values('id')[:1]),
         ).values(
             'number',
             'serial_number',
             'nomenclature_code',
+            'repair',
             'is_compliant_with_accounting',
+
             'component_type__name',
             'component_type__kind__name',
+
             'current_data__equipment__number',
             'current_data__component_location__name',
             'current_data__installation_date',
@@ -37,6 +44,7 @@ class ComponentsListView(ListView):
             'current_data__relocation_date',
             'current_data__state__name',
             'current_data__is_operable',
+
             'has_unverified_task',
         )
         return queryset

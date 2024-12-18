@@ -21,6 +21,7 @@
                     <th>Оборудование</th>
                     <th>Местонахождение</th>
                     <th>Статус</th>
+                    <th>Ремонт</th>
                     <th>Подлежит эксплуатации</th>
                     <th>Код номенклатуры</th>
                     <th>Бух учет</th>
@@ -53,6 +54,13 @@
                         {% endif %}
                     </td>
                     <td>{{ component.current_data__state__name|default:'-' }}</td>
+                    <td>
+                        {% if component.repair %}
+                            <a href="{% url 'component_repair_update' component_number=component.number repair_pk=component.repair %}" class="text-body custom-link">
+                                #{{ component.repair }}
+                            </a>
+                        {% endif %}
+                    </td>
                     <td>{% if component.current_data__is_operable == False %}❌{% endif %}</td>
                     <td>{{ component.nomenclature_code|default:'' }}</td>
                     <td>{% if not component.is_compliant_with_accounting %}❌{% endif %}</td>
@@ -69,6 +77,7 @@
                     <th>Оборудование</th>
                     <th>Местонахождение</th>
                     <th>Статус</th>
+                    <th>Ремонт</th>
                     <th>Подлежит эксплуатации</th>
                     <th>Код номенклатуры</th>
                     <th>Бух учет</th>
