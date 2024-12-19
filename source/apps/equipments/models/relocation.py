@@ -1,11 +1,8 @@
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
 from django.db import models
 
 from apps.common.models import Relocation
-from apps.common.services import get_user
-
-from services.set_file_size import set_file_size
+from apps.common.services import get_user, set_file_size, validate_scan_file
 
 
 class EquipmentRelocation(Relocation):
@@ -33,11 +30,6 @@ class EquipmentRelocation(Relocation):
 
     def __str__(self):
         return f'Перемещение {self.pk}'
-
-
-def validate_scan_file(value):
-    if not value.name.lower().endswith(('.pdf', '.jpg', '.jpeg', '.png')):
-        raise ValidationError('Допустимы только файлы PDF, JPG или PNG.')
 
 
 def order_scan_upload_path(instance, filename):

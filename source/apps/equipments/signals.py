@@ -1,7 +1,7 @@
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 
-from services.set_file_size import set_file_size
+from apps.common.services import set_file_size
 
 from .models import Equipment, EquipmentCurrentData, EquipmentRelocation, Nameplate
 

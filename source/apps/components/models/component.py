@@ -1,14 +1,17 @@
 from datetime import date
 from typing import TYPE_CHECKING, Union
 
+from django.contrib.auth.models import User
 from django.db import models
 
 from apps.common.models import CurrentData
+from apps.common.services import get_user, set_file_size, validate_scan_file
 from apps.sites.models import Site
 
 from .installations import ComponentDeinstallation, ComponentInstallation, ComponentInstallationLocation
 from .relocation import ComponentRelocation
 from .techstate import ComponentTechState
+
 
 if TYPE_CHECKING:
     from apps.equipments.models import Equipment
@@ -16,7 +19,7 @@ if TYPE_CHECKING:
 
 class Component(models.Model):
     """Справочник Компоненты"""
-    number = models.CharField(verbose_name='Номер', max_length=50, unique=True)
+    number = models.CharField(verbose_name='Порядковый номер', max_length=50, unique=True)
     serial_number = models.CharField(verbose_name='Серийный номер', max_length=20, blank=True, null=True, unique=True)
     component_type = models.ForeignKey(
         to='components.ComponentType',
@@ -201,3 +204,54 @@ class ComponentState(models.Model):
 
     def __str__(self):
         return self.name
+
+
+def component_attachment_upload_path(instance, filename):
+    return f'component/{instance.component.number}' \
+           f'/{instance.attachment_type}/{filename}'
+
+
+class ComponentAttachment(models.Model):
+    """Файлы вложений для компонентов (шильдики, фото и др.)"""
+    attachment_file = models.FileField(
+        verbose_name='Файл',
+        upload_to=component_attachment_upload_path,
+        validators=[validate_scan_file],
+    )
+    component = models.ForeignKey(
+        to='components.Component',
+        related_name='attachments',
+        verbose_name='Компонент',
+        on_delete=models.CASCADE,
+    )
+    TYPE_CHOICES = (
+        ('Шильдик', 'Шильдик'),
+        ('Фото компонента', 'Фото компонента'),
+    )
+    attachment_type = models.CharField(
+        verbose_name='Тип вложения',
+        max_length=30,
+        choices=TYPE_CHOICES,
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(
+        to=User,
+        verbose_name='Автор',
+        on_delete=models.CASCADE,
+        related_name='authored_component_attachments',
+        )
+    file_size = models.CharField(verbose_name='Размер файла', max_length=30, blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Вложение компонента'
+        verbose_name_plural = 'Вложения компонентов'
+
+    def save(self, *args, **kwargs):
+        user = get_user()
+        if not self.pk:
+            self.author = user
+        set_file_size(self)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'Вложение компонента {self.component.number}'

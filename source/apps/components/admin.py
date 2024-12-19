@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from apps.components.models import (Component, ComponentCurrentData, ComponentDeinstallation, ComponentInstallation,
-                                    ComponentInstallationLocation, ComponentKind, ComponentReconciliation,
-                                    ComponentRelocation, ComponentRepair, ComponentState, ComponentTask,
-                                    ComponentTechState, ComponentType, ComponentTypeEquipmentModel)
+from apps.components.models import (Component, ComponentAttachment, ComponentCurrentData, ComponentDeinstallation,
+                                    ComponentInstallation, ComponentInstallationLocation, ComponentKind,
+                                    ComponentReconciliation, ComponentRelocation, ComponentRepair, ComponentState,
+                                    ComponentTask, ComponentTechState, ComponentType, ComponentTypeEquipmentModel)
 
 
 # -------------Компоненты------------------
@@ -35,6 +35,11 @@ class ComponentCurrentDataAdmin(admin.ModelAdmin):
 @admin.register(ComponentState)
 class ComponentStateAdmin(admin.ModelAdmin):
     list_display = [field.name for field in ComponentState._meta.fields]
+
+
+@admin.register(ComponentAttachment)
+class ComponentAttachmentAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in ComponentAttachment._meta.fields]
 # -------------Компоненты------------------
 
 

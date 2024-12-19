@@ -109,7 +109,7 @@
                 <td>{{ task.priority }}</td>
                 <td>{{ task.executor__first_name }} {{ task.executor__last_name }}</td>
                 <td>{{ task.component__current_data__location__name|default:'-' }}</td>
-                <td>{{ task.component__nomenclature_code }}</td>
+                <td>{{ task.component__nomenclature_code|default:'-' }}</td>
                 <td>{{ task.planned_completion_date|date:"d.m.Y" }}</td>
                 <td>{% if task.completed %}✅{% else %}❌{% endif %}</td>
             </tr>

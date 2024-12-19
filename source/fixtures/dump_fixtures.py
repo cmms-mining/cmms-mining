@@ -51,6 +51,7 @@ MODEL_ORDER = [
     'components.ComponentDeinstallation',
     'components.ComponentTypeEquipmentModel',
     'components.ComponentCurrentData',
+    'components.ComponentAttachment',
 ]
 
 # Получаем директорию, где находится сам скрипт

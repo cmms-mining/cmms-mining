@@ -1,4 +1,4 @@
-from .component import Component, ComponentCurrentData, ComponentKind, ComponentState, ComponentType
+from .component import Component, ComponentAttachment, ComponentCurrentData, ComponentKind, ComponentState, ComponentType
 from .installations import (ComponentDeinstallation, ComponentInstallation, ComponentInstallationLocation,
                             ComponentTypeEquipmentModel)
 from .reconciliation import ComponentReconciliation
