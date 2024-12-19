@@ -1,16 +1,60 @@
 {% extends 'components/component_base.html' %}
 
+{% load static %}
+
 {% block component_content %}
 
 {% if user.is_superuser %}
 
-<form class="forms-sample" action="{% url 'component_state_tab' component.number %}" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Сохранить</button>
-    <a href="{% url 'component_state_tab' component.number %}" class="btn btn-secondary">Отмена</a>
-</form>
+<div class="row">
+    <!-- Первая колонка -->
+    <div class="col-md-6">
+        <form class="forms-sample" action="{% url 'component_state_tab' component.number %}" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <a href="{% url 'component_state_tab' component.number %}" class="btn btn-secondary">Отмена</a>
+        </form>
+    </div>
+    <!-- Вторая колонка -->
+    <div class="col-md-6">
+        <p class="fw-bold">Прикрепленные файлы компонента:</p>
+        <hr>
+        <table id="buckets_table" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Ссылка</th>
+                    <th>Автор</th>
+                    <th>Дата</th>
+                </tr>
+            </thead>
+            <tbody>
 
+                {% for attachment in component.attachments.all %}
+                    <tr>
+                        <td>
+                            <a href="{{ attachment.attachment_file.url }}" target="_blank" class="text-body custom-link">{{ attachment.attachment_type }}</a>
+                        </td>
+                        <td>
+                            {{ attachment.author.get_full_name }}
+                        </td>
+                        <td>
+                            {{ attachment.created_at|date:"d.m.Y" }}
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
 {% endif %}
 
 {% endblock component_content %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'scripts/add_attachment.js' %}"></script>
+{% endblock scripts %}

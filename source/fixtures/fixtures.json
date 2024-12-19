@@ -452,5 +452,17 @@
       "author": 1,
       "file_size": "647 \u043a\u0411"
     }
+  },
+  {
+    "model": "components.componentattachment",
+    "pk": 2,
+    "fields": {
+      "attachment_file": "component/001/\u0424\u043e\u0442\u043e \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u0430/File.pdf",
+      "component": 1,
+      "attachment_type": "\u0424\u043e\u0442\u043e \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u0430",
+      "created_at": "2024-12-19T17:42:36.323Z",
+      "author": 1,
+      "file_size": "730 \u043a\u0411"
+    }
   }
 ]
