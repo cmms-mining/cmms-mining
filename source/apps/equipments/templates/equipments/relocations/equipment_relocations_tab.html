@@ -27,7 +27,11 @@
                 <td>{{ relocation.from_site|default:'-' }}</td>
                 <td>{{ relocation.to_site|default:'-' }}</td>
                 <td>{{ relocation.date|date:"d.m.Y"|default:'-' }}</td>
-                <td>{{ relocation.order|default:'-' }}</td>
+                <td>
+                    {% if relocation.order %}
+                        <a href="{% url 'equipment_relocation_order_update' order_pk=relocation.order.pk %}">{{ relocation.order }}</a>
+                    {% endif %}
+                </td>
                 <td>{{ relocation.note|default:'-' }}</td>
                 <td>{{ relocation.author.get_full_name }}</td>
                 <td>

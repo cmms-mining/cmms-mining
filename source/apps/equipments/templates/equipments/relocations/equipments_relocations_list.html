@@ -23,12 +23,16 @@
                 {% for relocation in relocations %}
                 <tr>
                     <td>
-                        <a href="{% url 'equipment_relocations_tab' equipment_number=relocation.equipment.number %}">{{ relocation.date|date:"d.m.Y"|default:'введите дату' }}</a>
+                        <a href="{% url 'equipment_relocation_update' equipment_relocation_pk=relocation.pk %}">{{ relocation.date|date:"d.m.Y"|default:'введите дату' }}</a>
                     </td>
                     <td>{{ relocation.equipment.number }}</td>
                     <td>{{ relocation.from_site.name }}</td>
                     <td>{{ relocation.to_site.name }}</td>
-                    <td>{{ relocation.order|default:'' }}</td>
+                    <td>
+                        {% if relocation.order %}
+                            <a href="{% url 'equipment_relocation_order_update' order_pk=relocation.order.pk %}">{{ relocation.order }}</a>
+                        {% endif %}
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
