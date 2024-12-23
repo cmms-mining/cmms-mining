@@ -20,7 +20,7 @@
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$870000$HacisVUdIG83zWTRy3RzgM$nGkZbLNKxIRNw0klFihZ+o2Z97JR2A2B5pMsr5Zkejw=",
-      "last_login": "2024-12-20T08:58:25.140Z",
+      "last_login": "2024-12-23T16:58:16.605Z",
       "is_superuser": true,
       "username": "admin",
       "first_name": "\u0410\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0442\u043e\u0440",
@@ -505,6 +505,119 @@
       "attachment_type": "\u0424\u043e\u0442\u043e \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u0430",
       "created_at": "2024-12-19T17:42:36.323Z",
       "author": 1,
+      "file_size": "730 \u043a\u0411"
+    }
+  },
+  {
+    "model": "contractors.contractor",
+    "pk": 1,
+    "fields": {
+      "name": "\u0418\u041f \u0420\u0435\u043c\u043e\u043d\u0442 \u0446\u0438\u043b\u0438\u043d\u0434\u0440\u043e\u0432"
+    }
+  },
+  {
+    "model": "contractors.contractor",
+    "pk": 2,
+    "fields": {
+      "name": "\u0418\u041f \u0420\u0435\u043c\u043e\u043d\u0442 \u0434\u0432\u0438\u0433\u0430\u0442\u0435\u043b\u0435\u0439"
+    }
+  },
+  {
+    "model": "contractors.contractor",
+    "pk": 3,
+    "fields": {
+      "name": "\u0418\u041f \u0420\u0435\u043c\u043e\u043d\u0442 \u043d\u0430\u0441\u043e\u0441\u043e\u0432"
+    }
+  },
+  {
+    "model": "contractors.contract",
+    "pk": 1,
+    "fields": {
+      "number": "145",
+      "date": "2024-10-01",
+      "contractor": 2
+    }
+  },
+  {
+    "model": "contractors.contract",
+    "pk": 2,
+    "fields": {
+      "number": "125",
+      "date": "2023-09-05",
+      "contractor": 2
+    }
+  },
+  {
+    "model": "contractors.contract",
+    "pk": 3,
+    "fields": {
+      "number": "21",
+      "date": "2024-12-01",
+      "contractor": 1
+    }
+  },
+  {
+    "model": "contractors.contract",
+    "pk": 4,
+    "fields": {
+      "number": "2",
+      "date": "2024-04-10",
+      "contractor": 1
+    }
+  },
+  {
+    "model": "contractors.contractattachment",
+    "pk": 1,
+    "fields": {
+      "attachment_file": "contracts/\u0418\u041f \u0420\u0435\u043c\u043e\u043d\u0442 \u0434\u0432\u0438\u0433\u0430\u0442\u0435\u043b\u0435\u0439/125_20230905/File.pdf",
+      "contract": 2,
+      "file_size": "730 \u043a\u0411"
+    }
+  },
+  {
+    "model": "contractors.contractattachment",
+    "pk": 2,
+    "fields": {
+      "attachment_file": "contracts/\u0418\u041f \u0420\u0435\u043c\u043e\u043d\u0442 \u0434\u0432\u0438\u0433\u0430\u0442\u0435\u043b\u0435\u0439/125_20230905/File_NJbsM0C.pdf",
+      "contract": 2,
+      "file_size": "730 \u043a\u0411"
+    }
+  },
+  {
+    "model": "contractors.contractattachment",
+    "pk": 3,
+    "fields": {
+      "attachment_file": "contracts/\u0418\u041f \u0420\u0435\u043c\u043e\u043d\u0442 \u0446\u0438\u043b\u0438\u043d\u0434\u0440\u043e\u0432/2_20240410/File.pdf",
+      "contract": 4,
+      "file_size": "730 \u043a\u0411"
+    }
+  },
+  {
+    "model": "contractors.appendix",
+    "pk": 1,
+    "fields": {
+      "number": "14",
+      "date": "2024-09-04",
+      "contract": 2,
+      "note": null
+    }
+  },
+  {
+    "model": "contractors.appendix",
+    "pk": 2,
+    "fields": {
+      "number": "16",
+      "date": "2024-11-29",
+      "contract": 2,
+      "note": null
+    }
+  },
+  {
+    "model": "contractors.appendixattachment",
+    "pk": 1,
+    "fields": {
+      "attachment_file": "contracts/\u0418\u041f \u0420\u0435\u043c\u043e\u043d\u0442 \u0434\u0432\u0438\u0433\u0430\u0442\u0435\u043b\u0435\u0439/125_20230905/14/File.pdf",
+      "appendix": 1,
       "file_size": "730 \u043a\u0411"
     }
   }

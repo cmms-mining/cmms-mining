@@ -52,6 +52,12 @@ MODEL_ORDER = [
     'components.ComponentTypeEquipmentModel',
     'components.ComponentCurrentData',
     'components.ComponentAttachment',
+
+    'contractors.Contractor',
+    'contractors.Contract',
+    'contractors.ContractAttachment',
+    'contractors.Appendix',
+    'contractors.AppendixAttachment',
 ]
 
 # Получаем директорию, где находится сам скрипт
