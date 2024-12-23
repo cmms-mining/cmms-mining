@@ -331,6 +331,7 @@
     "fields": {
       "component": 1,
       "executor": 3,
+      "contractor": null,
       "worklist": "",
       "created_at": "2024-12-16",
       "completed_at": null,
@@ -346,6 +347,7 @@
     "fields": {
       "component": 1,
       "executor": null,
+      "contractor": null,
       "worklist": "",
       "created_at": "2024-12-17",
       "completed_at": null,
@@ -361,6 +363,7 @@
     "fields": {
       "component": 2,
       "executor": null,
+      "contractor": null,
       "worklist": "",
       "created_at": "2024-12-17",
       "completed_at": null,
@@ -376,6 +379,7 @@
     "fields": {
       "component": 1,
       "executor": null,
+      "contractor": null,
       "worklist": "",
       "created_at": "2024-12-18",
       "completed_at": null,
@@ -391,6 +395,7 @@
     "fields": {
       "component": 1,
       "executor": null,
+      "contractor": 1,
       "worklist": "",
       "created_at": "2024-12-18",
       "completed_at": null,
@@ -406,6 +411,7 @@
     "fields": {
       "component": 2,
       "executor": null,
+      "contractor": null,
       "worklist": "",
       "created_at": "2024-12-18",
       "completed_at": null,
