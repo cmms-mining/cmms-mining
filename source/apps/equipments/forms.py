@@ -1,7 +1,6 @@
 from django import forms
 
 from apps.equipments.models import Equipment, EquipmentRelocation, RelocationAttachment, RelocationOrder
-# from apps.sites.models import Site
 
 
 class EquipmentRelocationForm(forms.ModelForm):
@@ -18,27 +17,6 @@ class EquipmentRelocationForm(forms.ModelForm):
             'order': forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 300px;'}),
             'note': forms.Textarea(attrs={'class': 'form-control', 'style': 'max-width: 300px; height: 70px;'}),
         }
-
-    # def __init__(self, *args, **kwargs):
-    #     site_instance = kwargs.pop('site_instance', None)
-    #     super().__init__(*args, **kwargs)
-
-    #     # Если есть объект site_instance, задаем значение для поля from_site
-    #     if site_instance:
-    #         self.fields['from_site'].initial = site_instance
-    #         self.fields['from_site'].widget.attrs['disabled'] = True
-    #         # Добавляем скрытое поле, чтобы отправить значение 'from_site'
-    #         self.fields['from_site_hidden'] = forms.CharField(widget=forms.HiddenInput(), initial=site_instance)
-
-    #         self.fields['to_site'].queryset = Site.objects.exclude(pk=site_instance.pk)
-
-    # def clean(self):
-    #     cleaned_data = super().clean()
-    #     # Устанавливаем значение from_site из скрытого поля
-    #     if cleaned_data.get('from_site_hidden'):
-    #         from_site = Site.objects.get(name=cleaned_data.get('from_site_hidden'))
-    #         cleaned_data['from_site'] = from_site
-    #     return cleaned_data
 
 
 class RelocationOrderCreateForm(forms.ModelForm):

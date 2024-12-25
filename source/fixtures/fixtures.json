@@ -54,10 +54,47 @@
     }
   },
   {
+    "model": "accounts.customgroup",
+    "pk": 2,
+    "fields": {
+      "site": null,
+      "workcenter": null
+    }
+  },
+  {
+    "model": "tasks.task",
+    "pk": 1,
+    "fields": {
+      "task_type": "component",
+      "name": "\u0421\u0432\u0435\u0440\u043a\u0430 \u0441\u0435\u0440\u0438\u0439\u043d\u043e\u0433\u043e \u043d\u043e\u043c\u0435\u0440\u0430",
+      "content": "",
+      "executor": 2,
+      "executor_job_title": null,
+      "created_at": "2024-12-19T04:41:22.641Z",
+      "author": 1,
+      "planned_completion_date": null,
+      "completed_at": null,
+      "completed": false,
+      "updated_by": 1,
+      "updated_at": "2024-12-19T04:41:22.641Z",
+      "verified": false,
+      "has_been_read": false,
+      "needs_comment": false,
+      "priority": "\u041d\u0435 \u0441\u0440\u043e\u0447\u043d\u043e"
+    }
+  },
+  {
     "model": "sites.workcenter",
     "pk": 1,
     "fields": {
       "name": "\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u044c\u043d\u044b\u0439 \u0443\u0447\u0430\u0441\u0442\u043e\u043a"
+    }
+  },
+  {
+    "model": "sites.workcenter",
+    "pk": 2,
+    "fields": {
+      "name": "\u042e\u0436\u043d\u044b\u0439 \u0443\u0447\u0430\u0441\u0442\u043e\u043a"
     }
   },
   {
@@ -88,11 +125,48 @@
     }
   },
   {
-    "model": "accounts.customgroup",
-    "pk": 2,
+    "model": "sites.site",
+    "pk": 4,
     "fields": {
-      "site": null,
-      "workcenter": null
+      "name": "\u041c\u0438\u0445\u0430\u0439\u043b\u043e\u0432\u0441\u043a\u0438\u0439 \u0413\u041e\u041a",
+      "workcenter": 1,
+      "is_contractor": false
+    }
+  },
+  {
+    "model": "sites.site",
+    "pk": 5,
+    "fields": {
+      "name": "\u0421\u0430\u043c\u043e\u0442\u043b\u043e\u0440\u0441\u043a\u043e\u0435 \u043c\u0435\u0441\u0442\u043e\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u0435",
+      "workcenter": 2,
+      "is_contractor": false
+    }
+  },
+  {
+    "model": "sites.site",
+    "pk": 6,
+    "fields": {
+      "name": "\u041f\u0440\u0438\u043e\u0431\u0441\u043a\u043e\u0435 \u043c\u0435\u0441\u0442\u043e\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u0435",
+      "workcenter": 2,
+      "is_contractor": false
+    }
+  },
+  {
+    "model": "sites.site",
+    "pk": 7,
+    "fields": {
+      "name": "\u0410\u0440\u043b\u0430\u043d\u0441\u043a\u043e\u0435 \u043c\u0435\u0441\u0442\u043e\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u0435",
+      "workcenter": 1,
+      "is_contractor": false
+    }
+  },
+  {
+    "model": "sites.site",
+    "pk": 8,
+    "fields": {
+      "name": "(\u041f) \u0420\u0435\u043c\u043e\u043d\u0442 \u043d\u0430\u0441\u043e\u0441\u043e\u0432",
+      "workcenter": 2,
+      "is_contractor": true
     }
   },
   {

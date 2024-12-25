@@ -18,10 +18,15 @@ MODEL_ORDER = [
     'auth.Group',
     'auth.User',
 
+    'accounts.CustomGroup',
+    'accounts.JobTitle',
+    'accounts.UserJobTitle',
+
+    'tasks.Task',
+    'tasks.TaskComment',
+
     'sites.WorkCenter',
     'sites.Site',
-
-    'accounts.CustomGroup',
 
     'common.TechStateOption',
 

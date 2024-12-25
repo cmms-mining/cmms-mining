@@ -9,6 +9,7 @@ from apps.equipments.models import (Characteristic, CharacteristicGroup, Charact
 class EquipmentAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Equipment._meta.fields]
     list_filter = ['equipment_model']
+    search_fields = ['number']
 
 
 @admin.register(EquipmentCurrentData)

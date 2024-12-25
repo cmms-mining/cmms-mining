@@ -4,39 +4,11 @@ from typing import Any
 from django.contrib import messages
 from django.db import IntegrityError
 from django.shortcuts import get_object_or_404, redirect
-# from django.utils import timezone
 from django.urls import reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, View
 
 from apps.equipments.forms import EquipmentRelocationForm, RelocationAttachmentForm
 from apps.equipments.models import Equipment, EquipmentRelocation, RelocationAttachment
-
-
-class FormValidationMixin:
-    pass
-    # def validate_form(self, form):
-    #     new_relocation_date = self.relocation.date
-    #     equipment = self.relocation.equipment
-
-    #     if equipment.get_relocation():
-    #         if new_relocation_date <= equipment.get_relocation().date:
-    #             messages.warning(
-    #                 self.request,
-    #                 'Ошибка - дата перемещения не может быть меньше или равна дате предыдущего перемещения!',
-    #                 )
-    #             return False
-
-    #         form.changed_data.remove('from_site')
-    #         form.changed_data.remove('from_site_hidden')
-    #         if not form.has_changed():
-    #             messages.warning(self.request, 'Изменений не внесено!')
-    #             return False
-
-    #     if new_relocation_date > timezone.localtime().date():
-    #         messages.warning(self.request, 'Ошибка - дата перемещения не может быть больше текущей даты!')
-    #         return False
-
-    #     return True
 
 
 class EquipmentRelocationsTabView(DetailView):
@@ -53,7 +25,7 @@ class EquipmentRelocationsTabView(DetailView):
         return context
 
 
-class EquipmentRelocationCreateView(FormValidationMixin, CreateView):
+class EquipmentRelocationCreateView(CreateView):
     model = EquipmentRelocation
     form_class = EquipmentRelocationForm
     template_name = 'equipments/relocations/equipment_relocation_create.html'
@@ -80,7 +52,7 @@ class EquipmentRelocationCreateView(FormValidationMixin, CreateView):
         return redirect('equipment_relocation_update', equipment_relocation_pk=relocation.pk)
 
 
-class EquipmentRelocationUpdateView(FormValidationMixin, UpdateView):
+class EquipmentRelocationUpdateView(UpdateView):
     model = EquipmentRelocation
     form_class = EquipmentRelocationForm
     template_name = 'equipments/relocations/equipment_relocation_update.html'
