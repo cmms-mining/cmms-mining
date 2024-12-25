@@ -20,7 +20,7 @@
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$870000$HacisVUdIG83zWTRy3RzgM$nGkZbLNKxIRNw0klFihZ+o2Z97JR2A2B5pMsr5Zkejw=",
-      "last_login": "2024-12-25T11:35:34.569Z",
+      "last_login": "2024-12-25T17:05:11.782Z",
       "is_superuser": true,
       "username": "admin",
       "first_name": "\u0410\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0442\u043e\u0440",
@@ -714,6 +714,24 @@
     "fields": {
       "attachment_file": "contracts/\u0418\u041f \u0420\u0435\u043c\u043e\u043d\u0442 \u0434\u0432\u0438\u0433\u0430\u0442\u0435\u043b\u0435\u0439/125_20230905/14/File.pdf",
       "appendix": 1,
+      "file_size": "730 \u043a\u0411"
+    }
+  },
+  {
+    "model": "contractors.quotation",
+    "pk": 1,
+    "fields": {
+      "date": "2024-12-01",
+      "contractor": 2,
+      "description": "\u041a\u041f \u043d\u0430 \u0440\u0435\u043c\u043e\u043d\u0442 \u0414\u0412\u0421 001"
+    }
+  },
+  {
+    "model": "contractors.quotationattachment",
+    "pk": 1,
+    "fields": {
+      "attachment_file": "quotations/\u0418\u041f \u0420\u0435\u043c\u043e\u043d\u0442 \u0434\u0432\u0438\u0433\u0430\u0442\u0435\u043b\u0435\u0439/20241201/File.pdf",
+      "quotation": 1,
       "file_size": "730 \u043a\u0411"
     }
   }

@@ -112,8 +112,8 @@ class AppendixAttachment(models.Model):
     file_size = models.CharField(verbose_name='Размер файла', max_length=30, blank=True, null=True)
 
     class Meta:
-        verbose_name = 'Вложение приложения к контракту'
-        verbose_name_plural = 'Вложения приложений к контрактам'
+        verbose_name = 'Вложение для приложения к контракту'
+        verbose_name_plural = 'Вложения для приложений к контрактам'
 
     def save(self, *args, **kwargs):
         set_file_size(self)
@@ -121,3 +121,56 @@ class AppendixAttachment(models.Model):
 
     def __str__(self):
         return f'Вложение приложения {self.appendix.number} к контракту {self.appendix.contract.number}'
+
+
+class Quotation(models.Model):
+    """Коммерческие предложения от контрагентов"""
+    date = models.DateField(verbose_name='Дата')
+    contractor = models.ForeignKey(
+        to='contractors.Contractor',
+        on_delete=models.CASCADE,
+        related_name='quotations',
+        verbose_name='Контрагент',
+        )
+    description = models.CharField(verbose_name='Описание', max_length=200, unique=True)
+
+    class Meta:
+        verbose_name = 'Коммерческое предложение'
+        verbose_name_plural = 'Коммерческие предложения'
+        ordering = ['date']
+
+    def __str__(self):
+        return f'Коммерческое предложение от {self.contractor.name} от {self.date.strftime("%d-%m-%Y")}'
+
+
+def quotation_attachment_upload_path(instance, filename):
+    return f'quotations/{instance.quotation.contractor.name}' \
+           f'/{instance.quotation.date.strftime("%Y%m%d")}/{filename}'
+
+
+class QuotationAttachment(models.Model):
+    """Файлы вложений для коммерческих предложений"""
+    attachment_file = models.FileField(
+        verbose_name='Файл',
+        upload_to=quotation_attachment_upload_path,
+        validators=[validate_scan_file],
+    )
+    quotation = models.ForeignKey(
+        to='contractors.Quotation',
+        on_delete=models.CASCADE,
+        related_name='attachments',
+        verbose_name='Коммерческое предложение',
+        )
+    file_size = models.CharField(verbose_name='Размер файла', max_length=30, blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Вложение для коммерческого предложения'
+        verbose_name_plural = 'Вложения для коммерческих предложений'
+
+    def save(self, *args, **kwargs):
+        set_file_size(self)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'Вложение коммерческого предложения от {self.quotation.contractor.name}' \
+               f'от {self.quotation.date.strftime("%d-%m-%Y")}'
