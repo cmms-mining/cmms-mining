@@ -84,6 +84,7 @@ class Equipment(models.Model):
         null=True,
         unique=True,
         )
+    decommissioned = models.BooleanField(verbose_name="Списан", default=False)
 
     class Meta:
         verbose_name = 'Оборудование'

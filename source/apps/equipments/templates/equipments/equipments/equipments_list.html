@@ -31,16 +31,8 @@
                     </td>
                     <td>{{ equipment.equipment_model.equipment_type.name }}</td>
                     <td>{{ equipment.equipment_model.name }}</td>
-                    <td>
-                        <a href="{% url 'equipment_all_events_tab' equipment.number %}" class="text-body custom-link">
-                            {{ equipment.current_data.location.name|default:'-' }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{% url 'equipment_all_events_tab' equipment.number %}" class="{% if equipment.get_is_needs_any_repair %}text-danger{% else %}text-body{% endif %}">
-                            {{ equipment.current_data.techstate.name|default:'-' }}
-                        </a>
-                    <td>
+                    <td>{{ equipment.current_data.location.name|default:'-' }}</td>
+                    <td>{{ equipment.current_data.techstate.name|default:'-' }}<td>
                         {% if equipment.current_data.is_being_repaired %}✅{% endif %}
                     </td>
                     <td>{{ equipment.inventory_number|default:'' }}</td>

@@ -9,7 +9,7 @@ class EquipmentsListView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        equipments = Equipment.objects.all()
+        equipments = Equipment.objects.filter(decommissioned=False)
         context['equipments'] = equipments
         return context
 

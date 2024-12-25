@@ -20,7 +20,7 @@
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$870000$HacisVUdIG83zWTRy3RzgM$nGkZbLNKxIRNw0klFihZ+o2Z97JR2A2B5pMsr5Zkejw=",
-      "last_login": "2024-12-23T16:58:16.605Z",
+      "last_login": "2024-12-25T11:35:34.569Z",
       "is_superuser": true,
       "username": "admin",
       "first_name": "\u0410\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0442\u043e\u0440",
@@ -151,7 +151,8 @@
       "equipment_maintenance_group": null,
       "serial_number": null,
       "note": "",
-      "inventory_number": null
+      "inventory_number": null,
+      "decommissioned": false
     }
   },
   {
@@ -164,7 +165,22 @@
       "equipment_maintenance_group": null,
       "serial_number": null,
       "note": "",
-      "inventory_number": null
+      "inventory_number": null,
+      "decommissioned": false
+    }
+  },
+  {
+    "model": "equipments.equipment",
+    "pk": 3,
+    "fields": {
+      "name": null,
+      "number": "503",
+      "equipment_model": 1,
+      "equipment_maintenance_group": null,
+      "serial_number": null,
+      "note": "",
+      "inventory_number": null,
+      "decommissioned": true
     }
   },
   {
