@@ -13,13 +13,12 @@
             <thead>
                 <tr>
                     <th>Номер</th>
+                    <th>Тип</th>
+                    <th>Модель</th>
                     <th>Местоположение</th>
                     <th>Техсостояние</th>
                     <th>В ремонте</th>
-                    <th>Редакция</th>
-                    <th>Редактор</th>
                     <th>Инвентарный номер</th>
-                    <th>Наработка</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,6 +29,8 @@
                             {{ equipment.number }}
                         </a>
                     </td>
+                    <td>{{ equipment.equipment_model.equipment_type.name }}</td>
+                    <td>{{ equipment.equipment_model.name }}</td>
                     <td>
                         <a href="{% url 'equipment_all_events_tab' equipment.number %}" class="text-body custom-link">
                             {{ equipment.current_data.location.name|default:'-' }}
@@ -42,23 +43,19 @@
                     <td>
                         {% if equipment.current_data.is_being_repaired %}✅{% endif %}
                     </td>
-                    <td>{{ equipment.current_data.updated_at|date:"d.m.Y"|default:'' }}</td>
-                    <td>{{ equipment.current_data.updated_by.get_full_name }}</td>
                     <td>{{ equipment.inventory_number|default:'' }}</td>
-                    <td>4000</td>
                 </tr>
                 {% endfor %}
             </tbody>
             <tfoot>
                 <tr>
                     <th>Номер</th>
+                    <th>Тип</th>
+                    <th>Модель</th>
                     <th>Местоположение</th>
                     <th>Техсостояние</th>
                     <th>В ремонте</th>
-                    <th>Редакция</th>
-                    <th>Редактор</th>
                     <th>Инвентарный номер</th>
-                    <th>Наработка</th>
                 </tr>
             </tfoot>
         </table>

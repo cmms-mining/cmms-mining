@@ -5,7 +5,7 @@ from apps.common.services import set_file_size, validate_scan_file
 
 class Contractor(models.Model):
     """Контрагенты"""
-    name = models.CharField(verbose_name='Наименование', max_length=200)
+    name = models.CharField(verbose_name='Наименование', max_length=200, unique=True)
 
     class Meta:
         verbose_name = 'Подрядчик'
