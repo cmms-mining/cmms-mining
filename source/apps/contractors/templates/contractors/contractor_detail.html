@@ -5,16 +5,51 @@
 {% block content %}
 
 <div class="container">
-  <p class="fw-bold fs-3 mb-2">Контрагент {{ contractor }}</p>
-  <p class="fw-bold">Договоры</p>
-  {% for contract in contractor.contracts.all %}
-    <div>№{{ contract.number }} от {{ contract.date }} - {{ contract.description|default:'' }}</div>
-  {% endfor %}
-  <hr>
-  <p class="fw-bold">Коммерческие предложения</p>
-  {% for quotation in contractor.quotations.all %}
-    <div>№{{ quotation.number|default:'б/н' }} от {{ quotation.date }} - {{ quotation.description|default:'' }}</div>
-  {% endfor %}
+	<p class="fw-bold fs-3 mb-2">{{ contractor }}</p>
+	<p class="fw-bold">Договоры</p>
+		{% for contract in contractor.contracts.all %}
+			<div class="mb-4">
+				<div class="mb-2">
+					№{{ contract.number }} от {{ contract.date }} - {{ contract.description|default:'' }}
+					{% for attachment in contract.attachments.all %}
+						<a href="{{ attachment.attachment_file.url }}" target="_blank">файл</a>
+					{% endfor %}
+					<div>
+						{% for component in contract.components.all %}
+							{{ component }}
+						{% endfor %}
+					</div>
+				</div>
+				{% for appendix in contract.appendixes.all %}
+					<div class="mb-2">
+						Приложение №{{ appendix.number }} от {{ appendix.date }}
+						{% for attachment in appendix.attachments.all %}
+							<a href="{{ attachment.attachment_file.url }}" target="_blank">файл</a>
+						{% endfor %}
+						<div>
+							{% for component in appendix.components.all %}
+								{{ component }}
+							{% endfor %}
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+	<hr>
+	<p class="fw-bold">Коммерческие предложения</p>
+		{% for quotation in contractor.quotations.all %}
+			<div>
+				№{{ quotation.number|default:'б/н' }} от {{ quotation.date }} - {{ quotation.description|default:'' }}
+				{% for attachment in quotation.attachments.all %}
+					<a href="{{ attachment.attachment_file.url }}" target="_blank">файл</a>
+				{% endfor %}
+				<div>
+					{% for component in quotation.components.all %}
+						{{ component }}
+					{% endfor %}
+				</div>
+			</div>
+		{% endfor %}
 </div>
 
 {% endblock content %}
