@@ -17,9 +17,13 @@
             </thead>
             <tbody>
                 {% for contractor in contractors %}
-                <tr>
-                    <td>{{ contractor.name }}</td>
-                </tr>
+                    <tr>
+                        <td>
+                            <a href="{% url 'contractor' contractor_pk=contractor.pk %}" class="text-body custom-link">
+                                {{ contractor.name }}
+                            </a>
+                        </td>
+                    </tr>
                 {% endfor %}
             </tbody>
             <tfoot>
@@ -28,7 +32,6 @@
                 </tr>
             </tfoot>
         </table>
-
     </div>
 </div>
 

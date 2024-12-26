@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ contractor }}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <p class="fw-bold fs-3 mb-2">Контрагент {{ contractor }}</p>
+  <p class="fw-bold">Договоры</p>
+  {% for contract in contractor.contracts.all %}
+    <div>№{{ contract.number }} от {{ contract.date }} - {{ contract.description|default:'' }}</div>
+  {% endfor %}
+  <hr>
+  <p class="fw-bold">Коммерческие предложения</p>
+  {% for quotation in contractor.quotations.all %}
+    <div>№{{ quotation.number|default:'б/н' }} от {{ quotation.date }} - {{ quotation.description|default:'' }}</div>
+  {% endfor %}
+</div>
+
+{% endblock content %}

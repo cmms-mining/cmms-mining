@@ -26,6 +26,7 @@ class Contract(models.Model):
         related_name='contracts',
         verbose_name='Контрагент',
         )
+    description = models.CharField(verbose_name='Описание', max_length=200, blank=True, null=True)
     components = models.ManyToManyField(
         to='components.Component',
         related_name='contracts',
@@ -137,6 +138,7 @@ class AppendixAttachment(models.Model):
 
 class Quotation(models.Model):
     """Коммерческие предложения от контрагентов"""
+    number = models.CharField(verbose_name='Номер', max_length=200, blank=True, null=True)
     date = models.DateField(verbose_name='Дата')
     contractor = models.ForeignKey(
         to='contractors.Contractor',
