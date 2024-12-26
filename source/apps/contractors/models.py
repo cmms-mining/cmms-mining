@@ -26,6 +26,12 @@ class Contract(models.Model):
         related_name='contracts',
         verbose_name='Контрагент',
         )
+    components = models.ManyToManyField(
+        to='components.Component',
+        related_name='contracts',
+        verbose_name='Компоненты',
+        blank=True,
+    )
 
     class Meta:
         verbose_name = 'Контракт'
@@ -79,6 +85,12 @@ class Appendix(models.Model):
         verbose_name='Контракт',
         )
     note = models.CharField(verbose_name='Примечание', max_length=200, blank=True, null=True)
+    components = models.ManyToManyField(
+        to='components.Component',
+        related_name='appendixes',
+        verbose_name='Компоненты',
+        blank=True,
+    )
 
     class Meta:
         verbose_name = 'Приложение к контракту'
@@ -133,6 +145,12 @@ class Quotation(models.Model):
         verbose_name='Контрагент',
         )
     description = models.CharField(verbose_name='Описание', max_length=200, unique=True)
+    components = models.ManyToManyField(
+        to='components.Component',
+        related_name='quotations',
+        verbose_name='Компоненты',
+        blank=True,
+    )
 
     class Meta:
         verbose_name = 'Коммерческое предложение'
@@ -140,7 +158,7 @@ class Quotation(models.Model):
         ordering = ['date']
 
     def __str__(self):
-        return f'Коммерческое предложение от {self.contractor.name} от {self.date.strftime("%d-%m-%Y")}'
+        return f'КП от {self.contractor.name} от {self.date.strftime("%d-%m-%Y")}'
 
 
 def quotation_attachment_upload_path(instance, filename):
@@ -159,18 +177,18 @@ class QuotationAttachment(models.Model):
         to='contractors.Quotation',
         on_delete=models.CASCADE,
         related_name='attachments',
-        verbose_name='Коммерческое предложение',
+        verbose_name='КП',
         )
     file_size = models.CharField(verbose_name='Размер файла', max_length=30, blank=True, null=True)
 
     class Meta:
-        verbose_name = 'Вложение для коммерческого предложения'
-        verbose_name_plural = 'Вложения для коммерческих предложений'
+        verbose_name = 'Вложение для КП'
+        verbose_name_plural = 'Вложения для КП'
 
     def save(self, *args, **kwargs):
         set_file_size(self)
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'Вложение коммерческого предложения от {self.quotation.contractor.name}' \
+        return f'Вложение для КП от {self.quotation.contractor.name}' \
                f'от {self.quotation.date.strftime("%d-%m-%Y")}'

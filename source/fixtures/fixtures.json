@@ -20,7 +20,7 @@
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$870000$HacisVUdIG83zWTRy3RzgM$nGkZbLNKxIRNw0klFihZ+o2Z97JR2A2B5pMsr5Zkejw=",
-      "last_login": "2024-12-25T17:05:11.782Z",
+      "last_login": "2024-12-26T10:51:17.633Z",
       "is_superuser": true,
       "username": "admin",
       "first_name": "\u0410\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0442\u043e\u0440",
@@ -273,6 +273,25 @@
       "updated_at": "2024-12-16T14:38:45.028Z",
       "equipments": [
         1
+      ]
+    }
+  },
+  {
+    "model": "equipments.relocationorder",
+    "pk": 2,
+    "fields": {
+      "number": "003",
+      "date": "2024-12-13",
+      "from_site": 7,
+      "to_site": 4,
+      "scan": "",
+      "status": "waiting",
+      "created_at": "2024-12-26T10:51:44.616Z",
+      "author": 1,
+      "updated_by": 1,
+      "updated_at": "2024-12-26T10:51:44.616Z",
+      "equipments": [
+        2
       ]
     }
   },
@@ -631,7 +650,8 @@
     "fields": {
       "number": "145",
       "date": "2024-10-01",
-      "contractor": 2
+      "contractor": 2,
+      "components": []
     }
   },
   {
@@ -640,7 +660,8 @@
     "fields": {
       "number": "125",
       "date": "2023-09-05",
-      "contractor": 2
+      "contractor": 2,
+      "components": []
     }
   },
   {
@@ -649,7 +670,8 @@
     "fields": {
       "number": "21",
       "date": "2024-12-01",
-      "contractor": 1
+      "contractor": 1,
+      "components": []
     }
   },
   {
@@ -658,7 +680,10 @@
     "fields": {
       "number": "2",
       "date": "2024-04-10",
-      "contractor": 1
+      "contractor": 1,
+      "components": [
+        2
+      ]
     }
   },
   {
@@ -695,7 +720,8 @@
       "number": "14",
       "date": "2024-09-04",
       "contract": 2,
-      "note": null
+      "note": null,
+      "components": []
     }
   },
   {
@@ -705,7 +731,10 @@
       "number": "16",
       "date": "2024-11-29",
       "contract": 2,
-      "note": null
+      "note": null,
+      "components": [
+        2
+      ]
     }
   },
   {
@@ -723,7 +752,10 @@
     "fields": {
       "date": "2024-12-01",
       "contractor": 2,
-      "description": "\u041a\u041f \u043d\u0430 \u0440\u0435\u043c\u043e\u043d\u0442 \u0414\u0412\u0421 001"
+      "description": "\u041a\u041f \u043d\u0430 \u0440\u0435\u043c\u043e\u043d\u0442 \u0414\u0412\u0421 001",
+      "components": [
+        1
+      ]
     }
   },
   {
