@@ -10,9 +10,10 @@ urlpatterns = [
     path('', lambda request: redirect('tasks', permanent=False)),
     path('backoffice/', include('apps.backoffice.urls')),
     path('buckets/', include('apps.buckets.urls')),
-    path('components/', include('apps.components.urls')),
-    path('equipments/', include('apps.equipments.urls')),
     path('catalogs/', include('apps.equip_documents.urls')),
+    path('components/', include('apps.components.urls')),
+    path('contractors/', include('apps.contractors.urls')),
+    path('equipments/', include('apps.equipments.urls')),
     path('tasks/', include('apps.tasks.urls')),
 
     path('__debug__/', include('debug_toolbar.urls')),
