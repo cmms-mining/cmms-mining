@@ -15,6 +15,7 @@
                     <th>Подрядчик</th>
                     <th>Приоритет</th>
                     <th>Плановая дата выполнения</th>
+                    <th>Дата выполнения</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,6 +34,7 @@
                     <td>{{ repair.contractor.name }}</td>
                     <td>{{ repair.priority }}</td>
                     <td>{{ repair.plan_end_date|date:"d.m.Y"|default:'-' }}</td>
+                    <td>{{ repair.completed_at|date:"d.m.Y"|default:'-' }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -43,6 +45,7 @@
                     <th>Подрядчик</th>
                     <th>Приоритет</th>
                     <th>Плановая дата выполнения</th>
+                    <th>Дата выполнения</th>
                 </tr>
             </tfoot>
         </table>

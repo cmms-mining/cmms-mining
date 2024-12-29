@@ -19,7 +19,11 @@
 				<div>
 					{% for repair in contract.repairs.all %}
 						<div>
+							Ремонт №{{ repair.pk }}
 							<a href="{% url 'component_repair_update' component_number=repair.component.number repair_pk=repair.pk %}">{{ repair.component }}</a>
+							{% if repair.completed_at %}
+								(выполнен {{ repair.completed_at }})
+							{% endif %}
 						</div>
 					{% endfor %}
 				</div>
@@ -33,7 +37,11 @@
 					<div>
 						{% for repair in appendix.repairs.all %}
 							<div>
+								Ремонт №{{ repair.pk }}
 								<a href="{% url 'component_repair_update' component_number=repair.component.number repair_pk=repair.pk %}">{{ repair.component }}</a>
+								{% if repair.completed_at %}
+									(выполнен {{ repair.completed_at }})
+								{% endif %}
 							</div>
 						{% endfor %}
 					</div>

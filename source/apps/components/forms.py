@@ -240,13 +240,17 @@ class ComponentRepairForm(forms.ModelForm):
 
     class Meta:
         model = ComponentRepair
-        fields = ('worklist', 'plan_end_date', 'priority', 'note')
+        fields = ('worklist', 'plan_end_date', 'priority', 'note', 'completed_at')
         widgets = {
-            'worklist': forms.Textarea(attrs={'class': 'form-control', 'style': 'max-width: 500px; height: 100px;'}),
+            'worklist': forms.Textarea(attrs={'class': 'form-control', 'style': 'max-width: 500px; height: 50px;'}),
             'plan_end_date': forms.DateInput(
                 format='%Y-%m-%d',
                 attrs={'class': 'form-control', 'type': 'date', 'style': 'max-width: 200px;'},
                 ),
             'priority': forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 200px;'}),
-            'note': forms.Textarea(attrs={'class': 'form-control', 'style': 'max-width: 500px; height: 100px;'}),
+            'note': forms.Textarea(attrs={'class': 'form-control', 'style': 'max-width: 500px; height: 50px;'}),
+            'completed_at': forms.DateInput(
+                format='%Y-%m-%d',
+                attrs={'class': 'form-control', 'type': 'date', 'style': 'max-width: 200px;'},
+                ),
         }
