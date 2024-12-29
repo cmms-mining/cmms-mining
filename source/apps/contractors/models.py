@@ -19,7 +19,7 @@ class Contractor(models.Model):
 class Contract(models.Model):
     """Контракты с подрядчиками"""
     number = models.CharField(verbose_name='Номер', max_length=200)
-    date = models.DateField(verbose_name='Дата', blank=True, null=True)
+    date = models.DateField(verbose_name='Дата')
     contractor = models.ForeignKey(
         to='contractors.Contractor',
         on_delete=models.CASCADE,
@@ -27,12 +27,6 @@ class Contract(models.Model):
         verbose_name='Контрагент',
         )
     description = models.CharField(verbose_name='Описание', max_length=200, blank=True, null=True)
-    components = models.ManyToManyField(
-        to='components.Component',
-        related_name='contracts',
-        verbose_name='Компоненты',
-        blank=True,
-    )
 
     class Meta:
         verbose_name = 'Контракт'
@@ -86,12 +80,6 @@ class Appendix(models.Model):
         verbose_name='Контракт',
         )
     note = models.CharField(verbose_name='Примечание', max_length=200, blank=True, null=True)
-    components = models.ManyToManyField(
-        to='components.Component',
-        related_name='appendixes',
-        verbose_name='Компоненты',
-        blank=True,
-    )
 
     class Meta:
         verbose_name = 'Приложение к контракту'

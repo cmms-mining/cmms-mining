@@ -5,6 +5,14 @@
 
     Обновить запись о ремонте компонента
     <hr>
+    {% if repair.contract %}
+        <div>Ремонт по договору №{{ repair.contract.number }} от {{ repair.contract.date }}</div>
+    {% endif %}
+    {% if repair.appendix %}
+        <div>Ремонт по приложению №{{ repair.appendix.number }} от {{ repair.appendix.date }} к договору №{{ repair.appendix.contract.number }} от {{ repair.appendix.contract.date }}</div>
+    {% endif %}
+    <div>Исполнитель {{ repair.contractor.name }}</div>
+
     <form class="forms-sample" action="{% url 'component_repair_update' component_number=component.number repair_pk=repair.pk %}" method="POST">
         {% csrf_token %}
 

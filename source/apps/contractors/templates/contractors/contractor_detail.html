@@ -6,50 +6,58 @@
 
 <div class="container">
 	<p class="fw-bold fs-3 mb-2">{{ contractor }}</p>
-	<p class="fw-bold">Договоры</p>
-		{% for contract in contractor.contracts.all %}
-			<div class="mb-4">
-				<div class="mb-2">
-					№{{ contract.number }} от {{ contract.date }} - {{ contract.description|default:'' }}
-					{% for attachment in contract.attachments.all %}
-						<a href="{{ attachment.attachment_file.url }}" target="_blank">файл</a>
-					{% endfor %}
-					<div>
-						{% for component in contract.components.all %}
-							{{ component }}
-						{% endfor %}
-					</div>
-				</div>
-				{% for appendix in contract.appendixes.all %}
-					<div class="mb-2">
-						Приложение №{{ appendix.number }} от {{ appendix.date }}
-						{% for attachment in appendix.attachments.all %}
-							<a href="{{ attachment.attachment_file.url }}" target="_blank">файл</a>
-						{% endfor %}
-						<div>
-							{% for component in appendix.components.all %}
-								{{ component }}
-							{% endfor %}
-						</div>
-					</div>
-				{% endfor %}
-			</div>
-		{% endfor %}
 	<hr>
-	<p class="fw-bold">Коммерческие предложения</p>
-		{% for quotation in contractor.quotations.all %}
-			<div>
-				№{{ quotation.number|default:'б/н' }} от {{ quotation.date }} - {{ quotation.description|default:'' }}
-				{% for attachment in quotation.attachments.all %}
+	<p class="fw-bold fs-5">Договоры</p>
+	<hr>
+	{% for contract in contractor.contracts.all %}
+		<div class="mb-4">
+			<div class="mb-3">
+				<span class="fw-bold">Договор №{{ contract.number }}</span> от {{ contract.date }} - {{ contract.description|default:'' }}
+				{% for attachment in contract.attachments.all %}
 					<a href="{{ attachment.attachment_file.url }}" target="_blank">файл</a>
 				{% endfor %}
 				<div>
-					{% for component in quotation.components.all %}
-						{{ component }}
+					{% for repair in contract.repairs.all %}
+						<div>
+							<a href="{% url 'component_repair_update' component_number=repair.component.number repair_pk=repair.pk %}">{{ repair.component }}</a>
+						</div>
 					{% endfor %}
 				</div>
 			</div>
-		{% endfor %}
+			{% for appendix in contract.appendixes.all %}
+				<div class="mb-2">
+					<span class="fw-bold">Приложение №{{ appendix.number }}</span> от {{ appendix.date }}
+					{% for attachment in appendix.attachments.all %}
+						<a href="{{ attachment.attachment_file.url }}" target="_blank">файл</a>
+					{% endfor %}
+					<div>
+						{% for repair in appendix.repairs.all %}
+							<div>
+								<a href="{% url 'component_repair_update' component_number=repair.component.number repair_pk=repair.pk %}">{{ repair.component }}</a>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		<hr>
+	{% endfor %}
+	<hr>
+	<p class="fw-bold fs-5">Коммерческие предложения</p>
+	<hr>
+	{% for quotation in contractor.quotations.all %}
+		<div>
+			№{{ quotation.number|default:'б/н' }} от {{ quotation.date }} - {{ quotation.description|default:'' }}
+			{% for attachment in quotation.attachments.all %}
+				<a href="{{ attachment.attachment_file.url }}" target="_blank">файл</a>
+			{% endfor %}
+			<div>
+				{% for component in quotation.components.all %}
+					{{ component }}
+				{% endfor %}
+			</div>
+		</div>
+	{% endfor %}
 </div>
 
 {% endblock content %}
