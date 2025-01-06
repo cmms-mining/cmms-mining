@@ -10,6 +10,7 @@ from apps.components.models import (Component, ComponentAttachment, ComponentCur
 @admin.register(Component)
 class ComponentAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Component._meta.fields]
+    search_fields = ['number']
 
 
 @admin.register(ComponentKind)
