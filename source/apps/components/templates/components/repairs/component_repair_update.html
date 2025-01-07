@@ -3,24 +3,59 @@
 
 {% block component_content %}
 
-    Обновить запись о ремонте компонента
-    <hr>
-    {% if repair.contract %}
-        <div>Ремонт по договору №{{ repair.contract.number }} от {{ repair.contract.date }}</div>
-    {% endif %}
-    {% if repair.appendix %}
-        <div>Ремонт по приложению №{{ repair.appendix.number }} от {{ repair.appendix.date }} к договору №{{ repair.appendix.contract.number }} от {{ repair.appendix.contract.date }}</div>
-    {% endif %}
-    <div>Исполнитель {{ repair.contractor.name }}</div>
+<div class="container">
+    <div class="row">
+        <!-- Первая колонка -->
+        <div class="col-md-6">
+            <div class="fw-bold">Ремонт №{{ repair.pk }}</div>
+            {% if repair.contract %}
+                <div>Ремонт по договору №{{ repair.contract.number }} от {{ repair.contract.date }}</div>
+            {% endif %}
+            {% if repair.appendix %}
+                <div>Ремонт по приложению №{{ repair.appendix.number }} от {{ repair.appendix.date }} к договору №{{ repair.appendix.contract.number }} от {{ repair.appendix.contract.date }}</div>
+            {% endif %}
+            <div>Исполнитель {{ repair.contractor.name }}</div>
+            <form class="forms-sample" action="{% url 'component_repair_update' component_number=component.number repair_pk=repair.pk %}" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                {% if user.is_superuser %}
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                {% endif %}
+                <a href="{% url 'component_repairs_tab' component_number=component.number %}" class="btn btn-secondary">Отмена</a>
+            </form>
+        </div>
 
-    <form class="forms-sample" action="{% url 'component_repair_update' component_number=component.number repair_pk=repair.pk %}" method="POST">
-        {% csrf_token %}
+        <!-- Вторая колонка -->
+        <div class="col-md-6">
+            <p class="fw-bold">Прикрепленные файлы ремонта:</p>
+            <hr>
+            <table id="buckets_table" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Ссылка</th>
+                        <th>Автор</th>
+                        <th>Дата</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for attachment in repair.attachments.all %}
+                        <tr>
+                            <td>
+                                <a href="{{ attachment.attachment_file.url }}" target="_blank" class="text-body custom-link">{{ attachment.description }}</a>
+                            </td>
+                            <td>
+                                {{ attachment.author.get_full_name }}
+                            </td>
+                            <td>
+                                {{ attachment.created_at|date:"d.m.Y" }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-        {{ form.as_p }}
-        {% if user.is_superuser %}
-            <button type="submit" class="btn btn-primary">Сохранить</button>
-        {% endif %}
-        <a href="{% url 'component_repairs_tab' component_number=component.number %}" class="btn btn-secondary">Отмена</a>
-    </form>
     
 {% endblock component_content %}

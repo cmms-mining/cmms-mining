@@ -68,7 +68,7 @@ class ComponentRepair(models.Model):
         super(ComponentRepair, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.component.number + ' ' + self.created_at.strftime("%d-%m-%Y")
+        return f'Ремонт №{self.pk} компонента №{self.component.number}'
 
 
 def component_repair_attachment_upload_path(instance, filename):
