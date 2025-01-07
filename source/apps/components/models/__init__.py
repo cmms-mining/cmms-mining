@@ -3,6 +3,6 @@ from .installations import (ComponentDeinstallation, ComponentInstallation, Comp
                             ComponentTypeEquipmentModel)
 from .reconciliation import ComponentReconciliation
 from .relocation import ComponentRelocation
-from .repair import ComponentRepair
+from .repair import ComponentRepair, ComponentRepairAttachment
 from .task import ComponentTask
 from .techstate import ComponentTechState

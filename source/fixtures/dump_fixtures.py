@@ -50,6 +50,7 @@ MODEL_ORDER = [
     'components.ComponentTechState',
     'components.ComponentTask',
     'components.ComponentRepair',
+    'components.ComponentRepairAttachment',
     'components.ComponentRelocation',
     'components.ComponentReconciliation',
     'components.ComponentInstallation',

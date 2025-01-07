@@ -1,4 +1,7 @@
+from django.contrib.auth.models import User
 from django.db import models
+
+from apps.common.services import get_user, set_file_size, validate_scan_file
 
 
 class ComponentRepair(models.Model):
@@ -66,3 +69,48 @@ class ComponentRepair(models.Model):
 
     def __str__(self):
         return self.component.number + ' ' + self.created_at.strftime("%d-%m-%Y")
+
+
+def component_repair_attachment_upload_path(instance, filename):
+    return f'repairs/{instance.repair.pk}/{filename}'
+
+
+class ComponentRepairAttachment(models.Model):
+    """Файлы вложений для ремонтов компонентов (фото, видео и др.)"""
+    attachment_file = models.FileField(
+        verbose_name='Файл',
+        upload_to=component_repair_attachment_upload_path,
+        validators=[validate_scan_file],
+    )
+    repair = models.ForeignKey(
+        to='components.ComponentRepair',
+        related_name='attachments',
+        verbose_name='Ремонт',
+        on_delete=models.CASCADE,
+    )
+    description = models.CharField(
+        verbose_name='Описание',
+        max_length=30,
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(
+        to=User,
+        verbose_name='Автор',
+        on_delete=models.CASCADE,
+        related_name='authored_component_repair_attachments',
+        )
+    file_size = models.CharField(verbose_name='Размер файла', max_length=30, blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Вложение ремонта компонента'
+        verbose_name_plural = 'Вложения ремонтов компонентов'
+
+    def save(self, *args, **kwargs):
+        user = get_user()
+        if not self.pk:
+            self.author = user
+        set_file_size(self)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'Вложение ремонта компонента {self.repair.pk}'
