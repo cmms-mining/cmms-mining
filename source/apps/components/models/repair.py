@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from apps.common.services import get_user, set_file_size, validate_scan_file
+from apps.common.services import get_user, set_file_size
 
 
 class ComponentRepair(models.Model):
@@ -80,7 +80,6 @@ class ComponentRepairAttachment(models.Model):
     attachment_file = models.FileField(
         verbose_name='Файл',
         upload_to=component_repair_attachment_upload_path,
-        validators=[validate_scan_file],
     )
     repair = models.ForeignKey(
         to='components.ComponentRepair',
