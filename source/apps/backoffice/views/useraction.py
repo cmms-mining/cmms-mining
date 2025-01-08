@@ -33,7 +33,7 @@ class UsersActionsView(SuperuserRequiredMixin, TemplateView):
         buckets_installations = BucketInstallation.objects.all()
         context['buckets_installations'] = buckets_installations
 
-        buckets_repairs = BucketRepair.history.model.objects.all()
+        buckets_repairs = BucketRepair.objects.all()
         context['buckets_repairs'] = buckets_repairs
 
         context['db_size'] = get_db_size()

@@ -71,11 +71,11 @@
         {% endfor %}
         {% for bucket_repair in buckets_repairs %}
         <tr>
-            <td>{{ bucket_repair.history_user.get_full_name }}</td>
-            <td>{{ bucket_repair.history_date|date:"d.m.Y" }}</td>
+            <td>{{ bucket_repair.author.get_full_name }}</td>
+            <td>{{ bucket_repair.date|date:"d.m.Y" }}</td>
             <td>{{ bucket_repair.bucket.number }}</td>
-            <td><a href="{% url 'bucket_repairs_tab' bucket_repair.bucket.number %}">Ремонт {{ bucket_repair.history_object }}</a></td>
-            <td>{{ bucket_repair.history_type }}</td>
+            <td><a href="{% url 'bucket_repairs_tab' bucket_repair.bucket.number %}">Ремонт {{ bucket_repair }}</a></td>
+            <td>+</td>
         </tr>
         {% endfor %}
     </tbody>

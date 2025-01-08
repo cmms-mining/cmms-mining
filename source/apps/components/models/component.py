@@ -247,9 +247,8 @@ class ComponentAttachment(models.Model):
         verbose_name_plural = 'Вложения компонентов'
 
     def save(self, *args, **kwargs):
-        user = get_user()
         if not self.pk:
-            self.author = user
+            self.author = get_user()
         set_file_size(self)
         super().save(*args, **kwargs)
 

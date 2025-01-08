@@ -1,6 +1,7 @@
+from django.contrib.auth.models import User
 from django.db import models
 
-from simple_history.models import HistoricalRecords
+from apps.common.services import get_user
 
 
 class BucketRepair(models.Model):
@@ -19,7 +20,14 @@ class BucketRepair(models.Model):
     note = models.TextField(verbose_name='Примечания', blank=True, null=True)
     # created_at для возможности добавления в список всех событий (сортировка идет по полю date)
     date = models.DateField(auto_now_add=True, verbose_name='Дата создания')
-    history = HistoricalRecords()
+    author = models.ForeignKey(
+        to=User,
+        verbose_name='Автор',
+        on_delete=models.CASCADE,
+        related_name='authored_buckets_repairs',
+        blank=True,
+        null=True,
+        )
 
     class Meta:
         verbose_name = 'Ремонт ковша'
@@ -32,6 +40,11 @@ class BucketRepair(models.Model):
         if int(self.pk) == int(BucketRepair.objects.filter(bucket=bucket).first().pk):
             return True
         return False
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.author = get_user()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.bucket.number + ' ' + self.date.strftime("%d-%m-%Y")

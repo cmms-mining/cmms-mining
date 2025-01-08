@@ -1,7 +1,5 @@
 from django.contrib import admin
 
-from simple_history.admin import SimpleHistoryAdmin
-
 from apps.buckets.models import (
     Bucket, BucketCapacity, BucketCurrentData, BucketDecommission, BucketDeinstallation, BucketInstallation,
     BucketManufacturer, BucketReconciliation, BucketRelocation, BucketRelocationAttachment, BucketRepair,
@@ -49,13 +47,8 @@ class BucketTechStateAdmin(admin.ModelAdmin):
 
 # -------Ремонты ковшей---------
 @admin.register(BucketRepair)
-class BucketRepairAdmin(SimpleHistoryAdmin):
+class BucketRepairAdmin(admin.ModelAdmin):
     list_display = [field.name for field in BucketRepair._meta.fields]
-
-
-@admin.register(BucketRepair.history.model)
-class HistoricalBucketRepairAdmin(admin.ModelAdmin):
-    list_display = [field.name for field in BucketRepair.history.model._meta.fields]
 # -------Ремонты ковшей---------
 
 
@@ -72,12 +65,12 @@ class BucketDecommissionAdmin(admin.ModelAdmin):
 
 
 @admin.register(BucketRelocationAttachment)
-class BucketRelocationAttachmentAdmin(SimpleHistoryAdmin):
+class BucketRelocationAttachmentAdmin(admin.ModelAdmin):
     list_display = [field.name for field in BucketRelocationAttachment._meta.fields]
 
 
 @admin.register(BucketCapacity)
-class BucketCapacityAdmin(SimpleHistoryAdmin):
+class BucketCapacityAdmin(admin.ModelAdmin):
     list_display = [field.name for field in BucketCapacity._meta.fields]
 
 
