@@ -20,7 +20,7 @@ class ComponentsListView(ListView):
             component=OuterRef('pk'),
             verified=False,
         )
-        repairs_list = ComponentRepair.objects.filter(component=OuterRef('pk'), completed=False)
+        repairs_list = ComponentRepair.objects.filter(component=OuterRef('pk'), completed_at=None)
 
         queryset = Component.objects.prefetch_related(
             Prefetch('repairs'),

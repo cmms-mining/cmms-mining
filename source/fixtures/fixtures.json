@@ -20,7 +20,7 @@
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$870000$HacisVUdIG83zWTRy3RzgM$nGkZbLNKxIRNw0klFihZ+o2Z97JR2A2B5pMsr5Zkejw=",
-      "last_login": "2025-01-08T09:50:07.419Z",
+      "last_login": "2025-01-08T17:58:08.952Z",
       "is_superuser": true,
       "username": "admin",
       "first_name": "\u0410\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0442\u043e\u0440",
@@ -488,8 +488,7 @@
       "appendix": null,
       "worklist": "",
       "created_at": "2024-12-29",
-      "completed_at": null,
-      "completed": false,
+      "completed_at": "2025-01-06",
       "plan_end_date": null,
       "note": "",
       "priority": "\u041d\u0435 \u0441\u0440\u043e\u0447\u043d\u043e"
@@ -506,7 +505,6 @@
       "worklist": "",
       "created_at": "2024-12-29",
       "completed_at": null,
-      "completed": false,
       "plan_end_date": null,
       "note": "",
       "priority": "\u041d\u0435 \u0441\u0440\u043e\u0447\u043d\u043e"
@@ -523,7 +521,6 @@
       "worklist": "",
       "created_at": "2024-12-29",
       "completed_at": "2024-12-05",
-      "completed": false,
       "plan_end_date": null,
       "note": "",
       "priority": "\u041d\u0435 \u0441\u0440\u043e\u0447\u043d\u043e"
@@ -540,7 +537,6 @@
       "worklist": "",
       "created_at": "2024-12-29",
       "completed_at": null,
-      "completed": false,
       "plan_end_date": null,
       "note": "",
       "priority": "\u041d\u0435 \u0441\u0440\u043e\u0447\u043d\u043e"
@@ -600,7 +596,7 @@
       "is_being_repaired": null,
       "is_operable": null,
       "updated_by": 1,
-      "updated_at": "2025-01-08T09:50:25.697Z",
+      "updated_at": "2025-01-08T09:51:23.706Z",
       "component": 1,
       "equipment": 1,
       "installation_date": "2022-05-01",

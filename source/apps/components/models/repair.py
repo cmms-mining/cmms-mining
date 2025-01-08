@@ -39,7 +39,6 @@ class ComponentRepair(models.Model):
     worklist = models.TextField(verbose_name='Требуемые работы', default='', blank=True)
     created_at = models.DateField(auto_now_add=True, verbose_name='Дата создания')
     completed_at = models.DateField(verbose_name='Дата выполнения', blank=True, null=True)
-    completed = models.BooleanField(verbose_name='Выполнено', default=False)
     plan_end_date = models.DateField(verbose_name='Плановая дата окончания', blank=True, null=True)
     note = models.TextField(verbose_name='Примечания', blank=True, null=True)
     PRIORITY_CHOICES = (
