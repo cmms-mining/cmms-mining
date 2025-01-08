@@ -76,6 +76,7 @@ class ComponentStateView(FormView):
         initial['nomenclature_code'] = component.nomenclature_code
         initial['serial_number'] = component.serial_number
         initial['is_compliant_with_accounting'] = component.is_compliant_with_accounting
+        initial['note'] = component.note
         return initial
 
     def form_valid(self, form):
@@ -96,6 +97,7 @@ class ComponentStateView(FormView):
             serial_number: str = form.cleaned_data['serial_number']
             component.serial_number = serial_number
         component.nomenclature_code = form.cleaned_data['nomenclature_code'] or None
+        component.note = form.cleaned_data['note'] or None
         component.save()
 
         return redirect('component_state_tab', component_number=component.number)
