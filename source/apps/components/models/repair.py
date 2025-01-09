@@ -36,6 +36,14 @@ class ComponentRepair(models.Model):
         blank=True,
         null=True,
     )
+    invoice = models.ForeignKey(
+        to='contractors.Invoice',
+        related_name='repairs',
+        on_delete=models.CASCADE,
+        verbose_name='Счет',
+        blank=True,
+        null=True,
+    )
     worklist = models.TextField(verbose_name='Требуемые работы', default='', blank=True)
     created_at = models.DateField(auto_now_add=True, verbose_name='Дата создания')
     completed_at = models.DateField(verbose_name='Дата выполнения', blank=True, null=True)

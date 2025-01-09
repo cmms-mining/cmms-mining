@@ -20,7 +20,7 @@
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$870000$HacisVUdIG83zWTRy3RzgM$nGkZbLNKxIRNw0klFihZ+o2Z97JR2A2B5pMsr5Zkejw=",
-      "last_login": "2025-01-08T17:58:08.952Z",
+      "last_login": "2025-01-09T13:14:43.230Z",
       "is_superuser": true,
       "username": "admin",
       "first_name": "\u0410\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0442\u043e\u0440",
@@ -486,6 +486,7 @@
       "contractor": 2,
       "contract": 5,
       "appendix": null,
+      "invoice": null,
       "worklist": "",
       "created_at": "2024-12-29",
       "completed_at": "2025-01-06",
@@ -502,6 +503,7 @@
       "contractor": 2,
       "contract": 5,
       "appendix": null,
+      "invoice": null,
       "worklist": "",
       "created_at": "2024-12-29",
       "completed_at": null,
@@ -518,6 +520,7 @@
       "contractor": 1,
       "contract": null,
       "appendix": 3,
+      "invoice": null,
       "worklist": "",
       "created_at": "2024-12-29",
       "completed_at": "2024-12-05",
@@ -534,8 +537,60 @@
       "contractor": 1,
       "contract": null,
       "appendix": 3,
+      "invoice": null,
       "worklist": "",
       "created_at": "2024-12-29",
+      "completed_at": null,
+      "plan_end_date": null,
+      "note": "",
+      "priority": "\u041d\u0435 \u0441\u0440\u043e\u0447\u043d\u043e"
+    }
+  },
+  {
+    "model": "components.componentrepair",
+    "pk": 13,
+    "fields": {
+      "component": 1,
+      "contractor": null,
+      "contract": null,
+      "appendix": null,
+      "invoice": 2,
+      "worklist": "",
+      "created_at": "2025-01-09",
+      "completed_at": null,
+      "plan_end_date": null,
+      "note": "",
+      "priority": "\u041d\u0435 \u0441\u0440\u043e\u0447\u043d\u043e"
+    }
+  },
+  {
+    "model": "components.componentrepair",
+    "pk": 14,
+    "fields": {
+      "component": 3,
+      "contractor": null,
+      "contract": null,
+      "appendix": null,
+      "invoice": 2,
+      "worklist": "",
+      "created_at": "2025-01-09",
+      "completed_at": null,
+      "plan_end_date": null,
+      "note": "",
+      "priority": "\u041d\u0435 \u0441\u0440\u043e\u0447\u043d\u043e"
+    }
+  },
+  {
+    "model": "components.componentrepair",
+    "pk": 15,
+    "fields": {
+      "component": 2,
+      "contractor": null,
+      "contract": null,
+      "appendix": null,
+      "invoice": 3,
+      "worklist": "",
+      "created_at": "2025-01-09",
       "completed_at": null,
       "plan_end_date": null,
       "note": "",
@@ -689,6 +744,16 @@
     }
   },
   {
+    "model": "contractors.contract",
+    "pk": 7,
+    "fields": {
+      "number": "221",
+      "date": "2025-01-09",
+      "contractor": 3,
+      "description": null
+    }
+  },
+  {
     "model": "contractors.appendix",
     "pk": 3,
     "fields": {
@@ -727,6 +792,75 @@
     "fields": {
       "attachment_file": "quotations/\u0418\u041f \u0420\u0435\u043c\u043e\u043d\u0442 \u0434\u0432\u0438\u0433\u0430\u0442\u0435\u043b\u0435\u0439/20241201/File.pdf",
       "quotation": 1,
+      "file_size": "730 \u043a\u0411"
+    }
+  },
+  {
+    "model": "contractors.invoice",
+    "pk": 1,
+    "fields": {
+      "number": "1232",
+      "date": "2025-01-09",
+      "contractor": 3,
+      "contract": 7,
+      "note": null
+    }
+  },
+  {
+    "model": "contractors.invoice",
+    "pk": 2,
+    "fields": {
+      "number": "43",
+      "date": "2025-01-09",
+      "contractor": 1,
+      "contract": 6,
+      "note": null
+    }
+  },
+  {
+    "model": "contractors.invoice",
+    "pk": 3,
+    "fields": {
+      "number": "321",
+      "date": "2025-01-01",
+      "contractor": 1,
+      "contract": 6,
+      "note": null
+    }
+  },
+  {
+    "model": "contractors.invoiceattachment",
+    "pk": 1,
+    "fields": {
+      "attachment_file": "invoices/\u0418\u041f \u0420\u0435\u043c\u043e\u043d\u0442 \u043d\u0430\u0441\u043e\u0441\u043e\u0432/20250109/File.pdf",
+      "invoice": 1,
+      "file_size": "730 \u043a\u0411"
+    }
+  },
+  {
+    "model": "contractors.invoiceattachment",
+    "pk": 2,
+    "fields": {
+      "attachment_file": "invoices/\u0418\u041f \u0420\u0435\u043c\u043e\u043d\u0442 \u0446\u0438\u043b\u0438\u043d\u0434\u0440\u043e\u0432/20250109/File.pdf",
+      "invoice": 2,
+      "file_size": "730 \u043a\u0411"
+    }
+  },
+  {
+    "model": "contractors.invoiceattachment",
+    "pk": 3,
+    "fields": {
+      "attachment_file": "invoices/\u0418\u041f \u0420\u0435\u043c\u043e\u043d\u0442 \u0446\u0438\u043b\u0438\u043d\u0434\u0440\u043e\u0432/20250109/File_JcVsCW0.pdf",
+      "invoice": 2,
+      "file_size": "730 \u043a\u0411"
+    }
+  },
+  {
+    "model": "contractors.invoiceattachment",
+    "pk": 4,
+    "fields": {
+      "attachment_file": "invoices/\u0418\u041f \u0420\u0435\u043c\u043e\u043d\u0442 \u0446\u0438\u043b\u0438\u043d\u0434\u0440\u043e\u0432/20250101/File.pdf",
+      "invoice": 3,
       "file_size": "730 \u043a\u0411"
     }
   }

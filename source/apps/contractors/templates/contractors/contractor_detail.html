@@ -56,6 +56,17 @@
 					{% for attachment in invoice.attachments.all %}
 						<a href="{{ attachment.attachment_file.url }}" target="_blank">файл</a>
 					{% endfor %}
+					<div>
+						{% for repair in invoice.repairs.all %}
+							<div>
+								Ремонт №{{ repair.pk }}
+								<a href="{% url 'component_repair_update' component_number=repair.component.number repair_pk=repair.pk %}">{{ repair.component }}</a>
+								{% if repair.completed_at %}
+									(выполнен {{ repair.completed_at }})
+								{% endif %}
+							</div>
+						{% endfor %}
+					</div>
 				</div>
 			{% endfor %}
 		{% endif %}
