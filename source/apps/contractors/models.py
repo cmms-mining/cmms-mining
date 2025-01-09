@@ -59,7 +59,7 @@ class ContractAttachment(models.Model):
 
     class Meta:
         verbose_name = 'Вложение контракта'
-        verbose_name_plural = 'Вложения контрактов'
+        verbose_name_plural = 'Контракты (вложения)'
 
     def save(self, *args, **kwargs):
         set_file_size(self)
@@ -114,7 +114,7 @@ class AppendixAttachment(models.Model):
 
     class Meta:
         verbose_name = 'Вложение для приложения к контракту'
-        verbose_name_plural = 'Вложения для приложений к контрактам'
+        verbose_name_plural = 'Приложения к контрактам (вложения)'
 
     def save(self, *args, **kwargs):
         set_file_size(self)
@@ -173,7 +173,7 @@ class QuotationAttachment(models.Model):
 
     class Meta:
         verbose_name = 'Вложение для КП'
-        verbose_name_plural = 'Вложения для КП'
+        verbose_name_plural = 'Коммерческие предложения (вложения)'
 
     def save(self, *args, **kwargs):
         set_file_size(self)
@@ -182,3 +182,64 @@ class QuotationAttachment(models.Model):
     def __str__(self):
         return f'Вложение для КП от {self.quotation.contractor.name}' \
                f'от {self.quotation.date.strftime("%d-%m-%Y")}'
+
+
+class Invoice(models.Model):
+    """Счета на оплату"""
+    number = models.CharField(verbose_name='Номер счета', max_length=30)
+    date = models.DateField(verbose_name='Дата')
+    contractor = models.ForeignKey(
+        to='contractors.Contractor',
+        on_delete=models.CASCADE,
+        related_name='invoices',
+        verbose_name='Контрагент',
+        )
+    contract = models.ForeignKey(
+        to='contractors.Contract',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='invoices',
+        verbose_name='Контракт',
+        )
+    note = models.CharField(verbose_name='Примечание', max_length=200, blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Счет'
+        verbose_name_plural = 'Счета'
+
+    def __str__(self):
+        return f'Счет №{self.number} от {self.date} - {self.contractor}'
+
+
+def invoice_attachment_upload_path(instance, filename):
+    return f'invoices/{instance.invoice.contractor.name}' \
+           f'/{instance.invoice.date.strftime("%Y%m%d")}/{filename}'
+
+
+class InvoiceAttachment(models.Model):
+    """Файлы вложений для счетов"""
+    attachment_file = models.FileField(
+        verbose_name='Файл',
+        upload_to=invoice_attachment_upload_path,
+        validators=[validate_scan_file],
+    )
+    invoice = models.ForeignKey(
+        to='contractors.Invoice',
+        on_delete=models.CASCADE,
+        related_name='attachments',
+        verbose_name='Счет',
+        )
+    file_size = models.CharField(verbose_name='Размер файла', max_length=30, blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Вложение для счета'
+        verbose_name_plural = 'Счета (вложения)'
+
+    def save(self, *args, **kwargs):
+        set_file_size(self)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'Вложение для счета от {self.invoice.contractor.name}' \
+               f'от {self.invoice.date.strftime("%d-%m-%Y")}'

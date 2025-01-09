@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from .models import (Appendix, AppendixAttachment, Contract, ContractAttachment, Contractor, Quotation,
-                     QuotationAttachment)
+from .models import (Appendix, AppendixAttachment, Contract, ContractAttachment, Contractor, Invoice, InvoiceAttachment,
+                     Quotation, QuotationAttachment)
 
 
 @admin.register(Appendix)
@@ -37,3 +37,13 @@ class QuotationAdmin(admin.ModelAdmin):
 @admin.register(QuotationAttachment)
 class QuotationAttachmentAdmin(admin.ModelAdmin):
     list_display = [field.name for field in QuotationAttachment._meta.fields]
+
+
+@admin.register(Invoice)
+class InvoiceAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in Invoice._meta.fields]
+
+
+@admin.register(InvoiceAttachment)
+class InvoiceAttachmentAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in InvoiceAttachment._meta.fields]

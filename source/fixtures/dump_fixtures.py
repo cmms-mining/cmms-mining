@@ -66,6 +66,8 @@ MODEL_ORDER = [
     'contractors.AppendixAttachment',
     'contractors.Quotation',
     'contractors.QuotationAttachment',
+    'contractors.Invoice',
+    'contractors.InvoiceAttachment',
 ]
 
 # Получаем директорию, где находится сам скрипт
