@@ -33,7 +33,7 @@ INSTALLED_APPS = [
 
     'axes',
     'debug_toolbar',
-    'simple_history',
+    # 'simple_history',
     'storages',
 
     'apps.common',
@@ -68,7 +68,7 @@ MIDDLEWARE = [
 
     'axes.middleware.AxesMiddleware',
 
-    'simple_history.middleware.HistoryRequestMiddleware',
+    # 'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = "core.urls"

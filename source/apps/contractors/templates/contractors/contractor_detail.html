@@ -48,6 +48,17 @@
 				</div>
 			{% endfor %}
 		</div>
+		{% if contract.invoices.all %}
+			<span class="fw-bold">Счета к договору</span>
+			{% for invoice in contract.invoices.all %}
+				<div class="mb-2">
+					<span>{{ invoice }}</span>
+					{% for attachment in invoice.attachments.all %}
+						<a href="{{ attachment.attachment_file.url }}" target="_blank">файл</a>
+					{% endfor %}
+				</div>
+			{% endfor %}
+		{% endif %}
 		<hr>
 	{% endfor %}
 	<hr>
