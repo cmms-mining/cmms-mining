@@ -16,6 +16,7 @@
                     <th>Приоритет</th>
                     <th>Плановая дата выполнения</th>
                     <th>Дата выполнения</th>
+                    <th>Примечания</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,6 +36,7 @@
                     <td>{{ repair.priority }}</td>
                     <td>{{ repair.plan_end_date|date:"d.m.Y"|default:'-' }}</td>
                     <td>{{ repair.completed_at|date:"d.m.Y"|default:'-' }}</td>
+                    <td>{{ repair.note|default:'-' }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -46,6 +48,7 @@
                     <th>Приоритет</th>
                     <th>Плановая дата выполнения</th>
                     <th>Дата выполнения</th>
+                    <th>Примечания</th>
                 </tr>
             </tfoot>
         </table>
