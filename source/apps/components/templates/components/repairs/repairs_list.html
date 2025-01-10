@@ -13,6 +13,7 @@
                     <th>Номер</th>
                     <th>Компонент</th>
                     <th>Подрядчик</th>
+                    <th>Основание</th>
                     <th>Приоритет</th>
                     <th>Плановая дата выполнения</th>
                     <th>Дата выполнения</th>
@@ -21,23 +22,34 @@
             </thead>
             <tbody>
                 {% for repair in repairs %}
-                <tr>
-                    <td>
-                        <a href="{% url 'component_repair_update' component_number=repair.component.number repair_pk=repair.pk %}" class="text-body custom-link">
-                            {{ repair.pk }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{% url 'component_repairs_tab' repair.component.number %}" class="text-body custom-link">
-                            {{ repair.component.number }} {{ repair.component.component_type.name }}
-                        </a>
-                    </td>
-                    <td>{{ repair.contractor.name }}</td>
-                    <td>{{ repair.priority }}</td>
-                    <td>{{ repair.plan_end_date|date:"d.m.Y"|default:'-' }}</td>
-                    <td>{{ repair.completed_at|date:"d.m.Y"|default:'-' }}</td>
-                    <td>{{ repair.note|default:'-' }}</td>
-                </tr>
+                    <tr>
+                        <td>
+                            <a href="{% url 'component_repair_update' component_number=repair.component.number repair_pk=repair.pk %}" class="text-body custom-link">
+                                {{ repair.pk }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{% url 'component_repairs_tab' repair.component.number %}" class="text-body custom-link">
+                                {{ repair.component.number }} {{ repair.component.component_type.name }}
+                            </a>
+                        </td>
+                        <td>{{ repair.contractor.name }}</td>
+                        <td>
+                            {% if repair.contract %}
+                                Дог {{ repair.contract.number }} от {{ repair.contract.date|date:"d.m.Y" }}
+                            {% endif %}
+                            {% if repair.appendix %}
+                                Спец {{ repair.appendix.number }} от {{ repair.appendix.date|date:"d.m.Y" }}
+                            {% endif %}
+                            {% if repair.invoice %}
+                                Счет {{ repair.invoice.number }} от {{ repair.invoice.date|date:"d.m.Y" }}
+                            {% endif %}
+                        </td>
+                        <td>{{ repair.priority }}</td>
+                        <td>{{ repair.plan_end_date|date:"d.m.Y"|default:'-' }}</td>
+                        <td>{{ repair.completed_at|date:"d.m.Y"|default:'-' }}</td>
+                        <td>{{ repair.note|default:'-' }}</td>
+                    </tr>
                 {% endfor %}
             </tbody>
             <tfoot>
@@ -45,6 +57,7 @@
                     <th>Номер</th>
                     <th>Компонент</th>
                     <th>Подрядчик</th>
+                    <th>Основание</th>
                     <th>Приоритет</th>
                     <th>Плановая дата выполнения</th>
                     <th>Дата выполнения</th>
