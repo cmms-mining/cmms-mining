@@ -1,6 +1,6 @@
 import pandas as pd
 
-from .models import Warehouse
+from .models import Nomenclature, Warehouse
 
 
 def from_file_to_db(excel_file):
@@ -22,11 +22,16 @@ def from_file_to_db(excel_file):
         'Warehouse': df_warehouse['Nomenclature'],
     })
 
-    # Создание DataFrame с уникальными значениями из столбца 'Warehouse'
     warehouses = df[['Warehouse']].drop_duplicates().reset_index(drop=True)
 
-    # Сохранение уникальных значений складов в базу данных
     for _, row in warehouses.iterrows():
-        Warehouse.objects.get_or_create(name=row['Warehouse'])  # Создание записи, если такой склад еще не существует
+        Warehouse.objects.get_or_create(name=row['Warehouse'])
 
-    print(df)
+    for _, row in df.iterrows():
+        warehouse = Warehouse.objects.get(name=row['Warehouse'])
+
+        Nomenclature.objects.update_or_create(
+            code=row['Code'],
+            name=row['Nomenclature'],
+            defaults={'warehouse': warehouse},
+        )

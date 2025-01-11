@@ -69,8 +69,8 @@ MODEL_ORDER = [
     'contractors.Invoice',
     'contractors.InvoiceAttachment',
 
-    'importer.Warehouse',
-    'importer.Nomenclature',
+    # 'importer.Warehouse',
+    # 'importer.Nomenclature',
 ]
 
 # Получаем директорию, где находится сам скрипт
