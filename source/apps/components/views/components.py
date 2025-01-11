@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import FormView, ListView
 
 from apps.components.models import Component, ComponentRepair, ComponentState, ComponentTask
+from apps.importer.models import Nomenclature
 
 from ..forms import ComponentStateForm
 from ..services import update_component_current_data
@@ -22,11 +23,16 @@ class ComponentsListView(ListView):
         )
         repairs_list = ComponentRepair.objects.filter(component=OuterRef('pk'), completed_at=None)
 
+        warehouse_subquery = Nomenclature.objects.filter(
+            code=OuterRef('nomenclature_code'),
+        ).values('warehouse__name')[:1]
+
         queryset = Component.objects.prefetch_related(
             Prefetch('repairs'),
         ).annotate(
             has_unverified_task=Exists(unverified_task_exists),
             repair=Subquery(repairs_list.values('id')[:1]),
+            warehouse=Subquery(warehouse_subquery),
         ).values(
             'number',
             'serial_number',
@@ -46,6 +52,7 @@ class ComponentsListView(ListView):
             'current_data__is_operable',
 
             'has_unverified_task',
+            'warehouse',
         )
         return queryset
 
