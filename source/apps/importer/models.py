@@ -3,7 +3,7 @@ from django.db import models
 
 class Warehouse(models.Model):
     """Справочник складов"""
-    name = models.CharField(verbose_name='Название', max_length=50)
+    name = models.CharField(verbose_name='Название', max_length=50, unique=True)
 
     class Meta:
         verbose_name = 'Склад'
