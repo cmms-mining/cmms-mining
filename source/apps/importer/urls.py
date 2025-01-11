@@ -4,5 +4,5 @@ from apps.importer import views
 
 
 urlpatterns = [
-    path('', views.ExcelImportView.as_view(), name='importer'),
+    path('', views.ExcelUploadView.as_view(), name='importer'),
 ]
