@@ -33,7 +33,6 @@ INSTALLED_APPS = [
 
     'axes',
     'debug_toolbar',
-    # 'simple_history',
     'storages',
 
     'apps.common',
@@ -47,6 +46,7 @@ INSTALLED_APPS = [
     'apps.equip_documents',
     'apps.equipments',
     'apps.events',
+    'apps.importer',
     'apps.maintenance',
     'apps.sites',
     'apps.tasks',
@@ -67,8 +67,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 
     'axes.middleware.AxesMiddleware',
-
-    # 'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = "core.urls"
