@@ -24,14 +24,14 @@ def from_file_to_db(excel_file):
 
     warehouses = df[['Warehouse']].drop_duplicates().reset_index(drop=True)
 
+    Warehouse.objects.all().delete()
     for _, row in warehouses.iterrows():
-        Warehouse.objects.get_or_create(name=row['Warehouse'])
+        Warehouse.objects.create(name=row['Warehouse'])
 
+    Nomenclature.objects.all().delete()
     for _, row in df.iterrows():
-        warehouse = Warehouse.objects.get(name=row['Warehouse'])
-
-        Nomenclature.objects.update_or_create(
+        Nomenclature.objects.create(
             code=row['Code'],
             name=row['Nomenclature'],
-            defaults={'warehouse': warehouse},
+            warehouse=Warehouse.objects.get(name=row['Warehouse']),
         )

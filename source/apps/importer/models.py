@@ -28,7 +28,7 @@ class Nomenclature(models.Model):
 
     class Meta:
         verbose_name = 'Номенклатура'
-        verbose_name_plural = '(Справочник) Номенклатуры'
+        verbose_name_plural = '(Справочник) Номенклатура'
         ordering = ['name']
 
     def __str__(self):
