@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'apps.db_logger',
     'apps.equip_documents',
     'apps.equipments',
-    'apps.events',
     'apps.importer',
     'apps.maintenance',
     'apps.sites',
