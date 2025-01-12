@@ -35,11 +35,10 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'storages',
 
-    'apps.common',
-
     'apps.accounts',
     'apps.backoffice',
     'apps.buckets',
+    'apps.common',
     'apps.components',
     'apps.contractors',
     'apps.db_logger',
