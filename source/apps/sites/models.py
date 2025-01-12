@@ -24,6 +24,14 @@ class Site(models.Model):
         verbose_name='Производственный участок',
         )
     is_contractor = models.BooleanField(verbose_name='Является подрядчиком', default=False)
+    warehouse_group = models.ForeignKey(
+        to='importer.WarehouseGroup',
+        related_name='sites',
+        on_delete=models.SET_NULL,
+        verbose_name='Группа складов',
+        blank=True,
+        null=True,
+        )
 
     class Meta:
         verbose_name = 'Проект'
