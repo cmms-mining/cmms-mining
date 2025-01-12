@@ -26,9 +26,8 @@ def from_file_to_db(excel_file):
 
     warehouses = df[['warehouse']].drop_duplicates().reset_index(drop=True)
 
-    Warehouse.objects.all().delete()
     for _, row in warehouses.iterrows():
-        Warehouse.objects.create(name=row['warehouse'])
+        Warehouse.objects.get_or_create(name=row['warehouse'])
 
     Nomenclature.objects.all().delete()
     for _, row in df.iterrows():

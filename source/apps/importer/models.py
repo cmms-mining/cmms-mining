@@ -1,9 +1,30 @@
 from django.db import models
 
 
+class WarehouseGroup(models.Model):
+    """Справочник групп складов"""
+    name = models.CharField(verbose_name='Название', max_length=50, unique=True)
+
+    class Meta:
+        verbose_name = 'Группа складов'
+        verbose_name_plural = '(Справочник) Группы складов'
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+
 class Warehouse(models.Model):
     """Справочник складов"""
     name = models.CharField(verbose_name='Название', max_length=50, unique=True)
+    group = models.ForeignKey(
+        to='importer.WarehouseGroup',
+        verbose_name='Группа',
+        on_delete=models.CASCADE,
+        related_name='склады',
+        blank=True,
+        null=True,
+    )
 
     class Meta:
         verbose_name = 'Склад'

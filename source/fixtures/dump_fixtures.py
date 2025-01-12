@@ -69,6 +69,7 @@ MODEL_ORDER = [
     'contractors.Invoice',
     'contractors.InvoiceAttachment',
 
+    # 'importer.WarehouseGroup',
     # 'importer.Warehouse',
     # 'importer.Nomenclature',
 ]
