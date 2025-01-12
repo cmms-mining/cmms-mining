@@ -32,7 +32,6 @@ class Component(models.Model):
     is_serial_number_marked = models.BooleanField(verbose_name='Нанесен серийный номер', default=False)
     # TODO nomenclature_code - поле должно быть уникальным
     nomenclature_code = models.CharField(verbose_name='Код номенклатуры', max_length=50, blank=True, null=True)
-    is_compliant_with_accounting = models.BooleanField(default=False, verbose_name='Соответствует бухгалтерскому учету')
 
     class Meta:
         verbose_name = 'Компонент'

@@ -39,7 +39,6 @@ class ComponentsListView(TemplateView):
             'serial_number',
             'nomenclature_code',
             'repair',
-            'is_compliant_with_accounting',
 
             'component_type__name',
             'component_type__kind__name',
@@ -96,7 +95,6 @@ class ComponentStateView(FormView):
         initial['is_serial_number_marked'] = component.is_serial_number_marked
         initial['nomenclature_code'] = component.nomenclature_code
         initial['serial_number'] = component.serial_number
-        initial['is_compliant_with_accounting'] = component.is_compliant_with_accounting
         initial['note'] = component.note
         return initial
 
@@ -111,9 +109,6 @@ class ComponentStateView(FormView):
         if form.cleaned_data['is_serial_number_marked']:
             is_serial_number_marked: bool = form.cleaned_data['is_serial_number_marked']
             component.is_serial_number_marked = is_serial_number_marked
-        if form.cleaned_data['is_compliant_with_accounting']:
-            is_compliant_with_accounting: bool = form.cleaned_data['is_compliant_with_accounting']
-            component.is_compliant_with_accounting = is_compliant_with_accounting
         if form.cleaned_data['serial_number']:
             serial_number: str = form.cleaned_data['serial_number']
             component.serial_number = serial_number

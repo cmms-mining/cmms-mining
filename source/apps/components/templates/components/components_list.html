@@ -26,7 +26,6 @@
                     <th>Код номенклатуры</th>
                     <th>Склад</th>
                     <th>Бух учет</th>
-                    <th>Сверено</th>
                     <th>Есть задача</th>
                 </tr>
             </thead>
@@ -66,7 +65,6 @@
                     <td>{% if component.current_data__is_operable == False %}❌{% endif %}</td>
                     <td>{{ component.nomenclature_code|default:'' }}</td>
                     <td>{{ component.warehouse|default:'-' }}</td>
-                    <td>{% if not component.is_compliant_with_accounting %}❌{% endif %}</td>
                     <td>{% if component.is_compliant_with_import_data %}✅{% else %}❌{% endif %}</td>
                     <td>{% if component.has_unverified_task %}✅{% endif %}</td>
                 </tr>
@@ -86,7 +84,6 @@
                     <th>Код номенклатуры</th>
                     <th>Склад</th>
                     <th>Бух учет</th>
-                    <th>Сверено</th>
                     <th>Есть задача</th>
                 </tr>
             </tfoot>

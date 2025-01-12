@@ -20,7 +20,7 @@
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$870000$HacisVUdIG83zWTRy3RzgM$nGkZbLNKxIRNw0klFihZ+o2Z97JR2A2B5pMsr5Zkejw=",
-      "last_login": "2025-01-11T11:59:06.186Z",
+      "last_login": "2025-01-12T12:11:54.551Z",
       "is_superuser": true,
       "username": "admin",
       "first_name": "\u0410\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0442\u043e\u0440",
@@ -103,7 +103,8 @@
     "fields": {
       "name": "\u0427\u0435\u043b\u044f\u0431\u0438\u043d\u0441\u043a\u0438\u0439",
       "workcenter": 1,
-      "is_contractor": false
+      "is_contractor": false,
+      "warehouse_group": 2
     }
   },
   {
@@ -112,7 +113,8 @@
     "fields": {
       "name": "\u0421\u0432\u0435\u0440\u0434\u043b\u043e\u0432\u0441\u043a\u0438\u0439",
       "workcenter": 1,
-      "is_contractor": false
+      "is_contractor": false,
+      "warehouse_group": null
     }
   },
   {
@@ -121,7 +123,8 @@
     "fields": {
       "name": "(\u041f) \u0418\u041f \u0420\u0435\u043c\u043e\u043d\u0442 \u0446\u0438\u043b\u0438\u043d\u0434\u0440\u043e\u0432",
       "workcenter": 1,
-      "is_contractor": true
+      "is_contractor": true,
+      "warehouse_group": 1
     }
   },
   {
@@ -130,7 +133,8 @@
     "fields": {
       "name": "\u041c\u0438\u0445\u0430\u0439\u043b\u043e\u0432\u0441\u043a\u0438\u0439 \u0413\u041e\u041a",
       "workcenter": 1,
-      "is_contractor": false
+      "is_contractor": false,
+      "warehouse_group": 3
     }
   },
   {
@@ -139,7 +143,8 @@
     "fields": {
       "name": "\u0421\u0430\u043c\u043e\u0442\u043b\u043e\u0440\u0441\u043a\u043e\u0435 \u043c\u0435\u0441\u0442\u043e\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u0435",
       "workcenter": 2,
-      "is_contractor": false
+      "is_contractor": false,
+      "warehouse_group": 4
     }
   },
   {
@@ -148,7 +153,8 @@
     "fields": {
       "name": "\u041f\u0440\u0438\u043e\u0431\u0441\u043a\u043e\u0435 \u043c\u0435\u0441\u0442\u043e\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u0435",
       "workcenter": 2,
-      "is_contractor": false
+      "is_contractor": false,
+      "warehouse_group": 5
     }
   },
   {
@@ -157,7 +163,8 @@
     "fields": {
       "name": "\u0410\u0440\u043b\u0430\u043d\u0441\u043a\u043e\u0435 \u043c\u0435\u0441\u0442\u043e\u0440\u043e\u0436\u0434\u0435\u043d\u0438\u0435",
       "workcenter": 1,
-      "is_contractor": false
+      "is_contractor": false,
+      "warehouse_group": 1
     }
   },
   {
@@ -166,7 +173,8 @@
     "fields": {
       "name": "(\u041f) \u0420\u0435\u043c\u043e\u043d\u0442 \u043d\u0430\u0441\u043e\u0441\u043e\u0432",
       "workcenter": 2,
-      "is_contractor": true
+      "is_contractor": true,
+      "warehouse_group": 2
     }
   },
   {
@@ -411,8 +419,7 @@
       "note": "\u0422\u0440\u0435\u0431\u0443\u0435\u0442 \u0432\u043d\u0438\u043c\u0430\u043d\u0438\u044f",
       "requires_reconciliation": null,
       "is_serial_number_marked": false,
-      "nomenclature_code": "001245",
-      "is_compliant_with_accounting": false
+      "nomenclature_code": "001245"
     }
   },
   {
@@ -425,8 +432,7 @@
       "note": null,
       "requires_reconciliation": null,
       "is_serial_number_marked": false,
-      "nomenclature_code": "001246",
-      "is_compliant_with_accounting": false
+      "nomenclature_code": "001246"
     }
   },
   {
@@ -439,8 +445,7 @@
       "note": null,
       "requires_reconciliation": null,
       "is_serial_number_marked": false,
-      "nomenclature_code": "001247",
-      "is_compliant_with_accounting": false
+      "nomenclature_code": "001247"
     }
   },
   {
@@ -453,8 +458,7 @@
       "note": "",
       "requires_reconciliation": null,
       "is_serial_number_marked": false,
-      "nomenclature_code": null,
-      "is_compliant_with_accounting": false
+      "nomenclature_code": null
     }
   },
   {
@@ -627,6 +631,62 @@
     }
   },
   {
+    "model": "components.componentrelocation",
+    "pk": 1,
+    "fields": {
+      "from_site": null,
+      "to_site": 1,
+      "date": "2025-01-06",
+      "reason": null,
+      "note": null,
+      "created_at": "2025-01-12T15:17:12.731Z",
+      "author": 1,
+      "component": 1
+    }
+  },
+  {
+    "model": "components.componentrelocation",
+    "pk": 2,
+    "fields": {
+      "from_site": null,
+      "to_site": 7,
+      "date": "2025-01-08",
+      "reason": null,
+      "note": "",
+      "created_at": "2025-01-12T15:40:53.780Z",
+      "author": 1,
+      "component": 2
+    }
+  },
+  {
+    "model": "components.componentrelocation",
+    "pk": 3,
+    "fields": {
+      "from_site": null,
+      "to_site": 6,
+      "date": "2025-01-09",
+      "reason": null,
+      "note": "",
+      "created_at": "2025-01-12T15:41:18.072Z",
+      "author": 1,
+      "component": 3
+    }
+  },
+  {
+    "model": "components.componentrelocation",
+    "pk": 4,
+    "fields": {
+      "from_site": null,
+      "to_site": 5,
+      "date": "2025-01-09",
+      "reason": null,
+      "note": "",
+      "created_at": "2025-01-12T15:41:37.587Z",
+      "author": 1,
+      "component": 4
+    }
+  },
+  {
     "model": "components.componentinstallation",
     "pk": 1,
     "fields": {
@@ -635,6 +695,19 @@
       "location": 1,
       "note": "",
       "created_at": "2024-12-11T17:29:58.410Z",
+      "author": 1,
+      "component": 1
+    }
+  },
+  {
+    "model": "components.componentdeinstallation",
+    "pk": 1,
+    "fields": {
+      "from_equipment": 1,
+      "date": "2025-01-06",
+      "reason": 1,
+      "note": "",
+      "created_at": "2025-01-12T15:17:12.669Z",
       "author": 1,
       "component": 1
     }
@@ -661,18 +734,18 @@
     "model": "components.componentcurrentdata",
     "pk": 1,
     "fields": {
-      "location": null,
-      "relocation_date": null,
+      "location": 1,
+      "relocation_date": "2025-01-06",
       "techstate": null,
       "techstate_date": null,
       "is_being_repaired": null,
       "is_operable": null,
       "updated_by": 1,
-      "updated_at": "2025-01-11T12:00:40.731Z",
+      "updated_at": "2025-01-12T16:31:53.424Z",
       "component": 1,
-      "equipment": 1,
-      "installation_date": "2022-05-01",
-      "component_location": 1,
+      "equipment": null,
+      "installation_date": "2025-01-06",
+      "component_location": null,
       "state": 2
     }
   },
@@ -680,14 +753,14 @@
     "model": "components.componentcurrentdata",
     "pk": 2,
     "fields": {
-      "location": null,
-      "relocation_date": null,
+      "location": 7,
+      "relocation_date": "2025-01-08",
       "techstate": null,
       "techstate_date": null,
       "is_being_repaired": null,
       "is_operable": null,
       "updated_by": 1,
-      "updated_at": "2025-01-11T12:00:50.411Z",
+      "updated_at": "2025-01-12T15:40:53.869Z",
       "component": 2,
       "equipment": null,
       "installation_date": null,
@@ -699,19 +772,38 @@
     "model": "components.componentcurrentdata",
     "pk": 3,
     "fields": {
-      "location": null,
-      "relocation_date": null,
+      "location": 6,
+      "relocation_date": "2025-01-09",
       "techstate": null,
       "techstate_date": null,
       "is_being_repaired": null,
       "is_operable": null,
       "updated_by": 1,
-      "updated_at": "2025-01-11T12:01:03.218Z",
+      "updated_at": "2025-01-12T15:41:18.129Z",
       "component": 3,
       "equipment": null,
       "installation_date": null,
       "component_location": null,
       "state": 1
+    }
+  },
+  {
+    "model": "components.componentcurrentdata",
+    "pk": 4,
+    "fields": {
+      "location": 5,
+      "relocation_date": "2025-01-09",
+      "techstate": null,
+      "techstate_date": null,
+      "is_being_repaired": null,
+      "is_operable": null,
+      "updated_by": 1,
+      "updated_at": "2025-01-12T15:41:37.715Z",
+      "component": 4,
+      "equipment": null,
+      "installation_date": null,
+      "component_location": null,
+      "state": null
     }
   },
   {
@@ -898,47 +990,6 @@
       "attachment_file": "invoices/\u0418\u041f \u0420\u0435\u043c\u043e\u043d\u0442 \u0446\u0438\u043b\u0438\u043d\u0434\u0440\u043e\u0432/20250101/File.pdf",
       "invoice": 3,
       "file_size": "730 \u043a\u0411"
-    }
-  },
-  {
-    "model": "importer.warehouse",
-    "pk": 1,
-    "fields": {
-      "name": "\u0421\u043a\u043b\u0430\u0434 1"
-    }
-  },
-  {
-    "model": "importer.warehouse",
-    "pk": 2,
-    "fields": {
-      "name": "\u0421\u043a\u043b\u0430\u0434 2"
-    }
-  },
-  {
-    "model": "importer.warehouse",
-    "pk": 3,
-    "fields": {
-      "name": "\u0421\u043a\u043b\u0430\u0434 3"
-    }
-  },
-  {
-    "model": "importer.nomenclature",
-    "pk": 1,
-    "fields": {
-      "name": "\u0426\u0438\u043b\u0438\u043d\u0434\u0440 \u0441\u0442\u0440\u0435\u043b\u044b PC400",
-      "code": "001245",
-      "number": "001",
-      "warehouse": 1
-    }
-  },
-  {
-    "model": "importer.nomenclature",
-    "pk": 2,
-    "fields": {
-      "name": "\u0426\u0438\u043b\u0438\u043d\u0434\u0440 \u0441\u0442\u0440\u0435\u043b\u044b PC400",
-      "code": "001246",
-      "number": "002",
-      "warehouse": 2
     }
   }
 ]
