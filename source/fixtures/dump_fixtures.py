@@ -29,6 +29,7 @@ MODEL_ORDER = [
     'sites.Site',
 
     'common.TechStateOption',
+    'common.DeinstallationReason',
 
     'equipments.EquipmentType',
     'equipments.EquipmentModel',
@@ -69,9 +70,9 @@ MODEL_ORDER = [
     'contractors.Invoice',
     'contractors.InvoiceAttachment',
 
-    # 'importer.WarehouseGroup',
-    # 'importer.Warehouse',
-    # 'importer.Nomenclature',
+    'importer.WarehouseGroup',
+    'importer.Warehouse',
+    'importer.Nomenclature',
 ]
 
 # Получаем директорию, где находится сам скрипт
