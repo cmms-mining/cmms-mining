@@ -1,22 +1,23 @@
 from typing import Any
 
-from django.db.models import Exists, OuterRef, Prefetch, QuerySet, Subquery
+from django.db.models import Exists, OuterRef, Prefetch, Subquery
 from django.shortcuts import get_object_or_404, redirect
-from django.views.generic import FormView, ListView
+from django.views.generic import FormView, TemplateView
 
 from apps.components.models import Component, ComponentRepair, ComponentState, ComponentTask
-from apps.importer.models import Nomenclature
+from apps.importer.models import Nomenclature, Warehouse
+from apps.sites.models import Site
 
 from ..forms import ComponentStateForm
 from ..services import update_component_current_data
 
 
-class ComponentsListView(ListView):
-    model = Component
-    context_object_name = 'components'
+class ComponentsListView(TemplateView):
     template_name = 'components/components_list.html'
 
-    def get_queryset(self) -> QuerySet[Any]:
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
         unverified_task_exists = ComponentTask.objects.filter(
             component=OuterRef('pk'),
             verified=False,
@@ -27,7 +28,7 @@ class ComponentsListView(ListView):
             code=OuterRef('nomenclature_code'),
         ).values('warehouse__name')[:1]
 
-        queryset = Component.objects.prefetch_related(
+        components = Component.objects.prefetch_related(
             Prefetch('repairs'),
         ).annotate(
             has_unverified_task=Exists(unverified_task_exists),
@@ -54,7 +55,20 @@ class ComponentsListView(ListView):
             'has_unverified_task',
             'warehouse',
         )
-        return queryset
+
+        for component in components:
+            location_warehouse_group = None
+            warehouse_group = None
+            if component.get('current_data__location__name') and component.get('warehouse'):
+                location_warehouse_group = Site.objects.get(
+                    name=component.get('current_data__location__name')).warehouse_group
+                warehouse_group = Warehouse.objects.get(name=component.get('warehouse')).group
+                if location_warehouse_group and location_warehouse_group == warehouse_group:
+                    component['is_compliant_with_import_data'] = True
+
+        context['components'] = components
+
+        return context
 
 
 class ComponentStateView(FormView):
