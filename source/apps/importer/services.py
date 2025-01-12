@@ -10,28 +10,30 @@ def from_file_to_db(excel_file):
         skipfooter=5,
         header=None,
         usecols='A, F',
-        names=['Nomenclature', 'Code'],
+        names=['nomenclature', 'code'],
         )
+
+    df['code'] = df['code'].str.rstrip()
 
     df_nomenclature = df.iloc[::2].reset_index(drop=True)
     df_warehouse = df.iloc[1::2].reset_index(drop=True)
 
     df = pd.DataFrame({
-        'Code': df_nomenclature['Code'],
-        'Nomenclature': df_nomenclature['Nomenclature'],
-        'Warehouse': df_warehouse['Nomenclature'],
+        'code': df_nomenclature['code'],
+        'nomenclature': df_nomenclature['nomenclature'],
+        'warehouse': df_warehouse['nomenclature'],
     })
 
-    warehouses = df[['Warehouse']].drop_duplicates().reset_index(drop=True)
+    warehouses = df[['warehouse']].drop_duplicates().reset_index(drop=True)
 
     Warehouse.objects.all().delete()
     for _, row in warehouses.iterrows():
-        Warehouse.objects.create(name=row['Warehouse'])
+        Warehouse.objects.create(name=row['warehouse'])
 
     Nomenclature.objects.all().delete()
     for _, row in df.iterrows():
         Nomenclature.objects.create(
-            code=row['Code'],
-            name=row['Nomenclature'],
-            warehouse=Warehouse.objects.get(name=row['Warehouse']),
+            code=row['code'],
+            name=row['nomenclature'],
+            warehouse=Warehouse.objects.get(name=row['warehouse']),
         )
