@@ -14,6 +14,7 @@ def from_file_to_db(excel_file):
         )
 
     df['code'] = df['code'].str.rstrip()
+    df['nomenclature'] = df['nomenclature'].str.rstrip()
 
     df_nomenclature = df.iloc[::2].reset_index(drop=True)
     df_warehouse = df.iloc[1::2].reset_index(drop=True)
