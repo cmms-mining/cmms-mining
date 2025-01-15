@@ -240,6 +240,7 @@ class ComponentAttachment(models.Model):
         related_name='authored_component_attachments',
         )
     file_size = models.CharField(verbose_name='Размер файла', max_length=30, blank=True, null=True)
+    description = models.CharField(verbose_name='Описание', max_length=70, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Вложение компонента'

@@ -26,6 +26,7 @@
                     <th>Ссылка</th>
                     <th>Автор</th>
                     <th>Дата</th>
+                    <th>Описание</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,6 +41,9 @@
                         </td>
                         <td>
                             {{ attachment.created_at|date:"d.m.Y" }}
+                        </td>
+                        <td>
+                            {{ attachment.description|default:'' }}
                         </td>
 
                     </tr>
