@@ -1,10 +1,10 @@
 from typing import Any
 
-from django.db.models import Exists, OuterRef, Prefetch, Subquery
+from django.db.models import Count, Exists, OuterRef, Prefetch, Q, Subquery
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import FormView, TemplateView
 
-from apps.components.models import Component, ComponentRepair, ComponentState, ComponentTask
+from apps.components.models import Component, ComponentRepair, ComponentState, ComponentTask, ComponentType
 from apps.importer.models import Nomenclature, Warehouse
 from apps.sites.models import Site
 
@@ -117,3 +117,19 @@ class ComponentStateView(FormView):
         component.save()
 
         return redirect('component_state_tab', component_number=component.number)
+
+
+class ComponentsSummaryView(TemplateView):
+    template_name = 'components/components_summary.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        components_types = ComponentType.objects.annotate(
+            total_components=Count('components'),
+            installed_components=Count('components', filter=Q(components__current_data__equipment__isnull=False)),
+            rotable_components=Count('components', filter=Q(components__current_data__equipment__isnull=True)),
+        )
+        context['components_types'] = components_types
+
+        return context

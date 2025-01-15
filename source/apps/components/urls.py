@@ -10,6 +10,8 @@ urlpatterns = [
         components.ComponentStateView.as_view(),
         name='component_state_tab',
         ),
+    path('summary', components.ComponentsSummaryView.as_view(), name='components_summary'),
+
 
     # Установки компонентов
     path(
