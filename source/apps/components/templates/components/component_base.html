@@ -17,7 +17,14 @@
 
           <div class="p-2 border bg-light">
             {% if component.get_equipment %}
-            Установлен на: <b>{{ component.get_equipment|default:'' }}{% if component.get_location_on_equipment %} ({{ component.get_location_on_equipment }}){% endif %}</b>
+            Установлен на: <b>
+                            <a href="{% url 'equipment_all_events_tab' equipment_number=component.get_equipment.number %}" class="text-body custom-link">
+                              {{ component.get_equipment|default:'' }}
+                              {% if component.get_location_on_equipment %}
+                                ({{ component.get_location_on_equipment }})
+                              {% endif %}
+                            </a>
+                            </b>
             {% else %}
             Компонент не установлен на оборудование
             {% endif %} <b>{% if component.get_equipment_days %} {{component.get_equipment_days}}дн {% endif %}</b>
