@@ -20,7 +20,7 @@
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$870000$HacisVUdIG83zWTRy3RzgM$nGkZbLNKxIRNw0klFihZ+o2Z97JR2A2B5pMsr5Zkejw=",
-      "last_login": "2025-01-12T12:11:54.551Z",
+      "last_login": "2025-01-18T18:00:07.315Z",
       "is_superuser": true,
       "username": "admin",
       "first_name": "\u0410\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0442\u043e\u0440",
@@ -273,6 +273,20 @@
     }
   },
   {
+    "model": "equipments.equipment",
+    "pk": 4,
+    "fields": {
+      "name": null,
+      "number": "504",
+      "equipment_model": 1,
+      "equipment_maintenance_group": null,
+      "serial_number": null,
+      "note": "",
+      "inventory_number": null,
+      "decommissioned": false
+    }
+  },
+  {
     "model": "equipments.relocationorder",
     "pk": 1,
     "fields": {
@@ -399,6 +413,24 @@
     "fields": {
       "name": "\u0414\u0412\u0421 C27",
       "kind": 2,
+      "note": ""
+    }
+  },
+  {
+    "model": "components.componenttype",
+    "pk": 3,
+    "fields": {
+      "name": "\u0426\u0438\u043b\u0438\u043d\u0434\u0440 \u0440\u0443\u043a\u043e\u044f\u0442\u0438 PC400",
+      "kind": 1,
+      "note": ""
+    }
+  },
+  {
+    "model": "components.componenttype",
+    "pk": 4,
+    "fields": {
+      "name": "\u0426\u0438\u043b\u0438\u043d\u0434\u0440 \u043a\u043e\u0432\u0448\u0430 PC400",
+      "kind": 1,
       "note": ""
     }
   },
@@ -707,6 +739,19 @@
     }
   },
   {
+    "model": "components.componentinstallation",
+    "pk": 2,
+    "fields": {
+      "to_equipment": 1,
+      "date": "2025-01-14",
+      "location": 1,
+      "note": "",
+      "created_at": "2025-01-15T17:50:34.279Z",
+      "author": 1,
+      "component": 2
+    }
+  },
+  {
     "model": "components.componentdeinstallation",
     "pk": 1,
     "fields": {
@@ -760,18 +805,18 @@
     "model": "components.componentcurrentdata",
     "pk": 2,
     "fields": {
-      "location": 7,
+      "location": null,
       "relocation_date": "2025-01-08",
       "techstate": null,
       "techstate_date": null,
       "is_being_repaired": null,
       "is_operable": null,
       "updated_by": 1,
-      "updated_at": "2025-01-12T15:40:53.869Z",
+      "updated_at": "2025-01-15T17:50:34.372Z",
       "component": 2,
-      "equipment": null,
-      "installation_date": null,
-      "component_location": null,
+      "equipment": 1,
+      "installation_date": "2025-01-14",
+      "component_location": 1,
       "state": 2
     }
   },
@@ -822,7 +867,8 @@
       "attachment_type": "\u0428\u0438\u043b\u044c\u0434\u0438\u043a",
       "created_at": "2024-12-19T17:01:18.940Z",
       "author": 1,
-      "file_size": "647 \u043a\u0411"
+      "file_size": "647 \u043a\u0411",
+      "description": null
     }
   },
   {
@@ -834,7 +880,8 @@
       "attachment_type": "\u0424\u043e\u0442\u043e \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u0430",
       "created_at": "2024-12-19T17:42:36.323Z",
       "author": 1,
-      "file_size": "730 \u043a\u0411"
+      "file_size": "730 \u043a\u0411",
+      "description": "\u044d\u0442\u043e \u043e\u043f\u0438\u0441\u0430\u043d\u0438\u0435"
     }
   },
   {
@@ -1032,6 +1079,63 @@
     "pk": 5,
     "fields": {
       "name": "\u0412\u043e\u0441\u0442\u043e\u043a"
+    }
+  },
+  {
+    "model": "firefighting.firefightingsystem",
+    "pk": 1,
+    "fields": {
+      "equipment": 1,
+      "requires_check": true
+    }
+  },
+  {
+    "model": "firefighting.firefightingsystem",
+    "pk": 2,
+    "fields": {
+      "equipment": 2,
+      "requires_check": true
+    }
+  },
+  {
+    "model": "firefighting.firefightingsystem",
+    "pk": 3,
+    "fields": {
+      "equipment": 4,
+      "requires_check": true
+    }
+  },
+  {
+    "model": "firefighting.firefightingcheck",
+    "pk": 1,
+    "fields": {
+      "firefighting_system": 1,
+      "date": "2025-01-18",
+      "attachment_file": "firefighting/501/18-01-2025/File.pdf",
+      "state": "\u0418\u0441\u043f\u0440\u0430\u0432\u043d\u0430",
+      "note": null
+    }
+  },
+  {
+    "model": "firefighting.firefightingcheck",
+    "pk": 2,
+    "fields": {
+      "firefighting_system": 3,
+      "date": "2025-01-11",
+      "attachment_file": "firefighting/504/11-01-2025/File.pdf",
+      "state": "\u0418\u0441\u043f\u0440\u0430\u0432\u043d\u0430",
+      "note": null
+    }
+  },
+  {
+    "model": "firefighting.firefightingcheck",
+    "pk": 3,
+    "fields": {
+      "firefighting_system": 3,
+      "date": "2025-01-01",
+      "attachment_file": "firefighting/504/01-01-2025/File.pdf",
+      "state": "\u041d\u0435\u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d\u0430",
+      "note": null
     }
   }
 ]

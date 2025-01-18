@@ -14,8 +14,11 @@ class FirefightingCheck(models.Model):
         verbose_name='Система пожаротушения',
         on_delete=models.CASCADE,
         )
-    date = models.DateField(verbose_name='Дата проверки')
-    attachment_file = models.FileField(upload_to=attach_firefighting_check_upload_path, verbose_name='Файл вложения')
+    date = models.DateField(verbose_name='Дата акта проверки')
+    attachment_file = models.FileField(
+        upload_to=attach_firefighting_check_upload_path,
+        verbose_name='Файл акта проверки',
+        )
     STATE_CHOICES = (
         ('Исправна', 'Исправна'),
         ('Неисправна', 'Неисправна'),
@@ -37,7 +40,7 @@ class FirefightingSystem(models.Model):
     """Установленные системы пожаротушения на оборудовании"""
     equipment = models.OneToOneField(
         to='equipments.Equipment',
-        related_name='firefighting',
+        related_name='firefighting_system',
         verbose_name='Оборудование',
         on_delete=models.CASCADE,
         )

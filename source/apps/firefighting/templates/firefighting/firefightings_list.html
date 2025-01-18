@@ -12,8 +12,10 @@
         <table id="buckets_table" class="display" style="width:100%">
             <thead>
                 <tr>
+                    <th>Редактировать</th>
                     <th>Оборудование</th>
-                    <th>Дата последней проверки</th>
+                    <th>Местоположение</th>
+                    <th>Дата акта проверки</th>
                     <th>Состояние</th>
                     <th>Скан акта</th>
                     <th>Примечание</th>
@@ -22,7 +24,16 @@
             <tbody>
                 {% for firefighting_system in firefighting_systems %}
                 <tr>
+                    <td>
+                        <a href="" class="btn btn-inverse-dark btn-sm text-center" title="Редактировать текущий акт">
+                            <i class="ti-pencil-alt"></i>
+                        </a>
+                        <a href="{% url 'firefighting_check_create' equipment_number=firefighting_system.equipment.number %}" class="btn btn-inverse-dark btn-sm text-center" title="Добавить новый акт">
+                            <i class="ti-file"></i>
+                        </a>
+                    </td>
                     <td>{{ firefighting_system.equipment.number }}</td>
+                    <td>{{ firefighting_system.equipment.get_location.name }}</td>
                     <td>{{ firefighting_system.get_check.date|date:"d.m.Y" }}</td>
                     <td>{{ firefighting_system.get_check.state }}</td>
                     <td>
@@ -36,8 +47,10 @@
             </tbody>
             <tfoot>
                 <tr>
+                    <th>Редактировать</th>
                     <th>Оборудование</th>
-                    <th>Дата последней проверки</th>
+                    <th>Местоположение</th>
+                    <th>Дата акта проверки</th>
                     <th>Состояние</th>
                     <th>Скан акта</th>
                     <th>Примечание</th>
