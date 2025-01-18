@@ -111,6 +111,12 @@
                         <span>Приказы</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a href="{% url 'firefightings' %}" class="sidebar-link">
+                        <i><img src="{% static 'img/icons/order.png' %}" width="25" height="25" alt="Icon"></i>
+                        <span>Пожаротушение</span>
+                    </a>
+                </li>
                 {% if user.is_superuser %}
                 <li class="sidebar-item">
                     <a href="{% url 'contractors' %}" class="sidebar-link">
