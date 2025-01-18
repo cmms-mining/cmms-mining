@@ -1137,5 +1137,55 @@
       "state": "\u041d\u0435\u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043b\u0435\u043d\u0430",
       "note": null
     }
+  },
+  {
+    "model": "buckets.bucketcapacity",
+    "pk": 1,
+    "fields": {
+      "capacity": "10"
+    }
+  },
+  {
+    "model": "buckets.bucket",
+    "pk": 1,
+    "fields": {
+      "number": "01",
+      "capacity": 1,
+      "tooth_adapter": null,
+      "manufacturer": null,
+      "production_year": null,
+      "nomencl_code": null,
+      "equipment_model": null,
+      "note": "",
+      "requires_reconciliation": true
+    }
+  },
+  {
+    "model": "buckets.bucketrepair",
+    "pk": 1,
+    "fields": {
+      "bucket": 1,
+      "start_date": null,
+      "end_date": null,
+      "plan_start_date": "2025-01-21",
+      "plan_end_date": null,
+      "worklist": "\u0417\u0430\u043c\u0435\u043d\u0430 \u0430\u0434\u0430\u043f\u0442\u0435\u0440\u0430",
+      "note": "",
+      "date": "2025-01-18",
+      "author": 1
+    }
+  },
+  {
+    "model": "buckets.buckettechstate",
+    "pk": 1,
+    "fields": {
+      "bucket": 1,
+      "date": "2025-01-13",
+      "techstate": 2,
+      "is_operable": false,
+      "description": "",
+      "created_at": "2025-01-18T18:52:04.948Z",
+      "author": 1
+    }
   }
 ]

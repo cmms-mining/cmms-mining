@@ -76,6 +76,18 @@ MODEL_ORDER = [
 
     'firefighting.FirefightingSystem',
     'firefighting.FirefightingCheck',
+
+    'buckets.BucketCapacity',
+    'buckets.ToothAdapter',
+    'buckets.BucketManufacturer',
+    'buckets.Bucket',
+    'buckets.BucketDecommission',
+    'buckets.BucketInstallation',
+    'buckets.BucketDeinstallation',
+    'buckets.BucketRelocation',
+    'buckets.BucketReconciliation',
+    'buckets.BucketRepair',
+    'buckets.BucketTechState',
 ]
 
 # Получаем директорию, где находится сам скрипт
