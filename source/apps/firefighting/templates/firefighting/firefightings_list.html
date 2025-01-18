@@ -7,7 +7,49 @@
 <h3 class="fw-bold fs-4 mb-3">Системы пожаротушения</h3>
 
 <div class="row">
+    <div class="col-12">
 
+        <table id="buckets_table" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Оборудование</th>
+                    <th>Дата последней проверки</th>
+                    <th>Состояние</th>
+                    <th>Скан акта</th>
+                    <th>Примечание</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for firefighting_system in firefighting_systems %}
+                <tr>
+                    <td>{{ firefighting_system.equipment.number }}</td>
+                    <td>{{ firefighting_system.get_check.date|date:"d.m.Y" }}</td>
+                    <td>{{ firefighting_system.get_check.state }}</td>
+                    <td>
+                        {% if firefighting_system.get_check.attachment_file %}
+                            <a href="{{ firefighting_system.get_check.attachment_file.url }}" target="_blank" class="text-body custom-link">скан акта</a>
+                        {% endif %}
+                    </td>
+                    <td>{{ firefighting_system.get_check.note|default:'' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Оборудование</th>
+                    <th>Дата последней проверки</th>
+                    <th>Состояние</th>
+                    <th>Скан акта</th>
+                    <th>Примечание</th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
 </div>
 
 {% endblock content %}
+
+{% block scripts %}
+    {% include "partial/table_scripts.html" %}
+{% endblock scripts %}
