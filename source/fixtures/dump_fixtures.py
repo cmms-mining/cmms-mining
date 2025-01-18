@@ -73,6 +73,9 @@ MODEL_ORDER = [
     'importer.WarehouseGroup',
     'importer.Warehouse',
     'importer.Nomenclature',
+
+    'firefighting.FirefightingSystem',
+    'firefighting.FirefightingCheck',
 ]
 
 # Получаем директорию, где находится сам скрипт

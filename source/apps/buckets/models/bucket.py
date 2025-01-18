@@ -42,7 +42,7 @@ class ToothAdapter(models.Model):
 
 
 class BucketManufacturer(models.Model):
-    """Тип адаптера зуба"""
+    """Производители ковшей"""
     name = models.CharField(verbose_name='Производитель', max_length=50, unique=True)
 
     class Meta:
