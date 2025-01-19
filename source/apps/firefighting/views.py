@@ -13,6 +13,11 @@ class FirefightingsListView(ListView):
     template_name = 'firefighting/firefightings_list.html'
     model = FirefightingSystem
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_can_create_relocation'] = self.request.user.groups.filter(name='Перемещение оборудования').exists()
+        return context
+
 
 class FirefightingCheckCreateView(CreateView):
     model = FirefightingCheck
@@ -43,3 +48,8 @@ class FirefightingCheckUpdateView(UpdateView):
     def get_object(self, queryset=None):
         check: FirefightingCheck = get_object_or_404(FirefightingCheck, pk=self.kwargs.get('firefighting_check_pk'))
         return check
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['equipment'] = self.get_object().firefighting_system.equipment
+        return context

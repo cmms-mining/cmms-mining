@@ -3,7 +3,7 @@
 {% block title %}Акт пожаротушения{% endblock %}
 
 {% block content %}
-    Добавить акт проверки системы пожаротушения на оборудовании {{ equipment.number }}
+    Добавить акт проверки системы пожаротушения на оборудовании <span class="fw-bold">{{ equipment.number }}</span>
 
     <form class="forms-sample" action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}

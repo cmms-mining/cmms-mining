@@ -12,7 +12,7 @@
         <table id="buckets_table" class="display" style="width:100%">
             <thead>
                 <tr>
-                    <th>Редактировать</th>
+                    <th>Редактирование</th>
                     <th>Оборудование</th>
                     <th>Местоположение</th>
                     <th>Дата акта проверки</th>
@@ -25,14 +25,16 @@
                 {% for firefighting_system in firefighting_systems %}
                 <tr>
                     <td>
-                        {% if firefighting_system.get_check %}
-                            <a href="{% url 'firefighting_check_update' firefighting_check_pk=firefighting_system.get_check.pk %}" class="btn btn-inverse-dark btn-sm text-center" title="Редактировать текущий акт">
-                                <i class="ti-pencil-alt"></i>
+                        {% if user_can_create_relocation %}
+                            {% if firefighting_system.get_check %}
+                                <a href="{% url 'firefighting_check_update' firefighting_check_pk=firefighting_system.get_check.pk %}" class="btn btn-inverse-dark btn-sm text-center" title="Редактировать текущий акт">
+                                    <i class="ti-pencil-alt"></i>
+                                </a>
+                            {% endif %}
+                            <a href="{% url 'firefighting_check_create' equipment_number=firefighting_system.equipment.number %}" class="btn btn-inverse-dark btn-sm text-center" title="Добавить новый акт">
+                                <span class="btn btn-primary" style="font-size: 12px; padding: 2px 6px;">+</span>
                             </a>
                         {% endif %}
-                        <a href="{% url 'firefighting_check_create' equipment_number=firefighting_system.equipment.number %}" class="btn btn-inverse-dark btn-sm text-center" title="Добавить новый акт">
-                            <i class="ti-file"></i>
-                        </a>
                     </td>
                     <td>{{ firefighting_system.equipment.number }}</td>
                     <td>{{ firefighting_system.equipment.get_location.name }}</td>
@@ -49,7 +51,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <th>Редактировать</th>
+                    <th>Редактирование</th>
                     <th>Оборудование</th>
                     <th>Местоположение</th>
                     <th>Дата акта проверки</th>
