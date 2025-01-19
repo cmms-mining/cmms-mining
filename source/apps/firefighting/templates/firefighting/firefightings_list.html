@@ -25,9 +25,11 @@
                 {% for firefighting_system in firefighting_systems %}
                 <tr>
                     <td>
-                        <a href="" class="btn btn-inverse-dark btn-sm text-center" title="Редактировать текущий акт">
-                            <i class="ti-pencil-alt"></i>
-                        </a>
+                        {% if firefighting_system.get_check %}
+                            <a href="{% url 'firefighting_check_update' firefighting_check_pk=firefighting_system.get_check.pk %}" class="btn btn-inverse-dark btn-sm text-center" title="Редактировать текущий акт">
+                                <i class="ti-pencil-alt"></i>
+                            </a>
+                        {% endif %}
                         <a href="{% url 'firefighting_check_create' equipment_number=firefighting_system.equipment.number %}" class="btn btn-inverse-dark btn-sm text-center" title="Добавить новый акт">
                             <i class="ti-file"></i>
                         </a>

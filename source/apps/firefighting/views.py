@@ -1,9 +1,10 @@
 from django.shortcuts import get_object_or_404, redirect
-from django.views.generic import CreateView, ListView
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, ListView, UpdateView
 
 from apps.equipments.models import Equipment
 
-from .forms import FirefightingCheckCreateForm
+from .forms import FirefightingCheckForm
 from .models import FirefightingCheck, FirefightingSystem
 
 
@@ -15,8 +16,8 @@ class FirefightingsListView(ListView):
 
 class FirefightingCheckCreateView(CreateView):
     model = FirefightingCheck
-    form_class = FirefightingCheckCreateForm
-    template_name = 'firefighting/firefighting_create.html'
+    form_class = FirefightingCheckForm
+    template_name = 'firefighting/firefighting.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -31,3 +32,14 @@ class FirefightingCheckCreateView(CreateView):
         check.firefighting_system = firefighting_system
         check.save()
         return redirect('firefightings')
+
+
+class FirefightingCheckUpdateView(UpdateView):
+    model = FirefightingCheck
+    form_class = FirefightingCheckForm
+    template_name = 'firefighting/firefighting.html'
+    success_url = reverse_lazy('firefightings')
+
+    def get_object(self, queryset=None):
+        check: FirefightingCheck = get_object_or_404(FirefightingCheck, pk=self.kwargs.get('firefighting_check_pk'))
+        return check

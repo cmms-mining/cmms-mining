@@ -10,4 +10,9 @@ urlpatterns = [
         views.FirefightingCheckCreateView.as_view(),
         name='firefighting_check_create',
         ),
+    path(
+        '<str:firefighting_check_pk>/update-check',
+        views.FirefightingCheckUpdateView.as_view(),
+        name='firefighting_check_update',
+        ),
 ]

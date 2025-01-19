@@ -3,7 +3,7 @@ from django import forms
 from .models import FirefightingCheck
 
 
-class FirefightingCheckCreateForm(forms.ModelForm):
+class FirefightingCheckForm(forms.ModelForm):
 
     class Meta:
         model = FirefightingCheck
