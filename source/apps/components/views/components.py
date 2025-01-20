@@ -28,12 +28,17 @@ class ComponentsListView(TemplateView):
             code=OuterRef('nomenclature_code'),
         ).values('warehouse__name')[:1]
 
+        nomenclature_subquery = Nomenclature.objects.filter(
+            code=OuterRef('nomenclature_code'),
+        ).values('name')[:1]
+
         components = Component.objects.prefetch_related(
             Prefetch('repairs'),
         ).annotate(
             has_unverified_task=Exists(unverified_task_exists),
             repair=Subquery(repairs_list.values('id')[:1]),
             warehouse=Subquery(warehouse_subquery),
+            nomenclature=Subquery(nomenclature_subquery),
         ).values(
             'number',
             'serial_number',
@@ -53,6 +58,7 @@ class ComponentsListView(TemplateView):
 
             'has_unverified_task',
             'warehouse',
+            'nomenclature',
         )
 
         for component in components:

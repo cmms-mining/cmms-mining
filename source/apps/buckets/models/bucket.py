@@ -29,7 +29,7 @@ class BucketCapacity(models.Model):
 
 
 class ToothAdapter(models.Model):
-    """Тип адаптера зуба"""
+    """Типы адаптеров коронок"""
     name = models.CharField(verbose_name='Тип адаптера', max_length=50, unique=True)
 
     class Meta:
