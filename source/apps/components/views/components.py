@@ -129,6 +129,11 @@ class ComponentsSummaryView(TemplateView):
             total_components=Count('components'),
             installed_components=Count('components', filter=Q(components__current_data__equipment__isnull=False)),
             rotable_components=Count('components', filter=Q(components__current_data__equipment__isnull=True)),
+            healthy_components=Count(
+                'components',
+                filter=Q(components__current_data__equipment__isnull=True) &
+                Q(components__current_data__state__name='Хранение'),
+                ),
         )
         context['components_types'] = components_types
 
