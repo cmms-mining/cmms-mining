@@ -124,19 +124,12 @@ class ComponentRelocationForm(forms.ModelForm):
 
 
 class ComponentTaskCreateForm(forms.ModelForm):
-    send_email_to_executor = forms.ChoiceField(
-        choices=[(True, 'ДА'), (False, 'НЕТ')],
-        required=True,
-        widget=forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 100px;'}),
-        label='Отправить email исполнителю',
-    )
 
     class Meta:
         model = ComponentTask
-        fields = ('name', 'content', 'executor', 'planned_completion_date', 'priority')
+        fields = ('name', 'executor', 'planned_completion_date', 'priority')
         widgets = {
             'name': forms.Textarea(attrs={'class': 'form-control', 'style': 'max-width: 300px; height: 70px;'}),
-            'content': forms.Textarea(attrs={'class': 'form-control', 'style': 'max-width: 300px; height: 70px;'}),
             'executor': forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 300px;'}),
             'planned_completion_date': forms.DateInput(
                 format='%Y-%m-%d',

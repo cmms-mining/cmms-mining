@@ -17,8 +17,6 @@ class Task(models.Model):
         default='generic',
     )
     name = models.CharField(verbose_name='Название', max_length=100)
-    #  TODO можно будет удалить, описание задачи должно быть в комментариях к задаче
-    content = models.TextField(verbose_name='Содержимое', blank=True, null=True)
     executor = models.ForeignKey(
         to=User,
         on_delete=models.CASCADE,
