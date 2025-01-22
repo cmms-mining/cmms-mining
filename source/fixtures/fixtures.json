@@ -20,7 +20,7 @@
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$870000$HacisVUdIG83zWTRy3RzgM$nGkZbLNKxIRNw0klFihZ+o2Z97JR2A2B5pMsr5Zkejw=",
-      "last_login": "2025-01-20T17:12:58.551Z",
+      "last_login": "2025-01-22T13:13:02.797Z",
       "is_superuser": true,
       "username": "admin",
       "first_name": "\u0410\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0442\u043e\u0440",
@@ -40,7 +40,7 @@
     "pk": 2,
     "fields": {
       "password": "pbkdf2_sha256$870000$mPikALEnpe25L4QQWeQeDH$hl5cssUQs9fx0XSez1+Y/04wh8yFHa7mm7z/TR53JjE=",
-      "last_login": "2025-01-19T17:47:29.550Z",
+      "last_login": "2025-01-22T13:12:29.938Z",
       "is_superuser": false,
       "username": "user",
       "first_name": "\u041f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c",
@@ -49,7 +49,9 @@
       "is_staff": false,
       "is_active": true,
       "date_joined": "2024-12-18T18:35:36Z",
-      "groups": [],
+      "groups": [
+        2
+      ],
       "user_permissions": []
     }
   },
@@ -333,9 +335,10 @@
       "created_at": "2024-12-16T14:38:45.028Z",
       "author": 1,
       "updated_by": 1,
-      "updated_at": "2024-12-16T14:38:45.028Z",
+      "updated_at": "2025-01-22T13:13:58.901Z",
       "equipments": [
-        1
+        1,
+        4
       ]
     }
   },
@@ -404,6 +407,34 @@
     }
   },
   {
+    "model": "equipments.equipmentrelocation",
+    "pk": 4,
+    "fields": {
+      "from_site": 2,
+      "to_site": 1,
+      "date": null,
+      "reason": null,
+      "note": null,
+      "created_at": "2025-01-22T13:12:48.498Z",
+      "author": 2,
+      "equipment": 4,
+      "order": 1
+    }
+  },
+  {
+    "model": "equipments.relocationattachment",
+    "pk": 1,
+    "fields": {
+      "attachment_file": "equipment_relocations/501/1/File.pdf",
+      "equipment_relocation": 1,
+      "created_at": "2025-01-22T13:10:12.805Z",
+      "author": 1,
+      "updated_by": 1,
+      "updated_at": "2025-01-22T13:10:12.806Z",
+      "file_size": "730 \u043a\u0411"
+    }
+  },
+  {
     "model": "equipments.equipmentcurrentdata",
     "pk": 1,
     "fields": {
@@ -431,6 +462,21 @@
       "updated_by": 1,
       "updated_at": "2025-01-19T17:54:37.717Z",
       "equipment": 2
+    }
+  },
+  {
+    "model": "equipments.equipmentcurrentdata",
+    "pk": 3,
+    "fields": {
+      "location": null,
+      "relocation_date": null,
+      "techstate": null,
+      "techstate_date": null,
+      "is_being_repaired": null,
+      "is_operable": null,
+      "updated_by": 2,
+      "updated_at": "2025-01-22T13:12:48.536Z",
+      "equipment": 4
     }
   },
   {

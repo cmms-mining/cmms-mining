@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Приказ{% endblock %}
+{% block title %}Приказ {{ order.number }}{% endblock %}
 
 {% block content %}
 
@@ -13,7 +13,7 @@
                 <form class="forms-sample" action="{% url 'equipment_relocation_order_update' order_pk=order.pk %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    {% if user_can_create_relocation %}
+                    {% if user_can_create_relocation and order.status == 'waiting' %}
                         <button type="submit" class="btn btn-primary">Сохранить</button>
                     {% endif %}
                     <a href="{% url 'equipments_relocations_orders' %}" class="btn btn-secondary">Вернуться к приказам</a>
@@ -21,7 +21,7 @@
             </div>
             <!-- Вторая колонка -->
             <div class="col-md-6">
-                {% if user_can_create_relocation %}
+                {% if user_can_create_relocation and order.status == 'waiting' %}
                     <form class="forms-sample" action="{% url 'relocation_order_add_equipment' order_pk=order.pk %}" method="POST">
                         {% csrf_token %}
                         {{ add_equipment_form.as_p }}
@@ -69,7 +69,7 @@
                             {% if relocation.date %}
                                 {{ relocation.date|date:"d.m.Y" }}
                             {% else %}
-                                {% if user_can_create_relocation %}
+                                {% if user_can_create_relocation and order.status == 'waiting' %}
                                     <form class="forms-sample d-flex justify-content-center align-items-center" action="{% url 'equipment_relocation_date_add' equipment_relocation_pk=relocation.pk %}" method="POST">
                                         {% csrf_token %}
                                         <input type="date" name="date" value="" class="form-control" style="max-width: 130px;" required="" id="id_date">
@@ -86,7 +86,7 @@
                                     <a href="{{ attachment.attachment_file.url }}" target="_blank">Акт ПП</a>
                                 {% endfor %}
                             {% else %}
-                                {% if user_can_create_relocation %}
+                                {% if user_can_create_relocation and order.status == 'waiting' %}
                                     <form class="forms-sample" action="{% url 'equipment_relocation_attachment_add' equipment_relocation_pk=relocation.pk %}" method="POST" enctype="multipart/form-data">
                                         {% csrf_token %}
                                         <input type="file" name="attachment_file" id="file-input-{{ relocation.pk }}" class="d-none">
@@ -106,7 +106,7 @@
         </table>
 
         <hr>
-        {% if user_can_create_relocation %}
+        {% if user_can_create_relocation and order.status == 'waiting' %}
             <form class="forms-sample" action="{% url 'equipment_relocation_create_by_order' order_pk=order.pk %}" method="POST">
                 {% csrf_token %}
                 {{ create_relocation_form.as_p }}

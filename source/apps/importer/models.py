@@ -16,7 +16,7 @@ class WarehouseGroup(models.Model):
 
 class Warehouse(models.Model):
     """Справочник складов"""
-    name = models.CharField(verbose_name='Название', max_length=50, unique=True)
+    name = models.CharField(verbose_name='Название', max_length=60, unique=True)
     group = models.ForeignKey(
         to='importer.WarehouseGroup',
         verbose_name='Группа',
