@@ -1,10 +1,10 @@
 from itertools import chain
 from typing import Any
 
-from django.db.models import CharField, Q, QuerySet, Value
+from django.db.models import CharField, OuterRef, Q, Subquery, Value
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, TemplateView
 
 import pandas as pd
 
@@ -15,21 +15,56 @@ from apps.buckets.models import (
 from apps.buckets.services import (add_decommission_to_buckets_qs, add_equipment_to_buckets_qs,
                                    add_location_to_buckets_qs, add_repair_to_buckets_qs, add_techstate_to_buckets_qs,
                                    filter_buckets_by_decommissioned)
+from apps.importer.models import Nomenclature, Warehouse
+from apps.sites.models import Site
 
 
-class BucketsListView(ListView):
-    model = Bucket
-    context_object_name = 'buckets'
+class BucketsListView(TemplateView):
     template_name = 'buckets/buckets_list.html'
 
-    def get_queryset(self) -> QuerySet[Any]:
-        queryset = Bucket.objects.select_related(
-            'current_data',
-            'current_data__location',
-            'current_data__equipment',
-            'current_data__techstate',
-        ).all().filter(Q(decommission__decommissioned=False) | Q(decommission__isnull=True))
-        return queryset
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        warehouse_subquery = Nomenclature.objects.filter(
+            code=OuterRef('nomenclature_code'),
+        ).values('warehouse__name')[:1]
+
+        nomenclature_subquery = Nomenclature.objects.filter(
+            code=OuterRef('nomenclature_code'),
+        ).values('name')[:1]
+
+        buckets = Bucket.objects.filter(
+            Q(decommission__decommissioned=False) | Q(decommission__isnull=True),
+        ).annotate(
+            warehouse=Subquery(warehouse_subquery),
+            nomenclature=Subquery(nomenclature_subquery),
+        ).values(
+            'number',
+            'equipment_model__name',
+            'nomenclature_code',
+
+            'current_data__location__name',
+            'current_data__equipment__number',
+            'current_data__techstate__name',
+            'current_data__is_being_repaired',
+            'current_data__is_operable',
+
+            'warehouse',
+            'nomenclature',
+        )
+
+        for bucket in buckets:
+            location_warehouse_group = None
+            warehouse_group = None
+            if bucket.get('current_data__location__name') and bucket.get('warehouse'):
+                location_warehouse_group = Site.objects.get(
+                    name=bucket.get('current_data__location__name')).warehouse_group
+                warehouse_group = Warehouse.objects.get(name=bucket.get('warehouse')).group
+                if location_warehouse_group and location_warehouse_group == warehouse_group:
+                    bucket['is_compliant_with_import_data'] = True
+        context['buckets'] = buckets
+
+        return context
 
 
 class BucketAllEventsView(DetailView):
@@ -90,7 +125,7 @@ def export_bukets_to_excel(request):
     response['Content-Disposition'] = 'attachment; filename="buckets.xlsx"'
 
     buckets_qs = Bucket.objects.all().values('number', 'capacity__capacity', 'tooth_adapter__name',
-                                             'manufacturer__name', 'production_year', 'nomencl_code',
+                                             'manufacturer__name', 'production_year', 'nomenclature_code',
                                              'equipment_model__name')
     buckets_qs = filter_buckets_by_decommissioned(buckets_qs=buckets_qs)
     buckets_qs = add_location_to_buckets_qs(buckets_qs=buckets_qs)
@@ -106,7 +141,7 @@ def export_bukets_to_excel(request):
         'tooth_adapter__name': 'Адаптер',
         'manufacturer__name': 'Производитель',
         'production_year': 'Год производства',
-        'nomencl_code': 'Код номенклатуры',
+        'nomenclature_code': 'Код номенклатуры',
         'equipment_model__name': 'Модель оборудования',
         'latest_site': 'Местоположение',
         'techstate_name': 'Техсостояние',

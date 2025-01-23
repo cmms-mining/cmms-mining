@@ -83,7 +83,7 @@ class Bucket(models.Model):
         verbose_name='Производитель',
         )
     production_year = models.IntegerField(verbose_name='Год выпуска', blank=True, null=True)
-    nomencl_code = models.CharField(verbose_name='Код номенклатуры', max_length=15, blank=True, null=True)
+    nomenclature_code = models.CharField(verbose_name='Код номенклатуры', max_length=15, blank=True, null=True)
     equipment_model = models.ForeignKey(
         to='equipments.EquipmentModel',
         related_name='buckets',
