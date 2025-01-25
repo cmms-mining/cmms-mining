@@ -20,7 +20,7 @@
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$870000$HacisVUdIG83zWTRy3RzgM$nGkZbLNKxIRNw0klFihZ+o2Z97JR2A2B5pMsr5Zkejw=",
-      "last_login": "2025-01-22T13:13:02.797Z",
+      "last_login": "2025-01-25T03:58:28.780Z",
       "is_superuser": true,
       "username": "admin",
       "first_name": "\u0410\u0434\u043c\u0438\u043d\u0438\u0441\u0442\u0440\u0430\u0442\u043e\u0440",
@@ -156,7 +156,7 @@
       "name": "\u041c\u0438\u0445\u0430\u0439\u043b\u043e\u0432\u0441\u043a\u0438\u0439 \u0413\u041e\u041a",
       "workcenter": 1,
       "is_contractor": false,
-      "warehouse_group": 3
+      "warehouse_group": 1
     }
   },
   {
@@ -362,13 +362,31 @@
     }
   },
   {
+    "model": "equipments.relocationorder",
+    "pk": 3,
+    "fields": {
+      "number": "98",
+      "date": "2025-01-24",
+      "from_site": 7,
+      "to_site": 4,
+      "scan": "",
+      "status": "waiting",
+      "created_at": "2025-01-25T04:38:20.600Z",
+      "author": 1,
+      "updated_by": 1,
+      "updated_at": "2025-01-25T04:38:20.600Z",
+      "equipments": [
+        5
+      ]
+    }
+  },
+  {
     "model": "equipments.equipmentrelocation",
     "pk": 1,
     "fields": {
       "from_site": 2,
       "to_site": 1,
       "date": "2024-12-13",
-      "reason": null,
       "note": null,
       "created_at": "2024-12-16T14:39:05.390Z",
       "author": 1,
@@ -383,7 +401,6 @@
       "from_site": 1,
       "to_site": 2,
       "date": "2024-11-30",
-      "reason": null,
       "note": "",
       "created_at": "2024-12-20T09:01:24.053Z",
       "author": 1,
@@ -398,7 +415,6 @@
       "from_site": 7,
       "to_site": 4,
       "date": null,
-      "reason": null,
       "note": null,
       "created_at": "2025-01-19T17:54:37.690Z",
       "author": 1,
@@ -413,12 +429,25 @@
       "from_site": 2,
       "to_site": 1,
       "date": null,
-      "reason": null,
       "note": null,
       "created_at": "2025-01-22T13:12:48.498Z",
       "author": 2,
       "equipment": 4,
       "order": 1
+    }
+  },
+  {
+    "model": "equipments.equipmentrelocation",
+    "pk": 5,
+    "fields": {
+      "from_site": 7,
+      "to_site": 4,
+      "date": "2025-01-01",
+      "note": null,
+      "created_at": "2025-01-25T04:38:28.725Z",
+      "author": 1,
+      "equipment": 5,
+      "order": 3
     }
   },
   {
@@ -477,6 +506,21 @@
       "updated_by": 2,
       "updated_at": "2025-01-22T13:12:48.536Z",
       "equipment": 4
+    }
+  },
+  {
+    "model": "equipments.equipmentcurrentdata",
+    "pk": 4,
+    "fields": {
+      "location": 4,
+      "relocation_date": null,
+      "techstate": null,
+      "techstate_date": null,
+      "is_being_repaired": null,
+      "is_operable": null,
+      "updated_by": 1,
+      "updated_at": "2025-01-25T04:38:33.944Z",
+      "equipment": 5
     }
   },
   {
@@ -785,7 +829,6 @@
       "from_site": null,
       "to_site": 1,
       "date": "2025-01-06",
-      "reason": null,
       "note": null,
       "created_at": "2025-01-12T15:17:12.731Z",
       "author": 1,
@@ -799,7 +842,6 @@
       "from_site": null,
       "to_site": 7,
       "date": "2025-01-08",
-      "reason": null,
       "note": "",
       "created_at": "2025-01-12T15:40:53.780Z",
       "author": 1,
@@ -813,7 +855,6 @@
       "from_site": null,
       "to_site": 6,
       "date": "2025-01-09",
-      "reason": null,
       "note": "",
       "created_at": "2025-01-12T15:41:18.072Z",
       "author": 1,
@@ -827,11 +868,23 @@
       "from_site": null,
       "to_site": 5,
       "date": "2025-01-09",
-      "reason": null,
       "note": "",
       "created_at": "2025-01-12T15:41:37.587Z",
       "author": 1,
       "component": 4
+    }
+  },
+  {
+    "model": "components.componentrelocation",
+    "pk": 5,
+    "fields": {
+      "from_site": 6,
+      "to_site": 2,
+      "date": "2025-01-24",
+      "note": "",
+      "created_at": "2025-01-25T04:06:55.387Z",
+      "author": 1,
+      "component": 3
     }
   },
   {
@@ -933,14 +986,14 @@
     "model": "components.componentcurrentdata",
     "pk": 3,
     "fields": {
-      "location": 6,
-      "relocation_date": "2025-01-09",
+      "location": 2,
+      "relocation_date": "2025-01-24",
       "techstate": null,
       "techstate_date": null,
       "is_being_repaired": null,
       "is_operable": null,
       "updated_by": 1,
-      "updated_at": "2025-01-12T15:41:18.129Z",
+      "updated_at": "2025-01-25T04:06:55.469Z",
       "component": 3,
       "equipment": null,
       "installation_date": null,
@@ -1209,6 +1262,16 @@
     }
   },
   {
+    "model": "importer.nomenclature",
+    "pk": 2,
+    "fields": {
+      "name": "\u041a\u043e\u0432\u0448",
+      "code": "001458",
+      "number": null,
+      "warehouse": 1
+    }
+  },
+  {
     "model": "firefighting.firefightingsystem",
     "pk": 1,
     "fields": {
@@ -1281,18 +1344,73 @@
     }
   },
   {
+    "model": "buckets.toothadapter",
+    "pk": 1,
+    "fields": {
+      "name": "Cat"
+    }
+  },
+  {
+    "model": "buckets.bucketmanufacturer",
+    "pk": 1,
+    "fields": {
+      "name": "Cat"
+    }
+  },
+  {
     "model": "buckets.bucket",
     "pk": 1,
     "fields": {
       "number": "01",
       "capacity": 1,
-      "tooth_adapter": null,
-      "manufacturer": null,
+      "tooth_adapter": 1,
+      "manufacturer": 1,
       "production_year": null,
-      "nomencl_code": null,
+      "nomenclature_code": "001458",
+      "equipment_model": 1,
+      "note": "",
+      "requires_reconciliation": true
+    }
+  },
+  {
+    "model": "buckets.bucket",
+    "pk": 2,
+    "fields": {
+      "number": "02",
+      "capacity": 1,
+      "tooth_adapter": 1,
+      "manufacturer": 1,
+      "production_year": 2020,
+      "nomenclature_code": "003254",
       "equipment_model": null,
       "note": "",
       "requires_reconciliation": true
+    }
+  },
+  {
+    "model": "buckets.bucketrelocation",
+    "pk": 1,
+    "fields": {
+      "from_site": null,
+      "to_site": 4,
+      "date": "2025-01-16",
+      "note": "",
+      "created_at": "2025-01-23T18:20:26.776Z",
+      "author": 1,
+      "bucket": 1
+    }
+  },
+  {
+    "model": "buckets.bucketrelocation",
+    "pk": 2,
+    "fields": {
+      "from_site": null,
+      "to_site": 3,
+      "date": "2025-01-03",
+      "note": "",
+      "created_at": "2025-01-23T18:20:50.011Z",
+      "author": 1,
+      "bucket": 2
     }
   },
   {

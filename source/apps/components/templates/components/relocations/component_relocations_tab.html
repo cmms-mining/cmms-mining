@@ -23,7 +23,6 @@
                 <th>Откуда</th>
                 <th>Куда</th>
                 <th>Дата перемещения</th>
-                <th>Причина</th>
                 <th>Примечания</th>
                 <th>Автор</th>
             </tr>
@@ -34,7 +33,6 @@
                 <td>{{ relocation.from_site|default:'-' }}</td>
                 <td>{{ relocation.to_site|default:'-' }}</td>
                 <td>{{ relocation.date|date:"d.m.Y"|default:'-' }}</td>
-                <td>{{ relocation.reason|default:'-' }}</td>
                 <td>{{ relocation.note|default:'-' }}</td>
                 <td>{{ relocation.author.get_full_name }}</td>
             </tr>

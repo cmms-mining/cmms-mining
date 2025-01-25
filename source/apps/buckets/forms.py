@@ -13,7 +13,7 @@ from apps.sites.models import Site
 class BucketRelocationForm(forms.ModelForm):
     class Meta:
         model = BucketRelocation
-        fields = ('from_site', 'to_site', 'date', 'reason', 'note')
+        fields = ('from_site', 'to_site', 'date', 'note')
         widgets = {
             'from_site': forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 300px;'}),
             'to_site': forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 300px;'}),
@@ -21,7 +21,6 @@ class BucketRelocationForm(forms.ModelForm):
                 format='%Y-%m-%d',
                 attrs={'class': 'form-control', 'type': 'date', 'style': 'max-width: 300px;'},
                 ),
-            'reason': forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 300px;'}),
             'note': forms.Textarea(attrs={'class': 'form-control', 'style': 'max-width: 500px; height: 70px;'}),
         }
 

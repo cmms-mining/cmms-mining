@@ -24,14 +24,6 @@ class Relocation(models.Model):
         verbose_name='Дата перемещения',
         null=True,
         )
-    # TODO причина не нужна, можно удалить?
-    reason = models.ForeignKey(
-        to='common.RelocationReason',
-        on_delete=models.CASCADE,
-        verbose_name='Причина',
-        blank=True,
-        null=True,
-    )
     note = models.TextField(verbose_name='Примечание', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -43,15 +35,3 @@ class Relocation(models.Model):
         if not self.pk:
             self.author = get_user()
         super(Relocation, self).save(*args, **kwargs)
-
-
-class RelocationReason(models.Model):
-    """Причины перемещения"""
-    reason = models.CharField(verbose_name='Причина', max_length=50)
-
-    class Meta:
-        verbose_name = 'Причина перемещения'
-        verbose_name_plural = '(Справочник) Причины перемещений'
-
-    def __str__(self):
-        return self.reason
