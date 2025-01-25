@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Импорт данных{% endblock %}
+
+{% block content %}
+
+<form class="forms-sample" method="post" action="{% url 'excel_upload' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ excel_upload_form.as_p }}
+    <button type="submit" class="btn btn-primary">Загрузить</button>
+</form>
+
+<hr>
+
+<a href="{% url 'google_connect' %}">Подключение к google диску</a>
+
+{% for message in messages %}
+    <p>{{ message }}</p>
+{% endfor %}
+
+{% endblock content %}

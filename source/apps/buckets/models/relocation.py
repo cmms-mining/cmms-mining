@@ -25,8 +25,12 @@ class BucketRelocation(Relocation):
         return False
 
     def __str__(self):
-        return self.bucket.number + ' из ' + self.from_site.name + ' в ' + \
-               self.to_site.name + ' ' + self.date.strftime("%d-%m-%Y")
+        if self.from_site:
+            from_site = self.from_site.name
+        else:
+            from_site = '-'
+        return self.bucket.number + ' из ' + from_site + ' в ' + \
+            self.to_site.name + ' ' + self.date.strftime("%d-%m-%Y")
 
 
 def attach_buck_reloc_upload_path(instance, filename):

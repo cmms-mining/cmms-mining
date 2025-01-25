@@ -8,6 +8,9 @@ media
 uploads
 persistentdata
 
+client_secret.json
+token_drive_v3.pickle
+
 .pg-env
 .env.prod
 .env.dev-docker-local
