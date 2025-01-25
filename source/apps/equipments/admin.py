@@ -1,8 +1,8 @@
 from django.contrib import admin
 
 from apps.equipments.models import (Characteristic, CharacteristicGroup, CharacteristicValue, Equipment,
-                                    EquipmentCurrentData, EquipmentModel, EquipmentRelocation, EquipmentType,
-                                    Nameplate, RelocationAttachment, RelocationOrder)
+                                    EquipmentCurrentData, EquipmentModel, EquipmentRelocation, EquipmetRunningTime,
+                                    EquipmentType, Nameplate, RelocationAttachment, RelocationOrder)
 
 
 @admin.register(Equipment)
@@ -61,3 +61,8 @@ class CharacteristicValueAdmin(admin.ModelAdmin):
 class NameplateAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Nameplate._meta.fields]
     list_filter = ['equipment']
+
+
+@admin.register(EquipmetRunningTime)
+class EquipmetRunningTimeAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in EquipmetRunningTime._meta.fields]

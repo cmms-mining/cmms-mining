@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING
 
 from django.db import models
+from django.db.models import UniqueConstraint
 
 from apps.common.models import CurrentData
 from apps.components.models import ComponentTypeEquipmentModel
@@ -140,3 +141,27 @@ class EquipmentCurrentData(CurrentData):
 
     def __str__(self):
         return self.equipment.number
+
+
+class EquipmetRunningTime(models.Model):
+    """Наработка оборудования (моточасы)"""
+
+    equipment = models.ForeignKey(
+        to='equipments.Equipment',
+        related_name='running_times',
+        on_delete=models.CASCADE,
+        verbose_name='Оборудование',
+        )
+    date = models.DateField(verbose_name='Дата')
+    running_time = models.PositiveIntegerField(verbose_name='Общая наработка')
+
+    class Meta:
+        verbose_name = 'Наработка оборудования'
+        verbose_name_plural = 'Наработки оборудования'
+        ordering = ['date']
+        constraints = [
+            UniqueConstraint(fields=['equipment', 'date'], name='unique_equipment_date'),
+        ]
+
+    def __str__(self):
+        return f'Наработка {self.equipment.number} на {self.date.strftime("%d-%m-%Y")}'
