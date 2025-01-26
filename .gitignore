@@ -10,6 +10,8 @@ persistentdata
 
 client_secret.json
 token_drive_v3.pickle
+token_sheets_v4.pickle
+files_id.py
 
 .pg-env
 .env.prod
