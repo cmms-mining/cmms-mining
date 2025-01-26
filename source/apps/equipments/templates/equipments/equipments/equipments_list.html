@@ -13,6 +13,7 @@
             <thead>
                 <tr>
                     <th>Номер</th>
+                    <th>Наработка</th>
                     <th>Тип</th>
                     <th>Модель</th>
                     <th>Местоположение</th>
@@ -29,6 +30,7 @@
                             {{ equipment.number }}
                         </a>
                     </td>
+                    <td>{{ equipment.get_running_time.running_time }} ({{ equipment.get_running_time.date|date:"d.m.Y" }})</td>
                     <td>{{ equipment.equipment_model.equipment_type.name }}</td>
                     <td>{{ equipment.equipment_model.name }}</td>
                     <td>{{ equipment.current_data.location.name|default:'-' }}</td>
@@ -42,6 +44,7 @@
             <tfoot>
                 <tr>
                     <th>Номер</th>
+                    <th>Наработка</th>
                     <th>Тип</th>
                     <th>Модель</th>
                     <th>Местоположение</th>

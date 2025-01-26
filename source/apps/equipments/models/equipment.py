@@ -57,6 +57,30 @@ class EquipmentModel(models.Model):
         return self.name
 
 
+class EquipmetRunningTime(models.Model):
+    """Наработка оборудования (моточасы)"""
+
+    equipment = models.ForeignKey(
+        to='equipments.Equipment',
+        related_name='running_times',
+        on_delete=models.CASCADE,
+        verbose_name='Оборудование',
+        )
+    date = models.DateField(verbose_name='Дата')
+    running_time = models.PositiveIntegerField(verbose_name='Общая наработка')
+
+    class Meta:
+        verbose_name = 'Наработка оборудования'
+        verbose_name_plural = 'Наработки оборудования'
+        ordering = ['-date']
+        constraints = [
+            UniqueConstraint(fields=['equipment', 'date'], name='unique_equipment_date'),
+        ]
+
+    def __str__(self):
+        return f'Наработка {self.equipment.number} на {self.date.strftime("%d-%m-%Y")}'
+
+
 class Equipment(models.Model):
     """Оборудование (единицы техники)"""
     name = models.CharField(verbose_name='Наименование', max_length=200, blank=True, null=True)
@@ -117,6 +141,10 @@ class Equipment(models.Model):
         if self.get_relocation():
             return self.get_relocation().to_site
 
+    def get_running_time(self) -> EquipmetRunningTime | None:
+        last_running_time = EquipmetRunningTime.objects.filter(equipment=self).first()
+        return last_running_time
+
     def __str__(self):
         if self.inventory_number:
             return f'{self.number} ({self.inventory_number})'
@@ -141,27 +169,3 @@ class EquipmentCurrentData(CurrentData):
 
     def __str__(self):
         return self.equipment.number
-
-
-class EquipmetRunningTime(models.Model):
-    """Наработка оборудования (моточасы)"""
-
-    equipment = models.ForeignKey(
-        to='equipments.Equipment',
-        related_name='running_times',
-        on_delete=models.CASCADE,
-        verbose_name='Оборудование',
-        )
-    date = models.DateField(verbose_name='Дата')
-    running_time = models.PositiveIntegerField(verbose_name='Общая наработка')
-
-    class Meta:
-        verbose_name = 'Наработка оборудования'
-        verbose_name_plural = 'Наработки оборудования'
-        ordering = ['date']
-        constraints = [
-            UniqueConstraint(fields=['equipment', 'date'], name='unique_equipment_date'),
-        ]
-
-    def __str__(self):
-        return f'Наработка {self.equipment.number} на {self.date.strftime("%d-%m-%Y")}'
