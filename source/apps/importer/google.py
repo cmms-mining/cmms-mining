@@ -70,7 +70,11 @@ def connect_google_drive():
             equipment = Equipment.objects.get(number=equipment_number)
             date_str: str = row.to_dict().get('date')
             date = datetime.strptime(date_str, "%d.%m.%Y").date()
-            running_time = row.to_dict().get('running_time')
+            try:
+                running_time = int(row.to_dict().get('running_time'))
+            except (ValueError, TypeError) as e:
+                print(e)
+                continue
             EquipmetRunningTime.objects.get_or_create(
                 equipment=equipment,
                 date=date,
