@@ -33,7 +33,7 @@
                 {% for component in components %}
                 <tr>
                     <td>
-                        <a href="{% url 'component_state_tab' component_number=component.number %}" class="text-body custom-link">
+                        <a href="{% url 'component_state_tab' component_number=component.number %}" class="{% if component.is_serial_number_marked %}text-success{% else %}text-body{% endif %} custom-link">
                             {{ component.number }}
                         </a>
                     </td>

@@ -44,6 +44,7 @@ class ComponentsListView(TemplateView):
             'serial_number',
             'nomenclature_code',
             'repair',
+            'is_serial_number_marked',
 
             'component_type__name',
             'component_type__kind__name',
