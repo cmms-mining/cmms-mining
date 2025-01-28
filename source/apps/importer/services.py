@@ -1,17 +1,34 @@
+from datetime import datetime
+
+from django.core.files.uploadedfile import InMemoryUploadedFile
+
 import pandas as pd
 
+from apps.equipments.models import Equipment, EquipmetRunningTime
+
+from .files_id import FILE_ID
+from .google import create_service
 from .models import Nomenclature, Warehouse
 
 
-def from_file_to_db(excel_file):
-    df = pd.read_excel(
-        excel_file,
-        skiprows=16,
-        skipfooter=5,
-        header=None,
-        usecols='A, F',
-        names=['nomenclature', 'code'],
+def load_nomenclature_and_warehouses_to_db(excel_file: InMemoryUploadedFile):
+    """Обрабатывает Excel-файл, создаёт записи для складов и номенклатуры"""
+    try:
+        df = pd.read_excel(
+            io=excel_file,
+            skiprows=16,
+            skipfooter=5,
+            header=None,
+            usecols='A, F',
+            names=['nomenclature', 'code'],
         )
+    except FileNotFoundError:
+        raise ValueError(f"Файл {excel_file} не найден")
+    except Exception as e:
+        raise ValueError(f"Ошибка при чтении файла: {e}")
+
+    if df.empty:
+        raise ValueError("Файл не содержит данных или данные не соответствуют ожидаемому формату")
 
     df['code'] = df['code'].str.rstrip()
     df['nomenclature'] = df['nomenclature'].str.rstrip()
@@ -37,3 +54,42 @@ def from_file_to_db(excel_file):
             name=row['nomenclature'],
             warehouse=Warehouse.objects.get(name=row['warehouse']),
         )
+
+
+def load_running_time_to_db() -> list:
+    """Делает запрос в гугл таблицу, создает записи наработки оборудования"""
+    service = create_service()
+    sheet = service.spreadsheets()
+    result = sheet.values().get(spreadsheetId=FILE_ID, range='Лист3!A:C').execute()
+    values = result.get('values', [])
+
+    df = pd.DataFrame(values)
+
+    df = df[1:]  # Убираем первую строку из данных
+
+    df.columns = ['date', 'equipment_number', 'running_time']
+    df.replace('', pd.NA, inplace=True)
+    df = df.dropna(subset=['equipment_number'])
+
+    loaded_running_times = []
+    for _index, row in df.iterrows():
+        equipment_number = row.to_dict().get('equipment_number')
+
+        if Equipment.objects.filter(number=equipment_number).exists():
+            equipment = Equipment.objects.get(number=equipment_number)
+            date_str: str = row.to_dict().get('date')
+            date = datetime.strptime(date_str, "%d.%m.%Y").date()
+            try:
+                running_time = int(row.to_dict().get('running_time'))
+            except (ValueError, TypeError) as e:
+                print(e)
+                continue
+            obj, created = EquipmetRunningTime.objects.get_or_create(
+                equipment=equipment,
+                date=date,
+                defaults={'running_time': running_time},
+                )
+            if created:
+                loaded_running_times.append(obj)
+
+    return loaded_running_times

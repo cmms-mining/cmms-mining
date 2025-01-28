@@ -6,7 +6,7 @@
 
 <form class="forms-sample" method="post" action="{% url 'excel_upload' %}" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ excel_upload_form.as_p }}
+    {{ excel_nomenclature_load_form.as_p }}
     <button type="submit" class="btn btn-primary">Загрузить</button>
 </form>
 
