@@ -20,6 +20,7 @@
     <table id="equipments_table" class="table table-striped" style="width:100%">
         <thead>
             <tr>
+                <th>№</th>
                 <th>Откуда</th>
                 <th>Куда</th>
                 <th>Дата перемещения</th>
@@ -30,6 +31,7 @@
         <tbody>
             {% for relocation in component.relocations.all %}
             <tr>
+                <td>{{ relocation.pk }}</td>
                 <td>{{ relocation.from_site|default:'-' }}</td>
                 <td>{{ relocation.to_site|default:'-' }}</td>
                 <td>{{ relocation.date|date:"d.m.Y"|default:'-' }}</td>
