@@ -39,7 +39,6 @@ class Nomenclature(models.Model):
     """Справочник номеклатуры"""
     name = models.CharField(verbose_name='Название', max_length=120, unique=True)
     code = models.CharField(verbose_name='Код', max_length=30, unique=True)
-    number = models.CharField(verbose_name='Порядковый номер', max_length=20, blank=True, null=True)
     warehouse = models.ForeignKey(
         to='importer.Warehouse',
         verbose_name='Склад',

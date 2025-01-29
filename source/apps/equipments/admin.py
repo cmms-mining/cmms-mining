@@ -66,3 +66,4 @@ class NameplateAdmin(admin.ModelAdmin):
 @admin.register(EquipmetRunningTime)
 class EquipmetRunningTimeAdmin(admin.ModelAdmin):
     list_display = [field.name for field in EquipmetRunningTime._meta.fields]
+    search_fields = ['equipment__number']

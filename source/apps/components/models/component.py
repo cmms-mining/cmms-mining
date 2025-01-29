@@ -6,6 +6,7 @@ from django.db import models
 
 from apps.common.models import CurrentData
 from apps.common.services import get_user, set_file_size, validate_scan_file
+from apps.importer.models import Nomenclature, Warehouse
 from apps.sites.models import Site
 
 from .installations import ComponentDeinstallation, ComponentInstallation, ComponentInstallationLocation
@@ -105,6 +106,14 @@ class Component(models.Model):
         latest_techstate = ComponentTechState.objects.filter(component=self).first()
         if latest_techstate:
             return latest_techstate.is_operable
+
+    def get_nomenclature_from_import_data(self) -> Nomenclature | None:
+        if Nomenclature.objects.filter(code=self.nomenclature_code).exists():
+            return Nomenclature.objects.get(code=self.nomenclature_code)
+
+    def get_warehouse_from_import_data(self) -> Warehouse | None:
+        if self.get_nomenclature_from_import_data():
+            return self.get_nomenclature_from_import_data().warehouse
 
     def __str__(self):
         return self.component_type.name + ' ' + self.number

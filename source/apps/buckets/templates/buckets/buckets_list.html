@@ -43,7 +43,7 @@
                         <a href="{% url 'bucket_techstates_tab' bucket.number %}" class="{% if bucket.current_data__techstate__name == 'Требует капитального ремонта' or bucket.current_data__techstate__name == 'Требует текущего ремонта' %}text-danger{% else %}text-body{% endif %} custom-link">
                             {{ bucket.current_data__techstate__name|default:'-' }}
                         </a>
-                    <td>{% if bucket.current_data__is_being_repairedd %}✅{% endif %}</td>
+                    <td>{% if bucket.current_data__is_being_repaired %}✅{% endif %}</td>
                     <td>{% if not bucket.current_data__is_operable %}❌{% endif %}</td>
                     <td>{{ bucket.equipment_model__name|default:'-' }}</td>
                     <td title="{{ bucket.nomenclature }}">{{ bucket.nomenclature_code|default:'-' }}</td>

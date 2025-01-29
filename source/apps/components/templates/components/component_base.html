@@ -5,7 +5,7 @@
 {% block content %}
 
 <div class="container">
-  <p class="fw-bold fs-3 mb-2">{{ component }}</p>
+  <p class="fw-bold fs-3 mb-2">{{ component }} {% if component.is_serial_number_marked %}✅{% endif %}</p>
 
   <div class="row">
       <div class="col-lg-3 col-md-4 col-12">
@@ -32,64 +32,30 @@
 
       </div>
       <div class="col-lg-3 col-md-4 col-12">
-        <div class="p-2 border bg-light fw-bold {% if component.get_is_needs_any_repair %}text-danger{% else %}text-success{% endif %}">
+        <div class="p-2 border bg-light fw-bold">
           {{ component.get_techstate.techstate|default:'Нет информации о техсостоянии' }}
         </div>
         
         <div class="p-2 border bg-light">
-          Статус: <b>{{ component.current_data.state|default:'' }}</b>
+          Состояние: <b>{{ component.current_data.state|default:'' }}</b>
         </div>
 
         <div class="p-2 border bg-light">
           <b>{% if component.current_data.is_operable == False %}<div class="text-danger">Не подлежит эксплуатации</div>{% else %}Подлежит эксплуатации{% endif %}</b>
         </div>
         
-        {% if component.get_is_obsoleted %}
-        <div class="p-2 border bg-light"><b>Выведен из эксплуатации</b></div>
-        {% endif %}
-
-        {% if component.get_is_decommissioned %}
-        <div class="p-2 border bg-light"><b>Списан</b></div>
-        {% endif %}
-
       </div>
 
       <div class="col-lg-3 col-md-4 col-12">
-        <div class="p-2 border bg-light">Редактор: </div>
-        <div class="p-2 border bg-light">Серийный номер: <b>{{ component.serial_number|default:'' }}</b>{% if component.is_serial_number_marked %}✅{% else %}❌{% endif %}</div>
+        <div class="p-2 border bg-light">Склад: <b>{{ component.get_warehouse_from_import_data|default:'' }}</b></div>
+        <div class="p-2 border bg-light">Номенклатура: <b>{{ component.get_nomenclature_from_import_data|default:'' }}</b></div>
         <div class="p-2 border bg-light">Код номенклатуры: <b>{{ component.nomenclature_code|default:'' }}</b></div>
       </div>
   </div>
 </div>
 
 <div class="container mt-3">
-  <!------- Раздел с предупреждениями ------->
-  <ul>
-    <li>
-      {% if component.requires_reconciliation %}
-      <a href="" class="text-danger fw-bold">
-        Компоненту требуется сверка
-      </a>
-      {% endif %}
-    </li>
-    <li>
-      {% if component.get_is_needs_any_repair and component.get_repair and not component.get_repair.start_date and not component.get_repair.plan_start_date %}
-      <a href="{% url 'component' component.number %}" class="text-danger fw-bold">
-        Компоненту требуется отметка о плановой или фактической дате начала ремонта
-      </a>
-      {% endif %}
-    </li>
-    <li>
-      {% if component.get_is_needs_any_repair and not component.get_repair %}
-      <a href="{% url 'bucket_repairs_tab' component.number %}" class="text-danger fw-bold">
-        Компоненту требуется отметка о ремонте
-      </a>
-      {% endif %}
-    </li>
-  </ul>
-    <hr>
-  <!------- Раздел с предупреждениями ------->
-
+  <hr>
   <!------- Вкладки ------------------------->
     <ul class="nav nav-tabs">
         <li class="nav-item">
