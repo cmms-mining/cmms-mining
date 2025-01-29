@@ -1,16 +1,11 @@
-from typing import TYPE_CHECKING
-
 from django.db import models
 from django.db.models import UniqueConstraint
 
 from apps.common.models import CurrentData
-from apps.components.models import ComponentTypeEquipmentModel
+from apps.components.models import Component, ComponentTypeEquipmentModel
 from apps.sites.models import Site
 
 from .relocation import EquipmentRelocation
-
-if TYPE_CHECKING:
-    from apps.components.models import Component
 
 
 class EquipmentType(models.Model):
@@ -144,6 +139,9 @@ class Equipment(models.Model):
     def get_running_time(self) -> EquipmetRunningTime | None:
         last_running_time = EquipmetRunningTime.objects.filter(equipment=self).first()
         return last_running_time
+
+    def get_components_installations(self):
+        return self.componentinstallations.all()
 
     def __str__(self):
         if self.inventory_number:

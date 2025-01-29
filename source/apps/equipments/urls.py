@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import equipments, orders, relocations
+from .views import components, equipments, orders, relocations
 
 
 urlpatterns = [
@@ -73,5 +73,10 @@ urlpatterns = [
         'relocation-order/<int:order_pk>/update-status',
         orders.RelocationOrderUpdateStatusView.as_view(),
         name='equipment_relocation_update_status',
+        ),
+    path(
+        route='<slug:equipment_number>/components',
+        view=components.EquipmentComponentsListView.as_view(),
+        name='equipment_components_tab',
         ),
 ]

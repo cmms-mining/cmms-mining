@@ -54,32 +54,7 @@
 </div>
 
 <div class="container mt-3">
-  <!------- Раздел с предупреждениями ------->
-  <ul>
-    <li>
-      {% if equipment.get_is_to_reconciliate %}
-      <a href="{% url 'equipment_reconciliation_create' equipment.number %}" class="text-danger fw-bold">
-        Ковшу требуется сверка
-      </a>
-      {% endif %}
-    </li>
-    <li>
-      {% if equipment.get_is_needs_any_repair and equipment.get_repair and not equipment.get_repair.start_date and not equipment.get_repair.plan_start_date %}
-      <a href="{% url 'equipment_repairs_tab' equipment.number %}" class="text-danger fw-bold">
-        Ковшу требуется отметка о плановой или фактической дате начала ремонта
-      </a>
-      {% endif %}
-    </li>
-    <li>
-      {% if equipment.get_is_needs_any_repair and not equipment.get_repair %}
-      <a href="{% url 'equipment_repairs_tab' equipment.number %}" class="text-danger fw-bold">
-        Ковшу требуется отметка о ремонте
-      </a>
-      {% endif %}
-    </li>
-  </ul>
     <hr>
-  <!------- Раздел с предупреждениями ------->
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
@@ -110,6 +85,11 @@
         <li class="nav-item">
           <a class="nav-link {% if reconciliations_tab %}active{% endif %}" href="{% url 'equipment_all_events_tab' equipment.number %}">
             Сверка
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if components_tab %}active{% endif %}" href="{% url 'equipment_components_tab' equipment.number %}">
+            Компоненты
           </a>
         </li>
     </ul>

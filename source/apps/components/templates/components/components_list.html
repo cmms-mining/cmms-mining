@@ -40,7 +40,14 @@
                     <td>{{ component.serial_number|default:'-' }}</td>
                     <td>{{ component.component_type__name }}</td>
                     <td>{{ component.component_type__kind__name }}</td>
-                    <td>{{ component.current_data__equipment__number|default:'-' }}
+                    <td>
+                        {% if component.current_data__equipment__number %}
+                            <a href="{% url 'equipment_all_events_tab' equipment_number=component.current_data__equipment__number %}" class="custom-link">
+                                {{ component.current_data__equipment__number|default:'-' }}
+                            </a>
+                        {% else %}
+                            {{ component.current_data__equipment__number|default:'-' }}
+                        {% endif %}
                         {% if component.current_data__component_location__name %}
                             {{ component.current_data__component_location__name }}
                         {% endif %}

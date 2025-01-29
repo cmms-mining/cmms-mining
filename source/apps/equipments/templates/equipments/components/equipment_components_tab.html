@@ -1,0 +1,24 @@
+{% extends 'equipments/equipment_base.html' %}
+
+{% load static %}
+
+{% block equipment_content %}
+    Компоненты на оборудовании
+    <table id="equipments_table" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Наименование</th>
+                <th>Дата установки</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for component_installation in equipment.get_components_installations %}
+                <tr>
+                    <td>{{ component_installation.component.component_type }}</td>
+                    <td>{{ component_installation.date|date:"d.m.Y" }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock equipment_content %}
