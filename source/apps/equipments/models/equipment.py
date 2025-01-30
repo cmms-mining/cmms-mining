@@ -140,9 +140,6 @@ class Equipment(models.Model):
         last_running_time = EquipmetRunningTime.objects.filter(equipment=self).first()
         return last_running_time
 
-    def get_components_installations(self):
-        return self.componentinstallations.all()
-
     def __str__(self):
         if self.inventory_number:
             return f'{self.number} ({self.inventory_number})'

@@ -3,18 +3,24 @@
 {% load static %}
 
 {% block equipment_content %}
-    Компоненты на оборудовании
     <table id="equipments_table" class="table table-striped" style="width:100%">
         <thead>
             <tr>
                 <th>Наименование</th>
                 <th>Дата установки</th>
+                <th>Дата демонтажа</th>
             </tr>
         </thead>
         <tbody>
-            {% for component_installation in equipment.get_components_installations %}
+            {% for component_installation in components_installations %}
                 <tr>
-                    <td>{{ component_installation.component.component_type }}</td>
+                    <td>
+                        {{ component_installation.component__component_type__name }}
+                        {% if component_installation.location__name %}
+                            ({{ component_installation.location__name }})
+                        {% endif %}
+                    </td>
+                    <td>{{ component_installation.date|date:"d.m.Y" }}</td>
                     <td>{{ component_installation.date|date:"d.m.Y" }}</td>
                 </tr>
             {% endfor %}
