@@ -47,16 +47,6 @@ class Task(models.Model):
     verified = models.BooleanField(verbose_name='Проверено', default=False)
     has_been_read = models.BooleanField(verbose_name='Прочитана исполнителем', default=False)
     needs_comment = models.BooleanField(verbose_name='Требуется комментарий', default=False)
-    PRIORITY_CHOICES = (
-        ('Срочно', 'Срочно'),
-        ('Не срочно', 'Не срочно'),
-    )
-    priority = models.CharField(
-        verbose_name='Приоритет',
-        max_length=20,
-        choices=PRIORITY_CHOICES,
-        default='Не срочно',
-    )
 
     class Meta:
         verbose_name = 'Задача'

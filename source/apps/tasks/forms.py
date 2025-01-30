@@ -40,13 +40,6 @@ class TaskUpdateForm(forms.ModelForm):
             )
             self._meta.fields += ('verified',)
 
-            self.fields['priority'] = forms.ChoiceField(
-                choices=Task.PRIORITY_CHOICES,
-                label='Приоритет',
-                widget=forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 150px;'}),
-            )
-            self._meta.fields += ('priority',)
-
 
 class TaskCommentForm(forms.ModelForm):
 

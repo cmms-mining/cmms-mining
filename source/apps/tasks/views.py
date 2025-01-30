@@ -62,7 +62,6 @@ class TasksListView(TemplateView):
         components_tasks = components_tasks.values(
             'pk',
             'name',
-            'priority',
             'executor__first_name',
             'executor__last_name',
             'component__number',
@@ -86,7 +85,6 @@ class TasksListView(TemplateView):
         generic_tasks = generic_tasks.values(
             'pk',
             'name',
-            'priority',
             'executor__first_name',
             'executor__last_name',
             'planned_completion_date',

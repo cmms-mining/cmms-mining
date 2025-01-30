@@ -6,7 +6,7 @@ from apps.components.models import (Component, ComponentDeinstallation, Componen
                                     ComponentTechState)
 from apps.equipments.models import Equipment
 from apps.sites.models import Site
-from apps.tasks.models import Task, TaskComment
+from apps.tasks.models import TaskComment
 
 
 class ComponentDeinstallationForm(forms.ModelForm):
@@ -126,7 +126,7 @@ class ComponentTaskCreateForm(forms.ModelForm):
 
     class Meta:
         model = ComponentTask
-        fields = ('name', 'executor', 'planned_completion_date', 'priority')
+        fields = ('name', 'executor', 'planned_completion_date')
         widgets = {
             'name': forms.Textarea(attrs={'class': 'form-control', 'style': 'max-width: 300px; height: 70px;'}),
             'executor': forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 300px;'}),
@@ -134,7 +134,6 @@ class ComponentTaskCreateForm(forms.ModelForm):
                 format='%Y-%m-%d',
                 attrs={'class': 'form-control', 'type': 'date', 'style': 'max-width: 300px;'},
                 ),
-            'priority': forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 150px;'}),
         }
 
 
@@ -148,13 +147,12 @@ class ComponentTaskUpdateForm(forms.ModelForm):
 
     class Meta:
         model = ComponentTask
-        fields = ('planned_completion_date', 'priority', 'completed')
+        fields = ('planned_completion_date', 'completed')
         widgets = {
             'planned_completion_date': forms.DateInput(
                 format='%Y-%m-%d',
                 attrs={'class': 'form-control', 'type': 'date', 'style': 'max-width: 300px;'},
                 ),
-            'priority': forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 100px;'}),
         }
 
     def __init__(self, *args, **kwargs):
@@ -174,13 +172,6 @@ class ComponentTaskUpdateForm(forms.ModelForm):
                 widget=forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 100px;'}),
             )
             self._meta.fields += ('verified',)
-
-            self.fields['priority'] = forms.ChoiceField(
-                choices=Task.PRIORITY_CHOICES,
-                label='Приоритет',
-                widget=forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 150px;'}),
-            )
-            self._meta.fields += ('priority',)
 
 
 class ComponentStateForm(forms.Form):

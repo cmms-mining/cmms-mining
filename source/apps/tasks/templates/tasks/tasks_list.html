@@ -80,7 +80,6 @@
                 <th>Номер</th>
                 <th>Компонент</th>
                 <th>Задача</th>
-                <th>Приоритет</th>
                 <th>Ответственный</th>
                 <th>Местоположение</th>
                 <th>Код номенклатуры</th>
@@ -106,7 +105,6 @@
                         <a href="{% url 'task_update' task.pk %}" class="text-body custom-link">{{ task.name }}</a>
                     {% endif %}
                 </td>
-                <td>{{ task.priority }}</td>
                 <td>{{ task.executor__first_name }} {{ task.executor__last_name }}</td>
                 <td>{{ task.component__current_data__location__name|default:'-' }}</td>
                 <td>{{ task.component__nomenclature_code|default:'-' }}</td>
@@ -120,7 +118,6 @@
                 <th>Номер</th>
                 <th>Компонент</th>
                 <th>Задача</th>
-                <th>Приоритет</th>
                 <th>Ответственный</th>
                 <th>Местоположение</th>
                 <th>Код номенклатуры</th>
