@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'apps.common',
     'apps.components',
     'apps.contractors',
+    'apps.documents',
     'apps.db_logger',
     'apps.equip_documents',
     'apps.equipments',

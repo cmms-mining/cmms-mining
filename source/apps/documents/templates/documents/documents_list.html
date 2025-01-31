@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Документы{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        {% for document in documents %}
+            <div>
+                {{ document.description }} -- 
+                <a href="{{ document.attachment_file.url }}" target="_blank" class="text-body custom-link">скачать форму</a>
+            </div>
+
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

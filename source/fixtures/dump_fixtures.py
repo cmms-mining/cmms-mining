@@ -88,6 +88,8 @@ MODEL_ORDER = [
     'buckets.BucketReconciliation',
     'buckets.BucketRepair',
     'buckets.BucketTechState',
+
+    'documents.Document',
 ]
 
 # Получаем директорию, где находится сам скрипт
