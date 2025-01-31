@@ -235,6 +235,7 @@ class ComponentAttachment(models.Model):
     TYPE_CHOICES = (
         ('Шильдик', 'Шильдик'),
         ('Фото компонента', 'Фото компонента'),
+        ('Другое', 'Другое'),
     )
     attachment_type = models.CharField(
         verbose_name='Тип вложения',
