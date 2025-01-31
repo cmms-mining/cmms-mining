@@ -31,10 +31,16 @@
             <tr>
                 <td>
                     {% if installation.from_equipment %}
-                        Демонтирован с {{ installation.from_equipment }}
+                        Демонтирован с
+                        <a href="{% url 'equipment_all_events_tab' equipment_number=installation.from_equipment %}" class="custom-link">
+                            {{ installation.from_equipment }}
+                        </a>
                     {% endif %}
                     {% if installation.to_equipment %}
-                        Установлен на {{ installation.to_equipment }}
+                        Установлен на
+                        <a href="{% url 'equipment_all_events_tab' equipment_number=installation.to_equipment %}" class="custom-link">
+                            {{ installation.to_equipment }}
+                        </a>
                     {% endif %}
                     {% if installation.location %}
                         ({{ installation.location }})

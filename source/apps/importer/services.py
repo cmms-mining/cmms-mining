@@ -6,7 +6,11 @@ import pandas as pd
 
 from apps.equipments.models import Equipment, EquipmetRunningTime
 
-from .files_id import FILE_ID
+try:
+    from .files_id import FILE_ID
+except ImportError:
+    FILE_ID = "ID"
+
 from .google import create_service
 from .models import Nomenclature, Warehouse
 

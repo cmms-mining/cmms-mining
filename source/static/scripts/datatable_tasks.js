@@ -31,7 +31,7 @@ $(document).ready(function() {
             footer: true
         },
         language: {
-            url: '//cdn.datatables.net/plug-ins/2.1.5/i18n/ru.json',
+            url: '/static/datatables/lang/ru.json',
         },
     });
 });
