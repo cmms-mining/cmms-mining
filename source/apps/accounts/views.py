@@ -2,13 +2,11 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
 from django.views.generic import TemplateView
 
-from apps.accounts.forms import LoginForm
 from apps.common.bot import notify_telegram
 
 
 class LoginView(TemplateView):
     template_name = 'accounts/login.html'
-    form = LoginForm
 
     def get(self, request, *args, **kwargs):
         """ Перенаправление на страницу оборудования, если пользователь залогинен """
@@ -17,11 +15,8 @@ class LoginView(TemplateView):
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        form = self.form(request.POST)
-        if not form.is_valid():
-            return redirect('login')
-        password = form.cleaned_data.get('password')
-        username = form.cleaned_data.get('username')
+        password = request.POST.get('password', '').strip()
+        username = request.POST.get('username', '').strip()
         user = authenticate(request, username=username, password=password)
         if not user:
             return redirect('login')
