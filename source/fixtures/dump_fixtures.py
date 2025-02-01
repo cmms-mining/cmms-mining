@@ -19,8 +19,6 @@ MODEL_ORDER = [
     'auth.User',
 
     'accounts.CustomGroup',
-    'accounts.JobTitle',
-    'accounts.UserJobTitle',
 
     'tasks.Task',
     'tasks.TaskComment',

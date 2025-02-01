@@ -23,14 +23,6 @@ class Task(models.Model):
         related_name='tasks_assigned',
         verbose_name='Исполнитель',
         )
-    executor_job_title = models.ForeignKey(
-        to='accounts.JobTitle',
-        on_delete=models.CASCADE,
-        related_name='tasks_assigned',
-        verbose_name='Исполнитель (должность)',
-        blank=True,
-        null=True,
-        )
     created_at = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, verbose_name='Инициатор', on_delete=models.CASCADE, related_name='authored_tasks')
     planned_completion_date = models.DateField(verbose_name='Плановая дата выполнения', blank=True, null=True)
