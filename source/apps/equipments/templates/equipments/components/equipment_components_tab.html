@@ -6,7 +6,7 @@
     <table id="equipments_table" class="table table-striped" style="width:100%">
         <thead>
             <tr>
-                <th>Наименование</th>
+                <th>Компонент</th>
                 <th>Дата установки</th>
                 <th>Дата демонтажа</th>
             </tr>
@@ -15,10 +15,13 @@
             {% for component_installation in components_installations %}
                 <tr>
                     <td>
-                        {{ component_installation.component__component_type__name }}
-                        {% if component_installation.location__name %}
-                            ({{ component_installation.location__name }})
-                        {% endif %}
+                        <a href="{% url 'component_state_tab' component_number=component_installation.component__number %}" class="custom-link">
+                            {{ component_installation.component__component_type__name }}
+                            #{{ component_installation.component__number }}
+                            {% if component_installation.location__name %}
+                                ({{ component_installation.location__name }})
+                            {% endif %}
+                        </a>
                     </td>
                     <td>{{ component_installation.date|date:"d.m.Y" }}</td>
                     <td>{{ component_installation.date|date:"d.m.Y" }}</td>

@@ -12,7 +12,6 @@ urlpatterns = [
         ),
     path('summary', components.ComponentsSummaryView.as_view(), name='components_summary'),
 
-
     # Установки компонентов
     path(
         '<slug:component_number>/installations',

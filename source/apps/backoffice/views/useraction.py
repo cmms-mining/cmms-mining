@@ -7,8 +7,6 @@ from apps.buckets.models import (
     Bucket, BucketDeinstallation, BucketInstallation, BucketReconciliation, BucketRelocation, BucketRepair,
     BucketTechState,
 )
-from apps.components.models import Component
-from apps.components.services import update_component_current_data
 
 
 class UsersActionsView(SuperuserRequiredMixin, TemplateView):
@@ -51,11 +49,4 @@ def set_buckets_requires_reconciliation(request):
         if bucket.requires_reconciliation is not True:
             bucket.requires_reconciliation = True if bucket.is_to_reconciliate() else False
             bucket.save()
-    return redirect('users_actions')
-
-
-def refresh_component_current_data(request):
-    components = Component.objects.all()
-    for component in components:
-        update_component_current_data(component=component)
     return redirect('users_actions')

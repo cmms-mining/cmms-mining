@@ -10,9 +10,4 @@ urlpatterns = [
         useraction.set_buckets_requires_reconciliation,
         name='set_buckets_requires_reconciliation',
         ),
-    path(
-        'refresh-component-current-data',
-        useraction.refresh_component_current_data,
-        name='refresh_component_current_data',
-        ),
 ]

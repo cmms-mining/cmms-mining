@@ -15,7 +15,7 @@ class EquipmentComponentsListView(TemplateView):
 
         components_installations = ComponentInstallation.objects.filter(to_equipment=equipment).select_related(
             'component', 'location',
-        ).values('component__component_type__name', 'date', 'location__name')
+        ).values('component__component_type__name', 'component__number', 'date', 'location__name')
         context['components_installations'] = components_installations
 
         context['components_tab'] = True
