@@ -116,7 +116,7 @@ class Component(models.Model):
             return self.get_nomenclature_from_import_data().warehouse
 
     def __str__(self):
-        return self.component_type.name + ' ' + self.number
+        return self.component_type.name + ' #' + self.number
 
 
 class ComponentKind(models.Model):

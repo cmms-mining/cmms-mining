@@ -97,7 +97,7 @@
                         <a href="{% url 'task_update' task.pk %}" class="text-body custom-link">{{ task.pk }}</a>
                     {% endif %}
                 </td>
-                <td>{{ task.component__component_type__name }} {{ task.component__number }}</td>
+                <td>{{ task.component__component_type__name }} #{{ task.component__number }}</td>
                 <td>
                     {% if task.component__number %}
                         <a href="{% url 'component_task_update' task.pk %}" class="text-body custom-link">{{ task.name }}</a>

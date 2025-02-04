@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView
 
+from apps.documents.models import Document
 from apps.equipments.models import Equipment
 
 from .forms import FirefightingCheckForm
@@ -16,6 +17,8 @@ class FirefightingsListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user_can_create_relocation'] = self.request.user.groups.filter(name='Перемещение оборудования').exists()
+        firefighting_document = Document.objects.filter(description='Акт осмотра системы пожаротушения').first()
+        context['document'] = firefighting_document
         return context
 
 
