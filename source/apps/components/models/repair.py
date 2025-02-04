@@ -70,6 +70,8 @@ class ComponentRepair(models.Model):
             self.contractor = self.contract.contractor
         elif self.appendix:
             self.contractor = self.appendix.contract.contractor
+        elif self.invoice:
+            self.contractor = self.invoice.contractor
         super(ComponentRepair, self).save(*args, **kwargs)
 
     def __str__(self):

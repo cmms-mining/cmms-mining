@@ -33,7 +33,13 @@
                                 {{ repair.component.number }} {{ repair.component.component_type.name }}
                             </a>
                         </td>
-                        <td>{{ repair.contractor.name }}</td>
+                        <td>
+                            {% if repair.contractor %}
+                                <a href="{% url 'contractor' contractor_pk=repair.contractor.pk %}" class="text-body custom-link">
+                                    {{ repair.contractor.name }}
+                                </a>
+                            {% endif %}
+                        </td>
                         <td>
                             {% if repair.contract %}
                                 Дог {{ repair.contract.number }} от {{ repair.contract.date|date:"d.m.Y" }}
