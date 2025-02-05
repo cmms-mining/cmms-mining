@@ -39,6 +39,11 @@ class Component(models.Model):
         verbose_name_plural = '(Справочник) Компоненты'
         ordering = ['component_type']
 
+    def __str__(self):
+        if self.serial_number:
+            return f'{self.component_type.name} #{self.number}-{self.serial_number}'
+        return f'{self.component_type.name} #{self.number}'
+
     def get_relocation(self) -> ComponentRelocation | None:
         last_relocation = ComponentRelocation.objects.filter(component=self).first()
         if last_relocation:
@@ -114,9 +119,6 @@ class Component(models.Model):
     def get_warehouse_from_import_data(self) -> Warehouse | None:
         if self.get_nomenclature_from_import_data():
             return self.get_nomenclature_from_import_data().warehouse
-
-    def __str__(self):
-        return self.component_type.name + ' #' + self.number
 
 
 class ComponentKind(models.Model):

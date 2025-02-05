@@ -27,6 +27,13 @@ class FirefightingCheckCreateView(CreateView):
     form_class = FirefightingCheckForm
     template_name = 'firefighting/firefighting.html'
 
+    def get_initial(self):
+        initial = super().get_initial()
+        equipment = get_object_or_404(Equipment, number=self.kwargs.get('equipment_number'))
+        if equipment.get_location():
+            initial['location'] = equipment.get_location().pk
+        return initial
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         equipment = get_object_or_404(Equipment, number=self.kwargs.get('equipment_number'))

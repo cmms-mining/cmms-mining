@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import components, equipments, orders, relocations
+from .views import components, equipments, firefightings, orders, relocations
 
 
 urlpatterns = [
@@ -78,5 +78,10 @@ urlpatterns = [
         route='<slug:equipment_number>/components',
         view=components.EquipmentComponentsListView.as_view(),
         name='equipment_components_tab',
+        ),
+    path(
+        route='<slug:equipment_number>/firefighting',
+        view=firefightings.FirefightingTabView.as_view(),
+        name='firefighting_tab',
         ),
 ]

@@ -7,7 +7,7 @@ def attach_firefighting_check_upload_path(instance, filename):
 
 
 class FirefightingCheck(models.Model):
-    """Проверки систем пожаротушения"""
+    """Проверки систем пожаротушения (акт проверки)"""
     firefighting_system = models.ForeignKey(
         to='firefighting.FirefightingSystem',
         related_name='firefighting_checks',
@@ -15,6 +15,11 @@ class FirefightingCheck(models.Model):
         on_delete=models.CASCADE,
         )
     date = models.DateField(verbose_name='Дата акта проверки')
+    location = models.ForeignKey(
+        to='sites.Site',
+        verbose_name='Место проведения проверки',
+        on_delete=models.CASCADE,
+        )
     attachment_file = models.FileField(
         upload_to=attach_firefighting_check_upload_path,
         verbose_name='Файл акта проверки',
@@ -50,9 +55,9 @@ class FirefightingSystem(models.Model):
         verbose_name = 'Система пожаротушения'
         verbose_name_plural = 'Системы пожаротушения'
 
-    def get_check(self) -> FirefightingCheck | None:
-        last_check = FirefightingCheck.objects.filter(firefighting_system=self).first()
-        return last_check
-
     def __str__(self):
         return f'Система пожаротушения {self.equipment.number}'
+
+    def get_last_check(self) -> FirefightingCheck | None:
+        last_check = FirefightingCheck.objects.filter(firefighting_system=self).first()
+        return last_check

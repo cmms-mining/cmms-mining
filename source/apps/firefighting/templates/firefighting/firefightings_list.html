@@ -28,8 +28,8 @@
                 <tr>
                     <td>
                         {% if user_can_create_relocation %}
-                            {% if firefighting_system.get_check %}
-                                <a href="{% url 'firefighting_check_update' firefighting_check_pk=firefighting_system.get_check.pk %}" class="btn btn-inverse-dark btn-sm text-center" title="Редактировать текущий акт">
+                            {% if firefighting_system.get_last_check %}
+                                <a href="{% url 'firefighting_check_update' firefighting_check_pk=firefighting_system.get_last_check.pk %}" class="btn btn-inverse-dark btn-sm text-center" title="Редактировать текущий акт">
                                     <i class="ti-pencil-alt"></i>
                                 </a>
                             {% endif %}
@@ -38,16 +38,20 @@
                             </a>
                         {% endif %}
                     </td>
-                    <td>{{ firefighting_system.equipment.number }}</td>
-                    <td>{{ firefighting_system.equipment.get_location.name }}</td>
-                    <td>{{ firefighting_system.get_check.date|date:"d.m.Y" }}</td>
-                    <td>{{ firefighting_system.get_check.state }}</td>
                     <td>
-                        {% if firefighting_system.get_check.attachment_file %}
-                            <a href="{{ firefighting_system.get_check.attachment_file.url }}" target="_blank" class="text-body custom-link">скан акта</a>
+                        <a href="{% url 'firefighting_tab' equipment_number=firefighting_system.equipment.number %}" class="text-body custom-link">
+                            {{ firefighting_system.equipment.number }}
+                        </a>
+                    </td>
+                    <td>{{ firefighting_system.equipment.get_location.name }}</td>
+                    <td>{{ firefighting_system.get_last_check.date|date:"d.m.Y" }}</td>
+                    <td>{{ firefighting_system.get_last_check.state }}</td>
+                    <td>
+                        {% if firefighting_system.get_last_check.attachment_file %}
+                            <a href="{{ firefighting_system.get_last_check.attachment_file.url }}" target="_blank" class="text-body custom-link">скан акта</a>
                         {% endif %}
                     </td>
-                    <td>{{ firefighting_system.get_check.note|default:'' }}</td>
+                    <td>{{ firefighting_system.get_last_check.note|default:'' }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

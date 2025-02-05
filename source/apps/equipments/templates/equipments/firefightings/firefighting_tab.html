@@ -1,0 +1,32 @@
+{% extends 'equipments/equipment_base.html' %}
+
+{% load static %}
+
+{% block equipment_content %}
+
+    <table id="equipments_table" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Место осмотра</th>
+                <th>Дата акта осмотра</th>
+                <th>Состояние</th>
+                <th>Скан акта</th>
+                <th>Примечание</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for firefighting_check in equipment.firefighting_system.firefighting_checks.all %}
+            <tr>
+                <td>{{ firefighting_check.location }}</td>
+                <td>{{ firefighting_check.date|date:"d.m.Y" }}</td>
+                <td>{{ firefighting_check.state }}</td>
+                <td>
+                    <a href="{{ firefighting_check.attachment_file.url }}" target="_blank" class="text-body custom-link">скан акта</a>
+                </td>
+                <td>{{ firefighting_check.note|default:'-' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock equipment_content %}
