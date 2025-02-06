@@ -28,6 +28,7 @@ class FirefightingCheck(models.Model):
         ('Исправна', 'Исправна'),
         ('Неисправна', 'Неисправна'),
         ('Неустановлена', 'Неустановлена'),
+        ('Не установлена', 'Не установлена'),
     )
     state = models.CharField(verbose_name='Состояние', max_length=20, choices=STATE_CHOICES)
     note = models.CharField(verbose_name='Примечание', max_length=100, blank=True, null=True)

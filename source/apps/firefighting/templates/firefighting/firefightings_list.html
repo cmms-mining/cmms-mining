@@ -17,6 +17,7 @@
                     <th>Редактирование</th>
                     <th>Оборудование</th>
                     <th>Местоположение</th>
+                    <th>Место проверки</th>
                     <th>Дата акта проверки</th>
                     <th>Состояние</th>
                     <th>Скан акта</th>
@@ -44,6 +45,7 @@
                         </a>
                     </td>
                     <td>{{ firefighting_system.equipment.get_location.name }}</td>
+                    <td>{{ firefighting_system.get_last_check.location }}</td>
                     <td>{{ firefighting_system.get_last_check.date|date:"d.m.Y" }}</td>
                     <td>{{ firefighting_system.get_last_check.state }}</td>
                     <td>
