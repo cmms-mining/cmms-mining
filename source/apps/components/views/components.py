@@ -45,6 +45,7 @@ class ComponentsListView(TemplateView):
             'nomenclature_code',
             'repair',
             'is_serial_number_marked',
+            'requires_action',
 
             'component_type__name',
             'component_type__kind__name',
@@ -102,6 +103,7 @@ class ComponentStateView(FormView):
         initial['is_serial_number_marked'] = component.is_serial_number_marked
         initial['nomenclature_code'] = component.nomenclature_code
         initial['serial_number'] = component.serial_number
+        initial['requires_action'] = component.requires_action
         initial['note'] = component.note
         return initial
 
@@ -120,6 +122,7 @@ class ComponentStateView(FormView):
             serial_number: str = form.cleaned_data['serial_number']
             component.serial_number = serial_number
         component.nomenclature_code = form.cleaned_data['nomenclature_code'] or None
+        component.requires_action = form.cleaned_data['requires_action']
         component.note = form.cleaned_data['note'] or None
         component.save()
 

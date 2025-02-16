@@ -41,7 +41,7 @@
                     </td>
                     <td>
                         <a href="{% url 'firefighting_tab' equipment_number=firefighting_system.equipment.number %}" class="text-body custom-link">
-                            {{ firefighting_system.equipment.number }}
+                            {{ firefighting_system.equipment.number }} ({{ firefighting_system.firefighting_checks.all.count }})
                         </a>
                     </td>
                     <td>{{ firefighting_system.equipment.get_location.name }}</td>

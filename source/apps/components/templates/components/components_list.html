@@ -26,6 +26,7 @@
                     <th>Код номенклатуры</th>
                     <th>Склад</th>
                     <th>Бух учет</th>
+                    <th>Действие</th>
                     <th>Есть задача</th>
                 </tr>
             </thead>
@@ -73,6 +74,7 @@
                     <td title="{{ component.nomenclature }}">{{ component.nomenclature_code|default:'' }}</td>
                     <td>{{ component.warehouse|default:'-' }}</td>
                     <td>{% if component.is_compliant_with_import_data %}✅{% else %}❌{% endif %}</td>
+                    <td>{% if component.requires_action %}✅{% endif %}</td>
                     <td>{% if component.has_unverified_task %}✅{% endif %}</td>
                 </tr>
                 {% endfor %}
@@ -91,6 +93,7 @@
                     <th>Код номенклатуры</th>
                     <th>Склад</th>
                     <th>Бух учет</th>
+                    <th>Действие</th>
                     <th>Есть задача</th>
                 </tr>
             </tfoot>

@@ -29,7 +29,7 @@ class Component(models.Model):
         verbose_name='Тип',
         )
     note = models.TextField(verbose_name='Примечание', blank=True, null=True)
-    requires_reconciliation = models.BooleanField(verbose_name='Требует сверки', blank=True, null=True)
+    requires_action = models.BooleanField(verbose_name='Требуется действие', default=False)
     is_serial_number_marked = models.BooleanField(verbose_name='Нанесен серийный номер', default=False)
     # TODO nomenclature_code - поле должно быть уникальным
     nomenclature_code = models.CharField(verbose_name='Код номенклатуры', max_length=50, blank=True, null=True)

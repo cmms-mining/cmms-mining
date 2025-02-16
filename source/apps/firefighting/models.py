@@ -27,7 +27,6 @@ class FirefightingCheck(models.Model):
     STATE_CHOICES = (
         ('Исправна', 'Исправна'),
         ('Неисправна', 'Неисправна'),
-        ('Неустановлена', 'Неустановлена'),
         ('Не установлена', 'Не установлена'),
     )
     state = models.CharField(verbose_name='Состояние', max_length=20, choices=STATE_CHOICES)

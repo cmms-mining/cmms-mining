@@ -198,6 +198,12 @@ class ComponentStateForm(forms.Form):
         required=False,
         widget=forms.TextInput(attrs={'class': 'form-control', 'style': 'max-width: 270px;'}),
     )
+    requires_action = forms.ChoiceField(
+        choices=[(True, 'ДА'), (False, 'НЕТ')],
+        label='Требует действия',
+        required=True,
+        widget=forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 70px;'}),
+        )
     note = forms.CharField(
         label='Примечание',
         required=False,

@@ -5,7 +5,7 @@
 {% block content %}
 
 <div class="container">
-  <p class="fw-bold fs-3 mb-2">{{ component }} {% if component.is_serial_number_marked %}✅{% endif %}</p>
+  <p class="fw-bold fs-3 mb-2 {% if component.requires_action %}bg-warning text-dark{% endif %}">{{ component }} {% if component.is_serial_number_marked %}✅{% endif %}</p>
 
   <div class="row">
       <div class="col-lg-3 col-md-4 col-12">
