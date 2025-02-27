@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 from apps.common.models import CurrentData
-from apps.common.services import get_user, set_file_size, validate_scan_file
+from apps.common.services import get_user, set_file_size
 from apps.importer.models import Nomenclature, Warehouse
 from apps.sites.models import Site
 
@@ -226,7 +226,6 @@ class ComponentAttachment(models.Model):
     attachment_file = models.FileField(
         verbose_name='Файл',
         upload_to=component_attachment_upload_path,
-        validators=[validate_scan_file],
     )
     component = models.ForeignKey(
         to='components.Component',
