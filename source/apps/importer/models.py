@@ -42,8 +42,9 @@ class Nomenclature(models.Model):
     warehouse = models.ForeignKey(
         to='importer.Warehouse',
         verbose_name='Склад',
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name='nomenclatures',
+        null=True,
     )
 
     class Meta:

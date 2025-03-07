@@ -26,7 +26,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: connect and pull
-        run: ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_ADDRESS }} "cd project_13 && git pull origin main && sudo docker-compose -f docker-compose-prod.yml up --build -d && sudo docker ps && exit"
+        run: ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_ADDRESS }} "cd project_13 && git pull origin main && sudo docker compose -f docker-compose-prod.yml up --build -d && sudo docker ps && exit"
 
       - name: cleanup
         run: rm -rf ~/.ssh

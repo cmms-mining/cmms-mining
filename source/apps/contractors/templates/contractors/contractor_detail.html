@@ -12,7 +12,8 @@
 	{% for contract in contractor.contracts.all %}
 		<div class="mb-4">
 			<div class="mb-3">
-				<span class="fw-bold">Договор №{{ contract.number }}</span> от {{ contract.date }} - {{ contract.description|default:'' }}
+				<div><span class="fw-bold">Договор №{{ contract.number }}</span> от {{ contract.date }} - {{ contract.description|default:'' }}</div>
+				<a href="{% url 'appendix_create' contract_pk=contract.pk %}">Добавить приложение</a>
 				{% for attachment in contract.attachments.all %}
 					<a href="{{ attachment.attachment_file.url }}" target="_blank">файл</a>
 				{% endfor %}
